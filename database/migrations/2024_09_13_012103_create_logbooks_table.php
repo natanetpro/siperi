@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('laporan_akhirs', function (Blueprint $table) {
+        Schema::create('logbooks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_kegiatan_id')->constrained()->onDelete('cascade');
-            $table->string('laporan_akhir');
+            $table->date('tanggal');
+            $table->longText('aktivitas');
+            $table->string('dokumentasi')->nullable();
             $table->enum('approval_pembimbing', ['Menunggu', 'Disetujui', 'Ditolak']);
             $table->longText('catatan_pembimbing')->nullable();
             $table->timestamps();
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('laporan_akhirs');
+        Schema::dropIfExists('logbooks');
     }
 };

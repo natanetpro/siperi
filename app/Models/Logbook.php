@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LaporanAkhir extends Model
+class Logbook extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_kegiatan_id',
-        'laporan_akhir',
+        'tanggal',
+        'aktivitas',
+        'dokumentasi',
         'approval_pembimbing',
         'catatan_pembimbing',
     ];
