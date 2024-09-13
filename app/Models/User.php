@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserPembimbing::class, 'pembimbing_id');
     }
+
+    public function userKegiatans()
+    {
+        return $this->hasMany(UserKegiatan::class, 'user_id');
+    }
 }
