@@ -20,4 +20,14 @@ class Pemohon extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function detailPemohonKuliah()
+    {
+        return $this->hasOne(DetailPemohonKuliah::class);
+    }
+
+    public function detailPemohonSekolah()
+    {
+        return $this->hasOne(DetailPemohonSekolah::class);
+    }
 }
