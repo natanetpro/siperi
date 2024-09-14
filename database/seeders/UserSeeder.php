@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     {
         // admin
         $admin = User::create([
-            'nama' => 'Admin',
+            'nama' => 'admin',
             'email' => 'admin@siperi.test',
             'password' => bcrypt('password'),
             'email_verified_at' => now(),
