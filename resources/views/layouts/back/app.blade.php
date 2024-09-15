@@ -65,14 +65,14 @@
             -ms-user-select: none;
             user-select: none;
         } */
-
+        /*
         a.menu-link:hover {
             background-color: rgb(32, 177, 82) !important;
         }
 
         a.menu-link:hover div[data-i18n] {
             color: white;
-        }
+        } */
     </style>
     @stack('styles')
 </head>
