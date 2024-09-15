@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('key');
             $table->primary('key');
+            $table->foreignId('panel_id')->constrained()->onDelete('cascade');
             $table->string('nama_menu');
             $table->string('parent')->nullable();
             $table->foreign('parent')->references('key')->on('menus')->onDelete('cascade');
