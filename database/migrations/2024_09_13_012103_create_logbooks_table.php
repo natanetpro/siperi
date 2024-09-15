@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->longText('aktivitas');
             $table->string('dokumentasi')->nullable();
-            $table->enum('approval_pembimbing', ['Menunggu', 'Disetujui', 'Ditolak']);
+            $table->enum('approval_pembimbing', ['Menunggu', 'Disetujui', 'Ditolak'])->default('Menunggu');
             $table->longText('catatan_pembimbing')->nullable();
             $table->timestamps();
         });

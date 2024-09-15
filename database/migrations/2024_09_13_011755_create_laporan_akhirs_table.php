@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_kegiatan_id')->constrained()->onDelete('cascade');
             $table->string('laporan_akhir');
-            $table->enum('approval_pembimbing', ['Menunggu', 'Disetujui', 'Ditolak']);
+            $table->enum('approval_pembimbing', ['Menunggu', 'Disetujui', 'Ditolak'])->default('Menunggu');
             $table->longText('catatan_pembimbing')->nullable();
             $table->timestamps();
         });

@@ -11,6 +11,7 @@ class Menu extends Model
 
     protected $fillable = [
         'key',
+        'panel_id',
         'nama_menu',
         'parent',
         'roles',
@@ -24,5 +25,15 @@ class Menu extends Model
     public function parent()
     {
         return $this->belongsTo(Menu::class, 'parent', 'key');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Menu::class, 'parent', 'key');
+    }
+
+    public function panel()
+    {
+        return $this->belongsTo(Panel::class);
     }
 }
