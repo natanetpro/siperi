@@ -13,7 +13,8 @@ class Pemohon extends Model
         'nama_pemohon',
         'jenis_kelamin',
         'tanggal_lahir',
-        'no_telp',
+        'no_telpon_pemohon',
+        'email_pemohon',
     ];
 
     public function users()
