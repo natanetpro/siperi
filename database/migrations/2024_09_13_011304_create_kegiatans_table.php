@@ -16,10 +16,9 @@ return new class extends Migration
             $table->foreignId('pemohon_id')->constrained()->onDelete('cascade');
             $table->enum('jenis_kegiatan', ['Riset', 'KKP', 'Prakerin']);
             $table->string('nama_kegiatan');
-            $table->string('surat_permohonan');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
-            $table->enum('approval_admin', ['Menunggu', 'Disetujui', 'Ditolak']);
+            $table->enum('approval_admin', ['Menunggu', 'Disetujui', 'Ditolak'])->default('Menunggu');
             $table->longText('catatan_admin')->nullable();
             $table->timestamps();
         });

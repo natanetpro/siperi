@@ -13,13 +13,13 @@ class Pemohon extends Model
         'nama_pemohon',
         'jenis_kelamin',
         'tanggal_lahir',
-        'no_telpon_pemohon',
+        'no_telp_pemohon',
         'email_pemohon',
     ];
 
-    public function users()
+    public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(User::class);
     }
 
     public function detailPemohonKuliah()

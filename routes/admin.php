@@ -28,6 +28,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Pengajuan
         Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');
-        Route::post('/pengajuan/search', [PengajuanController::class, 'search'])->name('pengajuan.search');
+        Route::get('/pengajuan/{id}', [PengajuanController::class, 'find'])->name('pengajuan.find');
+        Route::put('/pengajuan/{id}', [PengajuanController::class, 'update'])->name('pengajuan.update');
     });
 });
