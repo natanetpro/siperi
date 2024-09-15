@@ -21,8 +21,19 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'pemohon_id' => null,
         ]);
-
         // assign role admin
         $admin->assignRole('Administrator');
+
+
+        // pembimbing
+        $pembimbing = User::create([
+            'nama' => 'yoga',
+            'email' => 'yoga.pembimbing@siperi.test',
+            'password' => bcrypt('password'),
+            'email_verified_at' => now(),
+            'pemohon_id' => null,
+        ]);
+        // assign role pembimbing
+        $pembimbing->assignRole('Pembimbing');
     }
 }
