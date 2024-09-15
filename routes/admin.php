@@ -4,6 +4,7 @@ use App\Http\Controllers\Back\Admin\Auth\AuthController;
 use App\Http\Controllers\Back\Admin\DashboardController;
 use App\Http\Controllers\Back\Admin\MasterData\OperatorController;
 use App\Http\Controllers\Back\Admin\MasterData\PembimbingController;
+use App\Http\Controllers\Back\Admin\MasterData\PimpinanController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -20,6 +21,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('master-data')->name('master-data.')->group(function () {
             Route::resource('pembimbing', PembimbingController::class);
             Route::resource('operator', OperatorController::class);
+            Route::resource('pimpinan', PimpinanController::class);
         });
     });
 });
