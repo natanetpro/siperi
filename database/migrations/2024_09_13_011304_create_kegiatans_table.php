@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pemohon_id')->constrained()->onDelete('cascade');
-            $table->enum('jenis_kegiatan', ['Riset', 'KKP', 'PKL']);
+            $table->enum('jenis_kegiatan', ['Riset', 'KKP', 'Prakerin']);
             $table->string('nama_kegiatan');
             $table->string('surat_permohonan');
             $table->date('tanggal_mulai');

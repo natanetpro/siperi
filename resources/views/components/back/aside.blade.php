@@ -4,7 +4,8 @@
         <ul class="menu-inner">
             @foreach (config('admin_menu') as $menuItem)
                 <li class="menu-item">
-                    <a href="javascript:void(0)"
+                    <a style="cursor: pointer;"
+                        {{ isset($menuItem['children']) && count($menuItem['children']) > 0 ? '#"' : 'href=' . url($menuItem['url']) }}
                         class="menu-link {{ isset($menuItem['children']) && count($menuItem['children']) > 0 ? 'menu-toggle' : '' }} fw-bold">
                         <div data-i18n="{{ $menuItem['nama_menu'] }}">{{ $menuItem['nama_menu'] }}</div>
                     </a>

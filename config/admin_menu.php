@@ -9,6 +9,7 @@ return [
     [
         'nama_menu' => 'Pengajuan',
         'url' => 'admin/pengajuan',
+        'children' => []
     ],
     [
         'nama_menu' => 'Master Data',
