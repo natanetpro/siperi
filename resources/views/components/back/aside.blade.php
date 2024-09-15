@@ -4,7 +4,7 @@
             <!-- Dashboards -->
             <li class="menu-item active">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-smart-home"></i>
+
                     <div data-i18n="Dashboards">Dashboards</div>
                 </a>
                 <ul class="menu-sub">
@@ -32,7 +32,7 @@
             <!-- Layouts -->
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+
                     <div data-i18n="Layouts">Layouts</div>
                 </a>
 
@@ -73,7 +73,7 @@
             <!-- Apps -->
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-layout-grid-add"></i>
+
                     <div data-i18n="Apps">Apps</div>
                 </a>
                 <ul class="menu-sub">
@@ -198,7 +198,6 @@
             <!-- Pages -->
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-file"></i>
 
                     <div data-i18n="Pages">Pages</div>
                 </a>
@@ -478,7 +477,7 @@
             <!-- Components -->
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-toggle-left"></i>
+
                     <div data-i18n="Components">Components</div>
                 </a>
                 <ul class="menu-sub">
@@ -726,7 +725,7 @@
             <!-- Forms -->
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-forms"></i>
+
                     <div data-i18n="Forms">Forms</div>
                 </a>
                 <ul class="menu-sub">
@@ -841,7 +840,7 @@
             <!-- Tables -->
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-layout-grid"></i>
+
                     <div data-i18n="Tables">Tables</div>
                 </a>
                 <ul class="menu-sub">
@@ -881,7 +880,7 @@
             <!-- Charts & Maps -->
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-chart-bar"></i>
+
                     <div data-i18n="Charts & Maps">Charts & Maps</div>
                 </a>
                 <ul class="menu-sub">
@@ -915,7 +914,7 @@
             <!-- Misc -->
             <li class="menu-item">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-box-multiple"></i>
+
                     <div data-i18n="Misc">Misc</div>
                 </a>
                 <ul class="menu-sub">
