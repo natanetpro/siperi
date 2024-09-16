@@ -321,6 +321,21 @@
                             $('form#form-approval').attr('action', '#');
                             $('button#submit-pengajuan').attr('disabled', true);
                             $('button#submit-pengajuan').text('Data sudah disimpan');
+                        } else {
+                            $('select[name=approval_admin]').attr('disabled', false);
+                            $('button#submit-pengajuan').attr('disabled', false);
+                            $('form#form-approval').attr('action', '/admin/pengajuan/' + id);
+                            $('button#submit-pengajuan').text('Simpan');
+                        }
+
+                        if (response.approval_admin === 'Ditolak') {
+                            $('.alasan-ditolak').show();
+                            $('textarea[name=catatan_admin]').val(response.catatan_admin);
+                            $('textarea[name=catatan_admin]').attr('disabled', true);
+                        } else {
+                            $('.alasan-ditolak').hide();
+                            $('textarea[name=catatan_admin]').val('');
+                            $('textarea[name=catatan_admin]').attr('disabled', false);
                         }
 
                         $('form#form-approval').attr('action', '/admin/pengajuan/' + id);

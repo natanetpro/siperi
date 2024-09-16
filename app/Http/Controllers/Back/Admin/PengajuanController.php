@@ -67,6 +67,9 @@ class PengajuanController extends Controller
         DB::beginTransaction();
         try {
             $pengajuan = Kegiatan::find($id);
+            if ($pengajuan->approval_admin === 'Disetujui' || $pengajuan->approval_admin === 'Ditolak') {
+                return redirect()->back()->with('error', 'Data sudah ditinjau');
+            }
             if ($request->approval_admin === 'Ditolak') {
                 $pengajuan->update([
                     'approval_admin' => $request->approval_admin,

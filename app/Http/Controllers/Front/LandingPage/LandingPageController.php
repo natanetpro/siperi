@@ -90,7 +90,7 @@ class LandingPageController extends Controller
             }
 
             DB::commit();
-            return redirect()->back()->with('success', 'Data berhasil disimpan');
+            return redirect()->back()->with('success', 'Data berhasil disimpan, harap tunggu konfirmasi dari admin via email dan whatsapp');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());

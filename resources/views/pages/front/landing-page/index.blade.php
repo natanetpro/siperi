@@ -1348,6 +1348,10 @@
                 $('input[name="universitas"]').prop('required', false);
                 $('input[name="fakultas"]').prop('disabled', true);
                 $('input[name="fakultas"]').prop('required', false);
+                $('input[name="prodi"]').prop('disabled', true);
+                $('input[name="prodi"]').prop('required', false);
+                $('input[name="semester"]').prop('disabled', true);
+                $('input[name="semester"]').prop('required', false);
             }
         });
 
