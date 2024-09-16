@@ -53,18 +53,13 @@ class User extends Authenticatable
         return $this->belongsTo(Pemohon::class);
     }
 
-    public function userPemohon()
-    {
-        return $this->hasMany(UserPembimbing::class, 'pemohon_id');
-    }
-
-    public function userPembimbing()
-    {
-        return $this->hasMany(UserPembimbing::class, 'pembimbing_id');
-    }
-
     public function userKegiatans()
     {
         return $this->hasMany(UserKegiatan::class, 'user_id');
+    }
+
+    public function userPenugasan()
+    {
+        return $this->hasMany(Kegiatan::class, 'pembimbing_id');
     }
 }

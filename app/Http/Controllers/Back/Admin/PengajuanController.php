@@ -21,7 +21,7 @@ class PengajuanController extends Controller
     {
         $jenis_kegiatan = $request->get('jenis_kegiatan') ?? '';
         $approval_admin = $request->get('status') ?? '';
-        $pengajuan = Kegiatan::with('pemohon');
+        $pengajuan = Kegiatan::with(['pemohon', 'userKegiatans']);
 
         if ($jenis_kegiatan && $approval_admin) {
             $pengajuan->where('jenis_kegiatan', $jenis_kegiatan)
@@ -38,7 +38,14 @@ class PengajuanController extends Controller
             return datatables()->of($pengajuan)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $btn = '<button onclick="openModalPengajuan(' . $row->id . ')" class="edit btn btn-primary btn-sm">View</button>';
+                    $btn = '';
+                    $btn .= '<button onclick="openModalPengajuan(' . $row->id . ')" class="edit btn btn-primary btn-sm">View</button>';
+                    if ($row->approval_admin === 'Disetujui') {
+                        $kegiatan = UserKegiatan::whereKegiatanId($row->id)->first();
+                        if (!$kegiatan->pembimbing_id) {
+                            $btn .= '<button class="btn btn-success btn-sm mt-sm-2 mt-md-0 ms-sm-0 ms-md-2">Set Pembimbing</button>';
+                        }
+                    }
                     return $btn;
                 })
                 ->rawColumns(['aksi'])
@@ -47,6 +54,7 @@ class PengajuanController extends Controller
 
         return view('pages.back.admin.pengajuan.index', [
             'title' => 'Daftar ' . $this->modul,
+            'pembimbing' => User::role('Pembimbing')->get(),
         ]);
     }
 
@@ -154,12 +162,35 @@ class PengajuanController extends Controller
                 UserKegiatan::create([
                     'user_id' => $new_user->id,
                     'kegiatan_id' => $pengajuan->id,
+                    'active' => true,
                 ]);
             }
 
             DB::commit();
 
             return redirect()->back()->with('success', 'Data berhasil diupdate');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function setPembimbing(Request $request, $id)
+    {
+        $request->validate([
+            'pembimbing_id' => 'required',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $kegiatan = UserKegiatan::whereKegiatanId($id)->first();
+            $kegiatan->update([
+                'pembimbing_id' => $request->pembimbing_id,
+            ]);
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Data pembimbing berhasil diupdate');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
