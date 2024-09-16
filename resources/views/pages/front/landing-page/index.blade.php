@@ -967,8 +967,8 @@
                                     <button type="button" class="step-trigger">
                                         <span class="bs-stepper-circle">1</span>
                                         <span class="bs-stepper-label">
-                                            <span class="bs-stepper-title">Detail Pemohon</span>
-                                            <span class="bs-stepper-subtitle">Masukkan data diri</span>
+                                            <span class="bs-stepper-title">Riset/Penelitian</span>
+                                            <span class="bs-stepper-subtitle">Form daftar penelitian</span>
                                         </span>
                                     </button>
                                 </div>
@@ -979,8 +979,8 @@
                                     <button type="button" class="step-trigger">
                                         <span class="bs-stepper-circle">2</span>
                                         <span class="bs-stepper-label">
-                                            <span class="bs-stepper-title">Detail Sekolah/Universitas</span>
-                                            <span class="bs-stepper-subtitle">Masukkan data pendidikan</span>
+                                            <span class="bs-stepper-title">Kuliah Kerja Praktik</span>
+                                            <span class="bs-stepper-subtitle">Form daftar KKP</span>
                                         </span>
                                     </button>
                                 </div>
@@ -991,37 +991,23 @@
                                     <button type="button" class="step-trigger">
                                         <span class="bs-stepper-circle">3</span>
                                         <span class="bs-stepper-label">
-                                            <span class="bs-stepper-title">File Permohonan</span>
-                                            <span class="bs-stepper-subtitle">Masukkan surat permohonan</span>
+                                            <span class="bs-stepper-title">Prakerin</span>
+                                            <span class="bs-stepper-subtitle">Form datar prakerin</span>
                                         </span>
                                     </button>
                                 </div>
                             </div>
-                            <div class="bs-stepper-content">
-                                <form action="{{ route('landing-page.daftar') }}" method="POST"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <!-- Account Details -->
-                                    <div id="account-details" class="content">
+                            <div class="bs-stepper-content d-flex flex-column gap-5">
+                                <!-- Account Details -->
+                                <div id="account-details" class="content">
+                                    <form action="{{ route('landing-page.daftar.riset') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
                                         <div class="content-header mb-3">
-                                            <h6 class="mb-0">Detail Pemohon</h6>
-                                            <small>Masukkan data diri</small>
+                                            <h6 class="mb-0">Data Diri</h6>
+                                            <small>Silahkan masukkan data diri pemohon</small>
                                         </div>
                                         <div class="row g-3">
-                                            <div>
-                                                <label class="form-label">Jenis Kegiatan</label>
-                                                <select name="jenis_kegiatan" id="jenis_kegiatan" class="form-select"
-                                                    required @error('jenis_kegiatan') is-invalid @enderror>
-                                                    <option value="Riset">Penelitian/Riset</option>
-                                                    <option value="KKP">Kuliah Kerja Praktik</option>
-                                                    <option value="Prakerin">Praktik Kerja Industri</option>
-                                                </select>
-                                                @error('jenis_kegiatan')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="nama">Nama Lengkap</label>
                                                 <input type="text" id="nama" class="form-control"
@@ -1051,7 +1037,7 @@
                                                     placeholder="08xxxxxxxxx" aria-label="john.doe"
                                                     name="no_telp_pemohon" required
                                                     @error('no_telp_pemohon') is-invalid
-                                                    @enderror>
+                                                        @enderror>
                                                 @error('no_telp_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1082,22 +1068,10 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div class="col-12 d-flex justify-content-between">
-                                                <button type="button" class="btn btn-label-secondary btn-prev" disabled>
-                                                    <i class="ti ti-arrow-left me-sm-1 me-0"></i>
-                                                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                                </button>
-                                                <button type="button" class="btn btn-primary btn-next">
-                                                    <span class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
-                                                    <i class="ti ti-arrow-right"></i>
-                                                </button>
-                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- Personal Info -->
-                                    <div id="personal-info" class="content">
-                                        <div class="content-header mb-3">
-                                            <h6 class="mb-0">Detail Sekolah/Universitas</h6>
+
+                                        <div class="content-header mb-3 mt-3">
+                                            <h6 class="mb-0">Detail Universitas</h6>
                                             <small>Masukkan data pendidikan</small>
                                         </div>
                                         <div class="kuliah">
@@ -1151,74 +1125,10 @@
                                                     <input type="number" id="semester" class="form-control"
                                                         name="semester" placeholder="5" required />
                                                 </div>
-                                                <div class="col-12 d-flex justify-content-between">
-                                                    <button type="button" class="btn btn-label-secondary btn-prev">
-                                                        <i class="ti ti-arrow-left me-sm-1 me-0"></i>
-                                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary btn-next">
-                                                        <span
-                                                            class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
-                                                        <i class="ti ti-arrow-right"></i>
-                                                    </button>
-                                                </div>
                                             </div>
                                         </div>
-                                        <div class="sekolah">
-                                            <div class="row g-3">
-                                                <div>
-                                                    <label class="form-label" for="nis">NIS</label>
-                                                    <input type="number" id="nis" class="form-control"
-                                                        placeholder="212xxxxxxxxx" required name="nis"
-                                                        @error('nis') is-invalid
-                                                        @enderror />
 
-                                                    @error('nis')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label class="form-label" for="sekolah">Sekolah</label>
-                                                    <input type="text" id="sekolah" class="form-control"
-                                                        name="sekolah" placeholder="SMK 17" required
-                                                        @error('sekolah') is-invalid @enderror />
-                                                    @error('sekolah')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <label class="form-label" for="kelas">Kelas</label>
-                                                    <input type="number" id="kelas" class="form-control"
-                                                        name="kelas" placeholder="10" required
-                                                        @error('kelas') is-invalid @enderror />
-
-                                                    @error('kelas')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-12 d-flex justify-content-between">
-                                                    <button class="btn btn-label-secondary btn-prev">
-                                                        <i class="ti ti-arrow-left me-sm-1 me-0"></i>
-                                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary btn-next">
-                                                        <span
-                                                            class="align-middle d-sm-inline-block d-none me-sm-1">Next</span>
-                                                        <i class="ti ti-arrow-right"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Social Links -->
-                                    <div id="social-links" class="content">
-                                        <div class="content-header mb-3">
+                                        <div class="content-header mb-3 mt-3">
                                             <h6 class="mb-0">File Permohonan</h6>
                                             <small>Masukkan data permohonan</small>
                                         </div>
@@ -1264,7 +1174,7 @@
                                                 <input type="file" id="surat_permohonan" class="form-control" required
                                                     name="surat_permohonan"
                                                     @error('surat_permohonan') is-invalid
-                                                    @enderror />
+                                                        @enderror />
                                                 @error('surat_permohonan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1272,15 +1182,375 @@
                                                 @enderror
                                             </div>
                                             <div class="col-12 d-flex justify-content-between">
-                                                <button type="button" class="btn btn-label-secondary btn-prev">
-                                                    <i class="ti ti-arrow-left me-sm-1 me-0"></i>
-                                                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                                </button>
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
+                                <!-- Personal Info -->
+                                <div id="personal-info" class="content">
+                                    <form action="{{ route('landing-page.daftar.kkp') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="content-header mb-3">
+                                            <h6 class="mb-0">Data Diri</h6>
+                                            <small>Silahkan masukkan data diri pemohon</small>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="nama">Nama Lengkap</label>
+                                                <input type="text" id="nama" class="form-control"
+                                                    placeholder="johndoe" required name="nama_pemohon" required
+                                                    @error('nama_pemohon') is-invalid @enderror>
+                                                @error('nama_pemohon')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="email">Email</label>
+                                                <input type="email" id="email" class="form-control"
+                                                    placeholder="john.doe@email.com" aria-label="john.doe"
+                                                    name="email_pemohon" required
+                                                    @error('email_pemohon') is-invalid @enderror>
+                                                @error('email_pemohon')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="no_telp_pemohon">Telepon</label>
+                                                <input type="number" id="no_telp_pemohon" class="form-control"
+                                                    placeholder="08xxxxxxxxx" aria-label="john.doe"
+                                                    name="no_telp_pemohon" required
+                                                    @error('no_telp_pemohon') is-invalid
+                                                        @enderror>
+                                                @error('no_telp_pemohon')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
+                                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-select"
+                                                    required @error('jenis_kelamin') is-invalid @enderror>
+                                                    <option value="L">Laki-Laki</option>
+                                                    <option value="P">Perempuan</option>
+                                                </select>
+                                                @error('jenis_kelamin')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
+                                                <input type="date" id="tanggal_lahir" class="form-control"
+                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required
+                                                    @error('tanggal_lahir') is-invalid @enderror>
+                                                @error('tanggal_lahir')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="content-header mb-3 mt-3">
+                                            <h6 class="mb-0">Detail Universitas</h6>
+                                            <small>Masukkan data pendidikan</small>
+                                        </div>
+                                        <div class="kuliah">
+                                            <div class="row g-3">
+                                                <div>
+                                                    <label class="form-label" for="nim">NIM</label>
+                                                    <input type="number" id="nim" class="form-control"
+                                                        placeholder="212xxxxxxxxx" required name="nim"
+                                                        @error('nim') is-invalid @enderror />
+                                                    @error('nim')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label" for="universitas">Universitas</label>
+                                                    <input type="text" id="universitas" class="form-control"
+                                                        name="universitas" placeholder="UNIVERSITAS SWISS" required
+                                                        @error('universitas') is-invalid @enderror />
+                                                    @error('universitas')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label" for="fakultas">Fakultas</label>
+                                                    <input type="text" id="fakultas" class="form-control"
+                                                        name="fakultas" placeholder="ILMU BUDAYA" required
+                                                        @error('fakultas') is-invalid @enderror />
+                                                    @error('fakultas')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label" for="prodi">Program Studi</label>
+                                                    <input type="text" id="prodi" class="form-control"
+                                                        name="prodi" placeholder="SASTRA MESIN" required
+                                                        @error('prodi') is-invalid @enderror />
+                                                    @error('prodi')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label" for="semester">Semester</label>
+                                                    <input type="number" id="semester" class="form-control"
+                                                        name="semester" placeholder="5" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="content-header mb-3 mt-3">
+                                            <h6 class="mb-0">File Permohonan</h6>
+                                            <small>Masukkan data permohonan</small>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div>
+                                                <label class="form-label" for="nama_kegiatan">Nama Kegiatan</label>
+                                                <input type="text" id="nama_kegiatan" class="form-control" required
+                                                    name="nama_kegiatan" placeholder="Masukkan nama kegiatan" required
+                                                    @error('nama_kegiatan') is-invalid @enderror />
+                                                @error('nama_kegiatan')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
+                                                <input type="date" id="tanggal_mulai" class="form-control"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required
+                                                    @error('tanggal_mulai') is-invalid @enderror />
+                                                @error('tanggal_mulai')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="tanggal_selesai">Tanggal
+                                                    Selesai</label>
+                                                <input type="date" id="tanggal_selesai" class="form-control"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required
+                                                    @error('tanggal_selesai') is-invalid @enderror />
+                                                @error('tanggal_selesai')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div>
+                                                <label class="form-label" for="surat_permohonan">Upload Surat
+                                                    Permohonan:
+                                                    (.pdf)</label>
+                                                <input type="file" id="surat_permohonan" class="form-control" required
+                                                    name="surat_permohonan"
+                                                    @error('surat_permohonan') is-invalid
+                                                        @enderror />
+                                                @error('surat_permohonan')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-between">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Social Links -->
+                                <div id="social-links" class="content">
+                                    <form action="{{ route('landing-page.daftar.prakerin') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="content-header mb-3">
+                                            <h6 class="mb-0">Data Diri</h6>
+                                            <small>Silahkan masukkan data diri pemohon</small>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="nama">Nama Lengkap</label>
+                                                <input type="text" id="nama" class="form-control"
+                                                    placeholder="johndoe" required name="nama_pemohon" required
+                                                    @error('nama_pemohon') is-invalid @enderror>
+                                                @error('nama_pemohon')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="email">Email</label>
+                                                <input type="email" id="email" class="form-control"
+                                                    placeholder="john.doe@email.com" aria-label="john.doe"
+                                                    name="email_pemohon" required
+                                                    @error('email_pemohon') is-invalid @enderror>
+                                                @error('email_pemohon')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="no_telp_pemohon">Telepon</label>
+                                                <input type="number" id="no_telp_pemohon" class="form-control"
+                                                    placeholder="08xxxxxxxxx" aria-label="john.doe"
+                                                    name="no_telp_pemohon" required
+                                                    @error('no_telp_pemohon') is-invalid
+                                                        @enderror>
+                                                @error('no_telp_pemohon')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
+                                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-select"
+                                                    required @error('jenis_kelamin') is-invalid @enderror>
+                                                    <option value="L">Laki-Laki</option>
+                                                    <option value="P">Perempuan</option>
+                                                </select>
+                                                @error('jenis_kelamin')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
+                                                <input type="date" id="tanggal_lahir" class="form-control"
+                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required
+                                                    @error('tanggal_lahir') is-invalid @enderror>
+                                                @error('tanggal_lahir')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="content-header mb-3 mt-3">
+                                            <h6 class="mb-0">Detail Sekolah</h6>
+                                            <small>Masukkan data pendidikan</small>
+                                        </div>
+                                        <div class="sekolah">
+                                            <div class="row g-3">
+                                                <div>
+                                                    <label class="form-label" for="nis">NIS</label>
+                                                    <input type="number" id="nis" class="form-control"
+                                                        placeholder="212xxxxxxxxx" required name="nis"
+                                                        @error('nis') is-invalid
+                                                            @enderror />
+
+                                                    @error('nis')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label" for="sekolah">Sekolah</label>
+                                                    <input type="text" id="sekolah" class="form-control"
+                                                        name="sekolah" placeholder="SMK 17" required
+                                                        @error('sekolah') is-invalid @enderror />
+                                                    @error('sekolah')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label" for="kelas">Kelas</label>
+                                                    <input type="number" id="kelas" class="form-control"
+                                                        name="kelas" placeholder="10" required
+                                                        @error('kelas') is-invalid @enderror />
+
+                                                    @error('kelas')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="content-header mb-3 mt-3">
+                                            <h6 class="mb-0">File Permohonan</h6>
+                                            <small>Masukkan data permohonan</small>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div>
+                                                <label class="form-label" for="nama_kegiatan">Nama Kegiatan</label>
+                                                <input type="text" id="nama_kegiatan" class="form-control" required
+                                                    name="nama_kegiatan" placeholder="Masukkan nama kegiatan" required
+                                                    @error('nama_kegiatan') is-invalid @enderror />
+                                                @error('nama_kegiatan')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
+                                                <input type="date" id="tanggal_mulai" class="form-control"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required
+                                                    @error('tanggal_mulai') is-invalid @enderror />
+                                                @error('tanggal_mulai')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="form-label" for="tanggal_selesai">Tanggal
+                                                    Selesai</label>
+                                                <input type="date" id="tanggal_selesai" class="form-control"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required
+                                                    @error('tanggal_selesai') is-invalid @enderror />
+                                                @error('tanggal_selesai')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div>
+                                                <label class="form-label" for="surat_permohonan">Upload Surat
+                                                    Permohonan:
+                                                    (.pdf)</label>
+                                                <input type="file" id="surat_permohonan" class="form-control"
+                                                    required name="surat_permohonan"
+                                                    @error('surat_permohonan') is-invalid
+                                                        @enderror />
+                                                @error('surat_permohonan')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-between">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -1323,38 +1593,6 @@
         </script>
     @endif
     <script>
-        $('.sekolah').hide();
-        $('input[name="nis"]').prop('required', false);
-        $('input[name="kelas"]').prop('required', false);
-        $('input[name="sekolah"]').prop('required', false);
-        $('select[name="jenis_kegiatan"]').on('change', function() {
-            if ($(this).val() == 'Riset' || $(this).val() == 'KKP') {
-                $('.kuliah').show();
-                $('.sekolah').hide();
-                // disable input sekolah
-                $('input[name="sekolah"]').prop('disabled', true);
-                $('input[name="sekolah"]').prop('required', false);
-                $('input[name="kelas"]').prop('disabled', true);
-                $('input[name="kelas"]').prop('required', false);
-                $('input[name="nis"]').prop('disabled', true);
-                $('input[name="nis"]').prop('required', false);
-            } else {
-                $('.kuliah').hide();
-                $('.sekolah').show();
-                // disable input kuliah
-                $('input[name="nim"]').prop('disabled', true);
-                $('input[name="nim"]').prop('required', false);
-                $('input[name="universitas"]').prop('disabled', true);
-                $('input[name="universitas"]').prop('required', false);
-                $('input[name="fakultas"]').prop('disabled', true);
-                $('input[name="fakultas"]').prop('required', false);
-                $('input[name="prodi"]').prop('disabled', true);
-                $('input[name="prodi"]').prop('required', false);
-                $('input[name="semester"]').prop('disabled', true);
-                $('input[name="semester"]').prop('required', false);
-            }
-        });
-
         // capitalize universitas, fakultas, prodi, sekolah, nama kegiatan
         $('input[name="universitas"]').on('keyup', function() {
             $(this).val($(this).val().toUpperCase());
