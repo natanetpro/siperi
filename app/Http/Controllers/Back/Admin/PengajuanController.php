@@ -43,7 +43,7 @@ class PengajuanController extends Controller
                     if ($row->approval_admin === 'Disetujui') {
                         $kegiatan = UserKegiatan::whereKegiatanId($row->id)->first();
                         if (!$kegiatan->pembimbing_id) {
-                            $btn .= '<button class="btn btn-success btn-sm mt-sm-2 mt-md-0 ms-sm-0 ms-md-2">Set Pembimbing</button>';
+                            $btn .= '<button onclick="openModalPembimbing(' . $row->id . ')" class="btn btn-success btn-sm mt-sm-2 mt-md-0 ms-sm-0 ms-md-2">Set Pembimbing</button>';
                         }
                     }
                     return $btn;
@@ -88,15 +88,6 @@ class PengajuanController extends Controller
                     'approval_admin' => $request->approval_admin,
                 ]);
 
-                /**
-                 * Buat user baru di table users tetapi dengan format nama berikut:
-                 * Riset: 1000x
-                 * KKP: 2000x
-                 * Prakerin: 3000x
-                 * 
-                 * setiap data baru yang diapprove maka diincrement 1 semisal data terakhir adalah 10001 maka data baru adalah 10002
-                 */
-
                 $firstRiset = 10000;
                 $firstKKP = 20000;
                 $firstPrakerin = 30000;
@@ -104,9 +95,7 @@ class PengajuanController extends Controller
                 $user = User::query();
                 $lastPemohon = $user->role('Pemohon')->latest()->first();
                 $new_user = null;
-                // dd($lastPemohon);
 
-                // jika belum ada data sama sekali
                 if (!$lastPemohon) {
                     if ($pengajuan->jenis_kegiatan === 'Riset') {
                         $new_user = User::create([
@@ -114,6 +103,7 @@ class PengajuanController extends Controller
                             'email' => $pengajuan->pemohon->email_pemohon,
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
+                            'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
                     } elseif ($pengajuan->jenis_kegiatan === 'KKP') {
                         $new_user = User::create([
@@ -121,6 +111,7 @@ class PengajuanController extends Controller
                             'email' => $pengajuan->pemohon->email_pemohon,
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
+                            'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
                     } elseif ($pengajuan->jenis_kegiatan === 'Prakerin') {
                         $new_user = User::create([
@@ -128,10 +119,11 @@ class PengajuanController extends Controller
                             'email' => $pengajuan->pemohon->email_pemohon,
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
+                            'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
                     }
                 } else {
-                    $lastPemohonName = $lastPemohon->name;
+                    $lastPemohonName = $lastPemohon->nama;
                     $lastPemohonName = (int) $lastPemohonName;
 
                     if ($pengajuan->jenis_kegiatan === 'Riset') {
@@ -140,6 +132,7 @@ class PengajuanController extends Controller
                             'email' => $pengajuan->pemohon->email_pemohon,
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
+                            'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
                     } elseif ($pengajuan->jenis_kegiatan === 'KKP') {
                         $new_user = User::create([
@@ -147,6 +140,7 @@ class PengajuanController extends Controller
                             'email' => $pengajuan->pemohon->email_pemohon,
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
+                            'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
                     } elseif ($pengajuan->jenis_kegiatan === 'Prakerin') {
                         $new_user = User::create([
@@ -154,9 +148,13 @@ class PengajuanController extends Controller
                             'email' => $pengajuan->pemohon->email_pemohon,
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
+                            'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
                     }
                 }
+
+                // assign role
+                $new_user->assignRole('Pemohon');
 
                 // insert user kegiatan
                 UserKegiatan::create([

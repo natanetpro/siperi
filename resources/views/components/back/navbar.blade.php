@@ -491,18 +491,50 @@
 </nav>
 
 @push('scripts')
-    <script>
-        function logout() {
-            $.ajax({
-                url: `{{ route('admin.logout') }}`,
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
-                },
-                success: function(response) {
-                    window.location.href = `{{ route('admin.login.index') }}`
-                }
-            })
-        }
-    </script>
+    @if (Auth::user()->hasRole('Administrator'))
+        <script>
+            function logout() {
+                $.ajax({
+                    url: `{{ route('admin.logout') }}`,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                    },
+                    success: function(response) {
+                        window.location.href = `{{ route('admin.login.index') }}`
+                    }
+                })
+            }
+        </script>
+    @elseif (Auth::user()->hasRole('Pembimbing'))
+        <script>
+            function logout() {
+                $.ajax({
+                    url: `{{ route('pembimbing.logout') }}`,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                    },
+                    success: function(response) {
+                        window.location.href = `{{ route('pembimbing.login.index') }}`
+                    }
+                })
+            }
+        </script>
+    @elseif (Auth::user()->hasRole('Pemohon'))
+        <script>
+            function logout() {
+                $.ajax({
+                    url: `{{ route('peserta.logout') }}`,
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                    },
+                    success: function(response) {
+                        window.location.href = `{{ route('peserta.login.index') }}`
+                    }
+                })
+            }
+        </script>
+    @endif
 @endpush
