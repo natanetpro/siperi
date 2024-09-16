@@ -19,10 +19,7 @@ class RoleChecker
         if (Auth::check() && Auth::user()->hasRole($role)) {
             return $next($request);
         }
-
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $role = strtolower($role);
         return redirect()->route("$role.login.index")->with('error', 'Anda tidak memiliki akses');
     }
 }

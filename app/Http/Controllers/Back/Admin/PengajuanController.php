@@ -93,14 +93,18 @@ class PengajuanController extends Controller
                 $firstPrakerin = 30000;
 
                 $user = User::query();
-                $lastPemohon = $user->role('Pemohon')->latest()->first();
+                $lastPemohon = $user->role('Pemohon')->whereHas('userKegiatan', function ($query) use ($pengajuan) {
+                    $query->whereHas('kegiatan', function ($query) use ($pengajuan) {
+                        $query->where('jenis_kegiatan', $pengajuan->jenis_kegiatan);
+                    });
+                })->latest()->first();
                 $new_user = null;
 
                 if (!$lastPemohon) {
                     if ($pengajuan->jenis_kegiatan === 'Riset') {
                         $new_user = User::create([
                             'nama' => $firstRiset + 1,
-                            'email' => $pengajuan->pemohon->email_pemohon,
+                            'email' => $firstRiset + 1 . '@siperi.test',
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
@@ -108,7 +112,7 @@ class PengajuanController extends Controller
                     } elseif ($pengajuan->jenis_kegiatan === 'KKP') {
                         $new_user = User::create([
                             'nama' => $firstKKP + 1,
-                            'email' => $pengajuan->pemohon->email_pemohon,
+                            'email' => $firstKKP + 1 . '@siperi.test',
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
@@ -116,7 +120,7 @@ class PengajuanController extends Controller
                     } elseif ($pengajuan->jenis_kegiatan === 'Prakerin') {
                         $new_user = User::create([
                             'nama' => $firstPrakerin + 1,
-                            'email' => $pengajuan->pemohon->email_pemohon,
+                            'email' => $firstPrakerin + 1 . '@siperi.test',
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
@@ -129,7 +133,7 @@ class PengajuanController extends Controller
                     if ($pengajuan->jenis_kegiatan === 'Riset') {
                         $new_user = User::create([
                             'nama' => $lastPemohonName + 1,
-                            'email' => $pengajuan->pemohon->email_pemohon,
+                            'email' => $lastPemohonName + 1 . '@siperi.test',
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
@@ -137,7 +141,7 @@ class PengajuanController extends Controller
                     } elseif ($pengajuan->jenis_kegiatan === 'KKP') {
                         $new_user = User::create([
                             'nama' => $lastPemohonName + 1,
-                            'email' => $pengajuan->pemohon->email_pemohon,
+                            'email' => $lastPemohonName + 1 . '@siperi.test',
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
@@ -145,7 +149,7 @@ class PengajuanController extends Controller
                     } elseif ($pengajuan->jenis_kegiatan === 'Prakerin') {
                         $new_user = User::create([
                             'nama' => $lastPemohonName + 1,
-                            'email' => $pengajuan->pemohon->email_pemohon,
+                            'email' => $lastPemohonName + 1 . '@siperi.test',
                             'password' => bcrypt('password'),
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,

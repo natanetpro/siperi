@@ -140,7 +140,7 @@ class LandingPageController extends Controller
         $request->validate([
             'nama_pemohon' => 'required',
             'jenis_kelamin' => 'required|in:L,P',
-            'email_pemohon' => 'required|email',
+            'email_pemohon' => 'required|email|unique:pemohons,email_pemohon',
             'no_telp_pemohon' => 'required|numeric',
             'tanggal_lahir' => 'required|date',
 
