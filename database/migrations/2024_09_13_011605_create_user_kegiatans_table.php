@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('kegiatan_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('pembimbing_id')->nullable();
+            $table->foreign('pembimbing_id')->references('id')->on('users')->onDelete('set null');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

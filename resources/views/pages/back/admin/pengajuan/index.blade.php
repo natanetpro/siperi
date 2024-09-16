@@ -213,6 +213,46 @@
         </div>
     @endsection
 
+    <!-- Large Modal -->
+    <div class="modal fade" id="pembimbing-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel3">Pasang Pembimbing</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="pembimbing" class="form-label">Nama Dosen Pembimbing</label>
+                                <select class="form-select @error('pembimbing_id') is-invalid @enderror"
+                                    name="pembimbing_id" id="">
+                                    @foreach ($pembimbing as $p)
+                                        <option value="{{ $p->id }}">{{ $p->nama }}</option>
+                                    @endforeach
+                                </select>
+                                @error('pembimbing_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-success">Set</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     @push('scripts')
         @if (session('success'))
             <script>
@@ -220,6 +260,14 @@
                     'Success!',
                     '{{ session('success') }}',
                     'success'
+                )
+            </script>
+        @elseif($errors->any())
+            <script>
+                Swal.fire(
+                    'Error!',
+                    'Terjadi kesalahan saat input data',
+                    'error'
                 )
             </script>
         @elseif(session('error'))
@@ -321,6 +369,21 @@
                             $('form#form-approval').attr('action', '#');
                             $('button#submit-pengajuan').attr('disabled', true);
                             $('button#submit-pengajuan').text('Data sudah disimpan');
+                        } else {
+                            $('select[name=approval_admin]').attr('disabled', false);
+                            $('button#submit-pengajuan').attr('disabled', false);
+                            $('form#form-approval').attr('action', '/admin/pengajuan/' + id);
+                            $('button#submit-pengajuan').text('Simpan');
+                        }
+
+                        if (response.approval_admin === 'Ditolak') {
+                            $('.alasan-ditolak').show();
+                            $('textarea[name=catatan_admin]').val(response.catatan_admin);
+                            $('textarea[name=catatan_admin]').attr('disabled', true);
+                        } else {
+                            $('.alasan-ditolak').hide();
+                            $('textarea[name=catatan_admin]').val('');
+                            $('textarea[name=catatan_admin]').attr('disabled', false);
                         }
 
                         $('form#form-approval').attr('action', '/admin/pengajuan/' + id);
@@ -358,6 +421,11 @@
                         $('#form-approval').submit();
                     }
                 })
+            }
+
+            function openModalPembimbing(id) {
+                $('#pembimbing-modal').modal('show');
+                $('#pembimbing-modal form').attr('action', '/admin/pengajuan/' + id + '/set-pembimbing');
             }
         </script>
     @endpush

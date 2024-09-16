@@ -7,6 +7,7 @@
     <title>Index - TheEvent Bootstrap Template</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
+    {{-- csrf --}}
 
     <!-- Favicons -->
     <link href="{{ asset('front/assets/img/favicon.png') }}" rel="icon">

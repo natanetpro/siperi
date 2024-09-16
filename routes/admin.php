@@ -30,5 +30,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');
         Route::get('/pengajuan/{id}', [PengajuanController::class, 'find'])->name('pengajuan.find');
         Route::put('/pengajuan/{id}', [PengajuanController::class, 'update'])->name('pengajuan.update');
+        Route::put('/pengajuan/{id}/set-pembimbing', [PengajuanController::class, 'setPembimbing'])->name('pengajuan.set-pembimbing');
     });
 });

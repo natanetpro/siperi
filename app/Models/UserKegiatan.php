@@ -12,6 +12,8 @@ class UserKegiatan extends Model
     protected $fillable = [
         'user_id',
         'kegiatan_id',
+        'pembimbing_id',
+        'active',
     ];
 
     public function user()
@@ -22,5 +24,10 @@ class UserKegiatan extends Model
     public function kegiatan()
     {
         return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
+    }
+
+    public function pembimbing()
+    {
+        return $this->belongsTo(User::class, 'pembimbing_id');
     }
 }
