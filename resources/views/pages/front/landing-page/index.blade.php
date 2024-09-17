@@ -4,16 +4,18 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
-        <img src="{{ asset('front/assets/img/hero-bg.jpg') }}" alt="" data-aos="fade-in" class="">
+        <img src="{{ asset('bg-siperi.jpg') }}" alt="" data-aos="fade-in" class="">
 
-        <div class="container d-flex flex-column align-items-center text-center mt-auto">
-            <h2 data-aos="fade-up" data-aos-delay="100" class="">THE ANNUAL<br><span>MARKETING</span>
+        {{-- <div class="container d-flex flex-column align-items-center text-center mt-auto">
+            <h2 data-aos="fade-up" data-aos-delay="100" class="">THE ANNUAL<br><span
+                    class="text-success">MARKETING</span>
                 CONFERENCE</h2>
             <p data-aos="fade-up" data-aos-delay="200">10-12 December, Downtown Conference Center, New York</p>
             <div data-aos="fade-up" data-aos-delay="300" class="">
-                <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn mt-3"></a>
+                <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+                    class="bg-success glightbox pulsating-play-btn mt-3"></a>
             </div>
-        </div>
+        </div> --}}
 
         <div class="about-info mt-auto position-relative">
 
@@ -41,7 +43,7 @@
 
     </section><!-- /Hero Section -->
 
-    <!-- Speakers Section -->
+    {{-- <!-- Speakers Section -->
     <section id="speakers" class="speakers section">
 
         <!-- Section Title -->
@@ -949,7 +951,7 @@
 
         </div>
 
-    </section><!-- /Contact Section -->
+    </section><!-- /Contact Section --> --}}
 
     {{-- Modal Pengajuan --}}
     <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
@@ -1034,8 +1036,8 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="no_telp_pemohon">Telepon</label>
                                                 <input type="number" id="no_telp_pemohon" class="form-control"
-                                                    placeholder="08xxxxxxxxx" aria-label="john.doe"
-                                                    name="no_telp_pemohon" required
+                                                    placeholder="08xxxxxxxxx" aria-label="john.doe" name="no_telp_pemohon"
+                                                    required
                                                     @error('no_telp_pemohon') is-invalid
                                                         @enderror>
                                                 @error('no_telp_pemohon')
@@ -1189,7 +1191,8 @@
                                 </div>
                                 <!-- Personal Info -->
                                 <div id="personal-info" class="content">
-                                    <form action="{{ route('landing-page.daftar.kkp') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('landing-page.daftar.kkp') }}" method="POST"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div class="content-header mb-3">
                                             <h6 class="mb-0">Data Diri</h6>
@@ -1377,7 +1380,8 @@
                                 </div>
                                 <!-- Social Links -->
                                 <div id="social-links" class="content">
-                                    <form action="{{ route('landing-page.daftar.prakerin') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('landing-page.daftar.prakerin') }}" method="POST"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div class="content-header mb-3">
                                             <h6 class="mb-0">Data Diri</h6>
@@ -1534,8 +1538,8 @@
                                                 <label class="form-label" for="surat_permohonan">Upload Surat
                                                     Permohonan:
                                                     (.pdf)</label>
-                                                <input type="file" id="surat_permohonan" class="form-control"
-                                                    required name="surat_permohonan"
+                                                <input type="file" id="surat_permohonan" class="form-control" required
+                                                    name="surat_permohonan"
                                                     @error('surat_permohonan') is-invalid
                                                         @enderror />
                                                 @error('surat_permohonan')

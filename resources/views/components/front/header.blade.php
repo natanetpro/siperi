@@ -2,9 +2,9 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
         <a href="{{ route('landing-page.index') }}" class="logo d-flex align-items-center me-auto">
-            <img src="{{ asset('front/assets/img/logo.png') }}" alt="">
+            <img src="{{ asset('logo-banten.png') }}" alt="">
             <!-- Uncomment the line below if you also wish to use an text logo -->
-            <!-- <h1 class="sitename">TheEvent</h1>  -->
+            <h1 class="sitename">Siperi</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -16,7 +16,7 @@
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <button class="cta-btn d-none d-sm-block" href="#buy-tickets" data-bs-toggle="modal"
+        <button class="bg-success cta-btn d-none d-sm-block" href="#buy-tickets" data-bs-toggle="modal"
             data-bs-target="#exLargeModal">Daftar</button>
 
     </div>

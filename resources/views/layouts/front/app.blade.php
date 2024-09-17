@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Index - TheEvent Bootstrap Template</title>
+    <title>Welcome to SIPERI</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     {{-- csrf --}}
 
     <!-- Favicons -->
-    <link href="{{ asset('front/assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('logo-banten.png') }}" rel="icon">
     <link href="{{ asset('front/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
