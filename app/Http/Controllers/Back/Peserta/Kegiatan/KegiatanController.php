@@ -74,6 +74,10 @@ class KegiatanController extends Controller
         DB::beginTransaction();
         try {
             $logbook = Logbook::find($id);
+            if ($logbook->approval_pembimbing == 'Disetujui') {
+                return redirect()->back()->with('error', 'Logbook sudah disetujui');
+            }
+
             if (!$logbook) {
                 return response()->json([
                     'status' => 'error',
@@ -85,6 +89,8 @@ class KegiatanController extends Controller
                 'tanggal' => $request->tanggal,
                 'aktivitas' => $request->aktivitas,
                 'dokumentasi' => $request->dokumentasi,
+                'approval_pembimbing' => 'Menunggu',
+                'catatan_pembimbing' => null,
             ]);
 
             DB::commit();
@@ -131,6 +137,10 @@ class KegiatanController extends Controller
                     'message' => 'Laporan akhir tidak ditemukan',
                 ], 404);
             }
+            $laporanAkhir->update([
+                'approval_pembimbing' => 'Menunggu',
+                'catatan_pembimbing' => null,
+            ]);
             // clear media
             $laporanAkhir->clearMediaCollection('laporan_akhir');
             // add new media

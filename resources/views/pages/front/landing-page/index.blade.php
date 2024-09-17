@@ -19,7 +19,7 @@
 
         <div class="about-info mt-auto position-relative">
 
-            <div class="container position-relative" data-aos="fade-up">
+            {{-- <div class="container position-relative" data-aos="fade-up">
                 <div class="row">
                     <div class="col-lg-6">
                         <h2>About The Event</h2>
@@ -38,7 +38,7 @@
                         <p>Monday to Wednesday<br>10-12 December</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
     </section><!-- /Hero Section -->
@@ -1048,8 +1048,8 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-select"
-                                                    required @error('jenis_kelamin') is-invalid @enderror>
+                                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-select" required
+                                                    @error('jenis_kelamin') is-invalid @enderror>
                                                     <option value="L">Laki-Laki</option>
                                                     <option value="P">Perempuan</option>
                                                 </select>
