@@ -12,12 +12,14 @@
                 @foreach (config('landing_menu') as $menu)
                     @include('components.front.partials.menu', ['menu' => $menu])
                 @endforeach
+                <li>
+                    <button class="bg-success cta-btn d-sm-block" href="#buy-tickets" data-bs-toggle="modal"
+                        data-bs-target="#exLargeModal">Daftar</button>
+                </li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <button class="bg-success cta-btn d-none d-sm-block" href="#buy-tickets" data-bs-toggle="modal"
-            data-bs-target="#exLargeModal">Daftar</button>
 
     </div>
 </header>
