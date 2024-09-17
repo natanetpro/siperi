@@ -118,64 +118,42 @@
                             </div>
                             <div>
                                 <h4 class="mb-0">
-                                    <span class="align-middle">Delivery</span>
+                                    <span class="align-middle">Laporan Akhir</span>
                                 </h4>
-                                <small>Lorem ipsum, dolor sit amet.</small>
+                                <small>Masukkan laporan akhir sebagai validasi kegiatan anda</small>
                             </div>
                         </div>
-                        <div id="accordionDelivery" class="accordion">
-                            <div class="card accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        aria-expanded="true" data-bs-target="#accordionDelivery-1"
-                                        aria-controls="accordionDelivery-1">
-                                        Q1: How would you ship my order?
-                                    </button>
-                                </h2>
-
-                                <div id="accordionDelivery-1" class="accordion-collapse collapse show">
-                                    <div class="accordion-body">
-                                        For large products, we deliver your product via a third party logistics company
-                                        offering
-                                        you the “room of choice” scheduled delivery service. For small products, we offer
-                                        free
-                                        parcel delivery.
+                        <button class="btn btn-success mb-3" onclick="openModalLaporanAkhir('create')">Kirim Laporan
+                            Akhir</button>
+                        @if (!$laporan_akhir)
+                            <p>Belum ada laporan akhir</p>
+                        @else
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{{ $laporan_akhir->media[0]->original_url }}" class="card-text">
+                                            Lihat Dokumen Akhir
+                                            @if ($laporan_akhir->approval_pembimbing == 'Menunggu')
+                                                <span class="badge ms-3 bg-warning">
+                                                    {{ $laporan_akhir->approval_pembimbing }}
+                                                @elseif($laporan_akhir->approval_pembimbing == 'Disetujui')
+                                                    <span class="badge ms-3 bg-success">
+                                                        {{ $laporan_akhir->approval_pembimbing }}
+                                                    @elseif($laporan_akhir->approval_pembimbing == 'Ditolak')
+                                                        <span class="badge ms-3 bg-danger">
+                                                            {{ $laporan_akhir->approval_pembimbing }}
+                                            @endif
+                                            </span>
+                                        </a>
+                                        <button onclick="openModalLaporanAkhir('edit', {{ $laporan_akhir->id }})"
+                                            class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></button>
+                                    </div>
+                                    <div class="d-flex flex-column gap-2">
+                                        <span class="text-danger">{{ $laporan_akhir->catatan_pembimbing }}</span>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="card accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#accordionDelivery-2" aria-controls="accordionDelivery-2">
-                                        Q2: What is the delivery cost of my order?
-                                    </button>
-                                </h2>
-                                <div id="accordionDelivery-2" class="accordion-collapse collapse">
-                                    <div class="accordion-body">
-                                        The cost of scheduled delivery is $69 or $99 per order, depending on the destination
-                                        postal code. The parcel delivery is free.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#accordionDelivery-4" aria-controls="accordionDelivery-4">
-                                        Q3: What to do if my product arrives damaged?
-                                    </button>
-                                </h2>
-                                <div id="accordionDelivery-4" class="accordion-collapse collapse">
-                                    <div class="accordion-body">
-                                        We will promptly replace any product that is damaged in transit. Just contact our
-                                        <a href="javascript:void(0);">support team</a>, to notify us of the situation
-                                        within 48
-                                        hours of product arrival.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -224,6 +202,38 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="laporan-akhir-modal" tabindex="-1" role="dialog"
+        aria-labelledby="laporan-akhir-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <form action="" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="laporan-akhir-title">Kirim Laporan Akhir</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body
+                    ">
+                        <div class="mb-3">
+                            <label for="laporan_akhir" class="form-label
+                            ">Laporan
+                                Akhir (.pdf)</label>
+                            <input type="file" class="form-control @error('laporan_akhir') is-invalid @enderror"
+                                id="laporan_akhir" name="laporan_akhir" required>
+                            @error('laporan_akhir')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Kirim</button>
                     </div>
                 </form>
             </div>
@@ -281,6 +291,22 @@
                     }
                 })
             }
+        }
+
+        function openModalLaporanAkhir(action, id = null) {
+            $('#laporan-akhir-modal form').trigger('reset');
+            if (action === 'create') {
+                $('#laporan-akhir-title').text('Kirim Laporan Akhir');
+                $('#laporan-akhir-modal').modal('show');
+                $('#laporan-akhir-modal form').attr('action', '{{ route('peserta.laporan_akhir.store') }}');
+            } else if (action === 'edit', id != null) {
+                $('#laporan-akhir-title').text('Edit Laporan Akhir');
+                $('#laporan-akhir-modal').modal('show');
+
+                $('#laporan-akhir-modal form').attr('action', `/peserta/laporan-akhir/${id}`);
+                $("#laporan-akhir-modal form").append('<input type="hidden" name="_method" value="PUT">');
+            }
+
         }
     </script>
 @endpush

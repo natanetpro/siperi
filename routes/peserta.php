@@ -20,5 +20,9 @@ Route::prefix('peserta')->name('peserta.')->group(function () {
         Route::post('/kegiatan', [KegiatanController::class, 'store'])->name('kegiatan.store');
         Route::get('/kegiatan/{id}', [KegiatanController::class, 'find'])->name('kegiatan.find');
         Route::put('/kegiatan/{id}', [KegiatanController::class, 'update'])->name('kegiatan.update');
+
+        // Laporan Akhir Routes
+        Route::post('/laporan-akhir', [KegiatanController::class, 'storeLaporanAkhir'])->name('laporan_akhir.store');
+        Route::put('/laporan-akhir/{id}', [KegiatanController::class, 'updateLaporanAkhir'])->name('laporan_akhir.update');
     });
 });

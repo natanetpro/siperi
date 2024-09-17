@@ -13,7 +13,6 @@ class LaporanAkhir extends Model implements HasMedia
 
     protected $fillable = [
         'user_kegiatan_id',
-        'laporan_akhir',
         'approval_pembimbing',
         'catatan_pembimbing',
     ];
