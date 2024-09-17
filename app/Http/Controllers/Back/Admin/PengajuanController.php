@@ -39,7 +39,7 @@ class PengajuanController extends Controller
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
                     $btn = '';
-                    $btn .= '<button onclick="openModalPengajuan(' . $row->id . ')" class="edit btn btn-primary btn-sm">View</button>';
+                    $btn .= '<button onclick="openModalPengajuan(' . $row->id . ')" class="edit btn btn-primary btn-sm"><i class="ti ti-eye"></i></button>';
                     if ($row->approval_admin === 'Disetujui') {
                         $kegiatan = UserKegiatan::whereKegiatanId($row->id)->first();
                         if (!$kegiatan->pembimbing_id) {

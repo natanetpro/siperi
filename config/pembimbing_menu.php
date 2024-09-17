@@ -7,8 +7,8 @@ return [
         'children' => []
     ],
     [
-        'nama_menu' => 'Daftar Peserta',
-        'url' => 'pembimbing/daftar-peserta',
+        'nama_menu' => 'Daftar Bimbingan',
+        'url' => 'pembimbing/daftar-bimbingan',
         'children' => []
     ],
 ];
