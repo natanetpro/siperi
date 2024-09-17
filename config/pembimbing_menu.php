@@ -3,12 +3,12 @@
 return [
     [
         'nama_menu' => 'Dashboard',
-        'url' => 'admin/dashboard',
+        'url' => 'pembimbing/dashboard',
         'children' => []
     ],
     [
         'nama_menu' => 'Daftar Peserta',
-        'url' => 'admin/daftar-peserta',
+        'url' => 'pembimbing/daftar-peserta',
         'children' => []
     ],
 ];

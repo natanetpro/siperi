@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('laporan_akhirs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_kegiatan_id')->constrained()->onDelete('cascade');
-            $table->string('laporan_akhir');
             $table->enum('approval_pembimbing', ['Menunggu', 'Disetujui', 'Ditolak'])->default('Menunggu');
             $table->longText('catatan_pembimbing')->nullable();
             $table->timestamps();

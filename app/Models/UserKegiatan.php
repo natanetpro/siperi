@@ -30,4 +30,9 @@ class UserKegiatan extends Model
     {
         return $this->belongsTo(User::class, 'pembimbing_id');
     }
+
+    public function logbooks()
+    {
+        return $this->hasMany(Logbook::class, 'user_kegiatan_id');
+    }
 }

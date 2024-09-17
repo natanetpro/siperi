@@ -53,13 +53,13 @@ class User extends Authenticatable
         return $this->belongsTo(Pemohon::class);
     }
 
-    public function userKegiatans()
+    public function userKegiatan()
     {
-        return $this->hasMany(UserKegiatan::class, 'user_id');
+        return $this->hasOne(UserKegiatan::class, 'user_id');
     }
 
     public function userPenugasan()
     {
-        return $this->hasMany(Kegiatan::class, 'pembimbing_id');
+        return $this->hasOne(Kegiatan::class, 'pembimbing_id');
     }
 }
