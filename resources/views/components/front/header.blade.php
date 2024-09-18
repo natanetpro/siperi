@@ -13,13 +13,22 @@
                     @include('components.front.partials.menu', ['menu' => $menu])
                 @endforeach
                 <li>
-                    <button class="bg-success cta-btn d-sm-block" href="#buy-tickets" data-bs-toggle="modal"
+                    <button class="bg-success cta-btn d-sm-block" data-bs-toggle="modal"
                         data-bs-target="#exLargeModal">Daftar</button>
+                </li>
+                <li class="mt-sm-3 mt-md-0">
+                    <button onclick="redirectDashboard()" class="bg-danger cta-btn d-sm-block">Masuk</button>
                 </li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-
-
     </div>
 </header>
+
+@push('scripts')
+    <script>
+        function redirectDashboard() {
+            window.location.href = "{{ route('peserta.login.index') }}";
+        }
+    </script>
+@endpush

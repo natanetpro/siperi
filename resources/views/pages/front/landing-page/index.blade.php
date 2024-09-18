@@ -1183,6 +1183,24 @@
                                                     </div>
                                                 @enderror
                                             </div>
+                                            <div>
+                                                <label class="form-label" for="">Captcha : </label>
+                                                <div class="captcha d-flex gap-2 mb-2">
+                                                    <span>{!! captcha_img() !!}</span>
+                                                    <button type="button" onclick="refreshCaptchaRiset()"
+                                                        class="btn btn-sm btn-danger"><i
+                                                            class="ti ti-rotate"></i></button>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control @error('captcha') is-invalid
+                                                        @enderror"
+                                                    required name="captcha" />
+                                                @error('captcha')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                             <div class="col-12 d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
@@ -1372,6 +1390,24 @@
                                                     </div>
                                                 @enderror
                                             </div>
+                                            <div>
+                                                <label class="form-label" for="">Captcha : </label>
+                                                <div class="captcha d-flex gap-2 mb-2">
+                                                    <span>{!! captcha_img() !!}</span>
+                                                    <button type="button" onclick="refreshCaptchaKKP()"
+                                                        class="btn btn-sm btn-danger"><i
+                                                            class="ti ti-rotate"></i></button>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control @error('captcha') is-invalid
+                                                        @enderror"
+                                                    required name="captcha" />
+                                                @error('captcha')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                             <div class="col-12 d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
@@ -1548,6 +1584,24 @@
                                                     </div>
                                                 @enderror
                                             </div>
+                                            <div>
+                                                <label class="form-label" for="">Captcha : </label>
+                                                <div class="captcha d-flex gap-2 mb-2">
+                                                    <span>{!! captcha_img() !!}</span>
+                                                    <button type="button" onclick="refreshCaptchaPrakerin()"
+                                                        class="btn btn-sm btn-danger"><i
+                                                            class="ti ti-rotate"></i></button>
+                                                </div>
+                                                <input type="text"
+                                                    class="form-control @error('captcha') is-invalid
+                                                        @enderror"
+                                                    required name="captcha" />
+                                                @error('captcha')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                             <div class="col-12 d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
@@ -1613,5 +1667,35 @@
         $('input[name="nama_kegiatan"]').on('keyup', function() {
             $(this).val($(this).val().toUpperCase());
         });
+
+        function refreshCaptchaRiset() {
+            $.ajax({
+                url: "{{ route('landing-page.reload-captcha.riset') }}",
+                type: 'get',
+                success: function(data) {
+                    $('.captcha span').html(data.captcha);
+                }
+            });
+        }
+
+        function refreshCaptchaKKP() {
+            $.ajax({
+                url: "{{ route('landing-page.reload-captcha.kkp') }}",
+                type: 'get',
+                success: function(data) {
+                    $('.captcha span').html(data.captcha);
+                }
+            });
+        }
+
+        function refreshCaptchaPrakerin() {
+            $.ajax({
+                url: "{{ route('landing-page.reload-captcha.prakerin') }}",
+                type: 'get',
+                success: function(data) {
+                    $('.captcha span').html(data.captcha);
+                }
+            });
+        }
     </script>
 @endpush

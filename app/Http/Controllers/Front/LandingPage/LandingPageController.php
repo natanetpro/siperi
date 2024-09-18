@@ -37,6 +37,8 @@ class LandingPageController extends Controller
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date',
             'surat_permohonan' => 'required|file|mimes:pdf|max:2048',
+
+            'captcha' => 'required|captcha',
         ]);
 
         DB::beginTransaction();
@@ -95,6 +97,8 @@ class LandingPageController extends Controller
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date',
             'surat_permohonan' => 'required|file|mimes:pdf|max:2048',
+
+            'captcha' => 'required|captcha',
         ]);
 
         DB::beginTransaction();
@@ -152,6 +156,8 @@ class LandingPageController extends Controller
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date',
             'surat_permohonan' => 'required|file|mimes:pdf|max:2048',
+
+            'captcha' => 'required|captcha',
         ]);
 
         DB::beginTransaction();
@@ -187,5 +193,20 @@ class LandingPageController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Gagal mendaftar kegiatan Prakerin. Silahkan coba lagi.');
         }
+    }
+
+    public function reloadCaptchaRiset()
+    {
+        return response()->json(['captcha' => captcha_img()]);
+    }
+
+    public function reloadCaptchaKKP()
+    {
+        return response()->json(['captcha' => captcha_img()]);
+    }
+
+    public function reloadCaptchaPrakerin()
+    {
+        return response()->json(['captcha' => captcha_img()]);
     }
 }
