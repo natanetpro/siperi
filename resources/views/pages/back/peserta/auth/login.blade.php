@@ -56,6 +56,12 @@
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Log in</button>
                             </div>
+                            <div class="d-flex flex-column align-items-center">
+                                <a href="{{ route('admin.login.index') }}" class="text-primary">Masuk sebagai
+                                    admin</a>
+                                <a href="{{ route('pembimbing.login.index') }}" class="text-primary">Masuk sebagai
+                                    pembimbing</a>
+                            </div>
                         </form>
                     </div>
                 </div>

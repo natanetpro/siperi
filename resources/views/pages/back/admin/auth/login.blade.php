@@ -57,6 +57,11 @@
                                 <button class="btn btn-primary d-grid w-100" type="submit">Log in</button>
                             </div>
                         </form>
+                        <div class="d-flex flex-column align-items-center">
+                            <a href="{{ route('pembimbing.login.index') }}" class="text-primary">Masuk sebagai
+                                pembimbing</a>
+                            <a href="{{ route('peserta.login.index') }}" class="text-primary">Masuk sebagai peserta</a>
+                        </div>
                     </div>
                 </div>
                 <!-- /Register -->
