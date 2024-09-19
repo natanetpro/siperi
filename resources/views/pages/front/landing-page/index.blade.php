@@ -1561,7 +1561,7 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
                                                 <input type="date" id="tanggal_mulai"
-                                                    class="form-control error('tanggal_mulai') is-invalid @enderror"
+                                                    class="form-control @error('tanggal_mulai') is-invalid @enderror"
                                                     placeholder="YYYY-MM-DD" name="tanggal_mulai" required @ />
                                                 @error('tanggal_mulai')
                                                     <div class="invalid-feedback">

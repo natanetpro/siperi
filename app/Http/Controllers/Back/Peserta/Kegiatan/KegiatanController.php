@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\DB;
 
 class KegiatanController extends Controller
 {
+    public function __construct()
+    {
+        // jika tanggal sekarang sudah melewati tanggal selesai kegiatan maka ubah active menjadi false
+        $kegiatan = Auth::user()->userKegiatan;
+        if ($kegiatan->kegiatan->tanggal_selesai < date('Y-m-d')) {
+            $kegiatan->update([
+                'active' => false,
+            ]);
+        }
+    }
     public function index()
     {
         return view('pages.back.peserta.kegiatan.index', [
