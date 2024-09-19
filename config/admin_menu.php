@@ -43,7 +43,7 @@ return [
             ],
             [
                 'nama_menu' => 'Manajemen Menu',
-                'url' => 'admin/setelan/menu',
+                'url' => 'admin/setelan/menu/panel',
                 'children' => []
             ]
         ]
