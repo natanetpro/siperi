@@ -6,7 +6,18 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="faq-header d-flex flex-column justify-content-center align-items-center rounded">
             <h3 class="text-center">{{ Auth::user()->userKegiatan->kegiatan->nama_kegiatan }}</h3>
-            <p class="text-center mb-0 px-3">Silahkan isi logbook harian dan laporan akhir setelah kegiatan selesai.</p>
+            <p class="text-center mb-0 px-3">Oleh: {{ Auth::user()->pemohon->nama_pemohon }}
+                ({{ \Carbon\Carbon::parse(Auth::user()->pemohon->tanggal_mulai)->format('d M Y') }} -
+                {{ \Carbon\Carbon::parse(Auth::user()->pemohon->tanggal_selesai)->format('d M Y') }})</p>
+            @switch(Auth::user()->userKegiatan->active)
+                @case(true)
+                    <span class="badge bg-success mt-4">Sedang Berjalan</span>
+                @break
+
+                @case(false)
+                    <span class="badge bg-danger mt-4">Selesai</span>
+                @break
+            @endswitch
         </div>
 
         <div class="row mt-4">
@@ -24,6 +35,12 @@
                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#delivery">
                                 <i class="ti ti-file me-1 ti-sm"></i>
                                 <span class="align-middle fw-semibold">Laporan Akhir</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#certificate">
+                                <i class="ti ti-certificate me-1 ti-sm"></i>
+                                <span class="align-middle fw-semibold">Sertifikat</span>
                             </button>
                         </li>
                     </ul>
@@ -54,8 +71,10 @@
                                 <small>Masukkan seluruh aktivitas kegiatan anda</small>
                             </div>
                         </div>
-                        <button class="btn btn-success mb-3" onclick="openModalLogbook('create')">Tambah
-                            Aktivitas</button>
+                        @if (Auth::user()->userKegiatan->active)
+                            <button class="btn btn-success mb-3" onclick="openModalLogbook('create')">Tambah
+                                Aktivitas</button>
+                        @endif
                         <div id="accordionPayment" class="accordion">
                             @forelse ($logbooks as $logbook)
                                 <div class="card accordion-item">
@@ -87,10 +106,11 @@
                                                         <p class="card-text">
                                                             {{ $logbook->aktivitas }}
                                                         </p>
-
-                                                        <button class="btn btn-warning btn-sm"
-                                                            onclick="openModalLogbook('edit', {{ $logbook->id }})"><i
-                                                                class="ti ti-pencil"></i></button>
+                                                        @if (Auth::user()->userKegiatan->active && $logbook->approval_pembimbing == 'Menunggu')
+                                                            <button class="btn btn-warning btn-sm"
+                                                                onclick="openModalLogbook('edit', {{ $logbook->id }})"><i
+                                                                    class="ti ti-pencil"></i></button>
+                                                        @endif
                                                     </div>
                                                     <div class="d-flex flex-column gap-2">
                                                         <a href="{{ url($logbook->dokumentasi) }}" target="_blank">
@@ -123,8 +143,10 @@
                                 <small>Masukkan laporan akhir sebagai validasi kegiatan anda</small>
                             </div>
                         </div>
-                        <button class="btn btn-success mb-3" onclick="openModalLaporanAkhir('create')">Kirim Laporan
-                            Akhir</button>
+                        @if (Auth::user()->userKegiatan->active)
+                            <button class="btn btn-success mb-3" onclick="openModalLaporanAkhir('create')">Kirim Laporan
+                                Akhir</button>
+                        @endif
                         @if (!$laporan_akhir)
                             <p>Belum ada laporan akhir</p>
                         @else
@@ -145,8 +167,10 @@
                                             @endif
                                             </span>
                                         </a>
-                                        <button onclick="openModalLaporanAkhir('edit', {{ $laporan_akhir->id }})"
-                                            class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></button>
+                                        @if (Auth::user()->userKegiatan->active && $laporan_akhir->approval_pembimbing == 'Menunggu')
+                                            <button onclick="openModalLaporanAkhir('edit', {{ $laporan_akhir->id }})"
+                                                class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></button>
+                                        @endif
                                     </div>
                                     <div class="d-flex flex-column gap-2">
                                         <span class="text-danger">{{ $laporan_akhir->catatan_pembimbing }}</span>
@@ -154,6 +178,28 @@
                                 </div>
                             </div>
                         @endif
+                    </div>
+                    <div class="tab-pane fade" id="certificate" role="tabpanel">
+                        <div class="d-flex mb-3 gap-3">
+                            <div>
+                                <span class="badge bg-label-primary rounded-2 p-2">
+                                    <i class="ti ti-certificate ti-lg"></i>
+                                </span>
+                            </div>
+                            <div>
+                                <h4 class="mb-0">
+                                    <span class="align-middle">Sertifikat</span>
+                                </h4>
+                                <small>Silahkan download sertifikat kegiatan anda (Harap menyelesaikan logbook dan laporan
+                                    akhir)</small>
+                            </div>
+                        </div>
+                        {{-- check jika logbook semua logbook telah disetujui dan telah upload laporan akhir --}}
+                        @if ($logbooks->where('approval_pembimbing', 'Disetujui')->count() == $logbooks->count() && $laporan_akhir)
+                            <a href="#" class="btn btn-success mb-3">Download
+                                Sertifikat</a>
+                        @endif
+                        {{-- <a href="" class="btn btn-success mb-3">Download Sertifikat</a> --}}
                     </div>
                 </div>
             </div>

@@ -1001,7 +1001,7 @@
                             </div>
                             <div class="bs-stepper-content d-flex flex-column gap-5">
                                 <!-- Account Details -->
-                                <div id="account-details" class="content">
+                                <div id="account-details" class="content data-diri">
                                     <form action="{{ route('landing-page.daftar.riset') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
@@ -1012,9 +1012,9 @@
                                         <div class="row g-3">
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="nama">Nama Lengkap</label>
-                                                <input type="text" id="nama" class="form-control"
-                                                    placeholder="johndoe" required name="nama_pemohon" required
-                                                    @error('nama_pemohon') is-invalid @enderror>
+                                                <input type="text" id="nama"
+                                                    class="form-control @error('nama_pemohon') is-invalid @enderror"
+                                                    placeholder="johndoe" required name="nama_pemohon" required>
                                                 @error('nama_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1023,10 +1023,10 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="email">Email</label>
-                                                <input type="email" id="email" class="form-control"
+                                                <input type="email" id="email"
+                                                    class="form-control @error('email_pemohon') is-invalid @enderror"
                                                     placeholder="john.doe@email.com" aria-label="john.doe"
-                                                    name="email_pemohon" required
-                                                    @error('email_pemohon') is-invalid @enderror>
+                                                    name="email_pemohon" required>
                                                 @error('email_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1035,11 +1035,11 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="no_telp_pemohon">Telepon</label>
-                                                <input type="number" id="no_telp_pemohon" class="form-control"
+                                                <input type="number" id="no_telp_pemohon"
+                                                    class="form-control @error('no_telp_pemohon') is-invalid
+                                                        @enderror"
                                                     placeholder="08xxxxxxxxx" aria-label="john.doe" name="no_telp_pemohon"
-                                                    required
-                                                    @error('no_telp_pemohon') is-invalid
-                                                        @enderror>
+                                                    required>
                                                 @error('no_telp_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1048,8 +1048,9 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-select" required
-                                                    @error('jenis_kelamin') is-invalid @enderror>
+                                                <select name="jenis_kelamin" id="jenis_kelamin"
+                                                    class="form-select @error('jenis_kelamin') is-invalid @enderror"
+                                                    required>
                                                     <option value="L">Laki-Laki</option>
                                                     <option value="P">Perempuan</option>
                                                 </select>
@@ -1061,9 +1062,9 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
-                                                <input type="date" id="tanggal_lahir" class="form-control"
-                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required
-                                                    @error('tanggal_lahir') is-invalid @enderror>
+                                                <input type="date" id="tanggal_lahir"
+                                                    class="form-control @error('tanggal_lahir') is-invalid @enderror"
+                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required>
                                                 @error('tanggal_lahir')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1080,9 +1081,9 @@
                                             <div class="row g-3">
                                                 <div>
                                                     <label class="form-label" for="nim">NIM</label>
-                                                    <input type="number" id="nim" class="form-control"
-                                                        placeholder="212xxxxxxxxx" required name="nim"
-                                                        @error('nim') is-invalid @enderror />
+                                                    <input type="number" id="nim"
+                                                        class="form-control @error('nim') is-invalid @enderror"
+                                                        placeholder="212xxxxxxxxx" required name="nim" />
                                                     @error('nim')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1091,9 +1092,9 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="universitas">Universitas</label>
-                                                    <input type="text" id="universitas" class="form-control"
-                                                        name="universitas" placeholder="UNIVERSITAS SWISS" required
-                                                        @error('universitas') is-invalid @enderror />
+                                                    <input type="text" id="universitas"
+                                                        class="form-control @error('universitas') is-invalid @enderror"
+                                                        name="universitas" placeholder="UNIVERSITAS SWISS" required />
                                                     @error('universitas')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1102,9 +1103,9 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="fakultas">Fakultas</label>
-                                                    <input type="text" id="fakultas" class="form-control"
-                                                        name="fakultas" placeholder="ILMU BUDAYA" required
-                                                        @error('fakultas') is-invalid @enderror />
+                                                    <input type="text" id="fakultas"
+                                                        class="form-control @error('fakultas') is-invalid @enderror"
+                                                        name="fakultas" placeholder="ILMU BUDAYA" required />
                                                     @error('fakultas')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1113,9 +1114,9 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="prodi">Program Studi</label>
-                                                    <input type="text" id="prodi" class="form-control"
-                                                        name="prodi" placeholder="SASTRA MESIN" required
-                                                        @error('prodi') is-invalid @enderror />
+                                                    <input type="text" id="prodi"
+                                                        class="form-control @error('prodi') is-invalid @enderror"
+                                                        name="prodi" placeholder="SASTRA MESIN" required />
                                                     @error('prodi')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1124,8 +1125,14 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="semester">Semester</label>
-                                                    <input type="number" id="semester" class="form-control"
+                                                    <input type="number" id="semester"
+                                                        class="form-control @error('semester') is-invalid @enderror"
                                                         name="semester" placeholder="5" required />
+                                                    @error('semester')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -1137,9 +1144,10 @@
                                         <div class="row g-3">
                                             <div>
                                                 <label class="form-label" for="nama_kegiatan">Nama Kegiatan</label>
-                                                <input type="text" id="nama_kegiatan" class="form-control" required
-                                                    name="nama_kegiatan" placeholder="Masukkan nama kegiatan" required
-                                                    @error('nama_kegiatan') is-invalid @enderror />
+                                                <input type="text" id="nama_kegiatan"
+                                                    class="form-control @error('nama_kegiatan') is-invalid @enderror"
+                                                    required name="nama_kegiatan" placeholder="Masukkan nama kegiatan"
+                                                    required />
                                                 @error('nama_kegiatan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1148,9 +1156,9 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
-                                                <input type="date" id="tanggal_mulai" class="form-control"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required
-                                                    @error('tanggal_mulai') is-invalid @enderror />
+                                                <input type="date" id="tanggal_mulai"
+                                                    class="form-control @error('tanggal_mulai') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required />
                                                 @error('tanggal_mulai')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1160,9 +1168,9 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_selesai">Tanggal
                                                     Selesai</label>
-                                                <input type="date" id="tanggal_selesai" class="form-control"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required
-                                                    @error('tanggal_selesai') is-invalid @enderror />
+                                                <input type="date" id="tanggal_selesai"
+                                                    class="form-control @error('tanggal_selesai') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required />
                                                 @error('tanggal_selesai')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1173,10 +1181,10 @@
                                                 <label class="form-label" for="surat_permohonan">Upload Surat
                                                     Permohonan:
                                                     (.pdf)</label>
-                                                <input type="file" id="surat_permohonan" class="form-control" required
-                                                    name="surat_permohonan"
-                                                    @error('surat_permohonan') is-invalid
-                                                        @enderror />
+                                                <input type="file" id="surat_permohonan"
+                                                    class="form-control @error('surat_permohonan') is-invalid
+                                                        @enderror"
+                                                    required name="surat_permohonan" />
                                                 @error('surat_permohonan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1208,7 +1216,7 @@
                                     </form>
                                 </div>
                                 <!-- Personal Info -->
-                                <div id="personal-info" class="content">
+                                <div id="personal-info" class="content data-pendidikan">
                                     <form action="{{ route('landing-page.daftar.kkp') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
@@ -1219,9 +1227,9 @@
                                         <div class="row g-3">
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="nama">Nama Lengkap</label>
-                                                <input type="text" id="nama" class="form-control"
-                                                    placeholder="johndoe" required name="nama_pemohon" required
-                                                    @error('nama_pemohon') is-invalid @enderror>
+                                                <input type="text" id="nama"
+                                                    class="form-control @error('nama_pemohon') is-invalid @enderror"
+                                                    placeholder="johndoe" required name="nama_pemohon" required>
                                                 @error('nama_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1230,10 +1238,10 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="email">Email</label>
-                                                <input type="email" id="email" class="form-control"
+                                                <input type="email" id="email"
+                                                    class="form-control @error('email_pemohon') is-invalid @enderror"
                                                     placeholder="john.doe@email.com" aria-label="john.doe"
-                                                    name="email_pemohon" required
-                                                    @error('email_pemohon') is-invalid @enderror>
+                                                    name="email_pemohon" required>
                                                 @error('email_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1242,11 +1250,11 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="no_telp_pemohon">Telepon</label>
-                                                <input type="number" id="no_telp_pemohon" class="form-control"
+                                                <input type="number" id="no_telp_pemohon"
+                                                    class="form-control @error('no_telp_pemohon') is-invalid
+                                                        @enderror"
                                                     placeholder="08xxxxxxxxx" aria-label="john.doe"
-                                                    name="no_telp_pemohon" required
-                                                    @error('no_telp_pemohon') is-invalid
-                                                        @enderror>
+                                                    name="no_telp_pemohon" required>
                                                 @error('no_telp_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1255,8 +1263,9 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-select"
-                                                    required @error('jenis_kelamin') is-invalid @enderror>
+                                                <select name="jenis_kelamin" id="jenis_kelamin"
+                                                    class="form-select @error('jenis_kelamin') is-invalid @enderror"
+                                                    required>
                                                     <option value="L">Laki-Laki</option>
                                                     <option value="P">Perempuan</option>
                                                 </select>
@@ -1268,9 +1277,9 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
-                                                <input type="date" id="tanggal_lahir" class="form-control"
-                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required
-                                                    @error('tanggal_lahir') is-invalid @enderror>
+                                                <input type="date" id="tanggal_lahir"
+                                                    class="form-control @error('tanggal_lahir') is-invalid @enderror"
+                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required>
                                                 @error('tanggal_lahir')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1287,9 +1296,9 @@
                                             <div class="row g-3">
                                                 <div>
                                                     <label class="form-label" for="nim">NIM</label>
-                                                    <input type="number" id="nim" class="form-control"
-                                                        placeholder="212xxxxxxxxx" required name="nim"
-                                                        @error('nim') is-invalid @enderror />
+                                                    <input type="number" id="nim"
+                                                        class="form-control @error('nim') is-invalid @enderror"
+                                                        placeholder="212xxxxxxxxx" required name="nim" />
                                                     @error('nim')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1298,9 +1307,9 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="universitas">Universitas</label>
-                                                    <input type="text" id="universitas" class="form-control"
-                                                        name="universitas" placeholder="UNIVERSITAS SWISS" required
-                                                        @error('universitas') is-invalid @enderror />
+                                                    <input type="text" id="universitas"
+                                                        class="form-control @error('universitas') is-invalid @enderror"
+                                                        name="universitas" placeholder="UNIVERSITAS SWISS" required />
                                                     @error('universitas')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1309,9 +1318,9 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="fakultas">Fakultas</label>
-                                                    <input type="text" id="fakultas" class="form-control"
-                                                        name="fakultas" placeholder="ILMU BUDAYA" required
-                                                        @error('fakultas') is-invalid @enderror />
+                                                    <input type="text" id="fakultas"
+                                                        class="form-control @error('fakultas') is-invalid @enderror"
+                                                        name="fakultas" placeholder="ILMU BUDAYA" required />
                                                     @error('fakultas')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1320,9 +1329,9 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="prodi">Program Studi</label>
-                                                    <input type="text" id="prodi" class="form-control"
-                                                        name="prodi" placeholder="SASTRA MESIN" required
-                                                        @error('prodi') is-invalid @enderror />
+                                                    <input type="text" id="prodi"
+                                                        class="form-control @error('prodi') is-invalid @enderror"
+                                                        name="prodi" placeholder="SASTRA MESIN" required />
                                                     @error('prodi')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1331,7 +1340,8 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="semester">Semester</label>
-                                                    <input type="number" id="semester" class="form-control"
+                                                    <input type="number" id="semester"
+                                                        class="form-control @error('semester') is-invalid @enderror"
                                                         name="semester" placeholder="5" required />
                                                 </div>
                                             </div>
@@ -1344,9 +1354,9 @@
                                         <div class="row g-3">
                                             <div>
                                                 <label class="form-label" for="nama_kegiatan">Nama Kegiatan</label>
-                                                <input type="text" id="nama_kegiatan" class="form-control" required
-                                                    name="nama_kegiatan" placeholder="Masukkan nama kegiatan" required
-                                                    @error('nama_kegiatan') is-invalid @enderror />
+                                                <input type="text" id="nama_kegiatan"
+                                                    class="form-control @error('nama_kegiatan') is-invalid @enderror"
+                                                    required name="nama_kegiatan" placeholder="Masukkan nama kegiatan" />
                                                 @error('nama_kegiatan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1355,9 +1365,9 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
-                                                <input type="date" id="tanggal_mulai" class="form-control"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required
-                                                    @error('tanggal_mulai') is-invalid @enderror />
+                                                <input type="date" id="tanggal_mulai"
+                                                    class="form-control @error('tanggal_mulai') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required />
                                                 @error('tanggal_mulai')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1367,9 +1377,9 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_selesai">Tanggal
                                                     Selesai</label>
-                                                <input type="date" id="tanggal_selesai" class="form-control"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required
-                                                    @error('tanggal_selesai') is-invalid @enderror />
+                                                <input type="date" id="tanggal_selesai"
+                                                    class="form-control @error('tanggal_selesai') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required />
                                                 @error('tanggal_selesai')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1380,10 +1390,10 @@
                                                 <label class="form-label" for="surat_permohonan">Upload Surat
                                                     Permohonan:
                                                     (.pdf)</label>
-                                                <input type="file" id="surat_permohonan" class="form-control" required
-                                                    name="surat_permohonan"
-                                                    @error('surat_permohonan') is-invalid
-                                                        @enderror />
+                                                <input type="file" id="surat_permohonan"
+                                                    class="form-control @error('surat_permohonan') is-invalid
+                                                        @enderror"
+                                                    required name="surat_permohonan" />
                                                 @error('surat_permohonan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1415,7 +1425,7 @@
                                     </form>
                                 </div>
                                 <!-- Social Links -->
-                                <div id="social-links" class="content">
+                                <div id="social-links" class="content data-permohonan">
                                     <form action="{{ route('landing-page.daftar.prakerin') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
@@ -1426,9 +1436,9 @@
                                         <div class="row g-3">
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="nama">Nama Lengkap</label>
-                                                <input type="text" id="nama" class="form-control"
-                                                    placeholder="johndoe" required name="nama_pemohon" required
-                                                    @error('nama_pemohon') is-invalid @enderror>
+                                                <input type="text" id="nama"
+                                                    class="form-control @error('nama_pemohon') is-invalid @enderror"
+                                                    placeholder="johndoe" required name="nama_pemohon" required>
                                                 @error('nama_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1437,10 +1447,10 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="email">Email</label>
-                                                <input type="email" id="email" class="form-control"
+                                                <input type="email" id="email"
+                                                    class="form-control @error('email_pemohon') is-invalid @enderror"
                                                     placeholder="john.doe@email.com" aria-label="john.doe"
-                                                    name="email_pemohon" required
-                                                    @error('email_pemohon') is-invalid @enderror>
+                                                    name="email_pemohon" required>
                                                 @error('email_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1449,11 +1459,11 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="no_telp_pemohon">Telepon</label>
-                                                <input type="number" id="no_telp_pemohon" class="form-control"
+                                                <input type="number" id="no_telp_pemohon"
+                                                    class="form-control @error('no_telp_pemohon') is-invalid
+                                                        @enderror"
                                                     placeholder="08xxxxxxxxx" aria-label="john.doe"
-                                                    name="no_telp_pemohon" required
-                                                    @error('no_telp_pemohon') is-invalid
-                                                        @enderror>
+                                                    name="no_telp_pemohon" required>
                                                 @error('no_telp_pemohon')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1462,8 +1472,9 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-select"
-                                                    required @error('jenis_kelamin') is-invalid @enderror>
+                                                <select name="jenis_kelamin" id="jenis_kelamin"
+                                                    class="form-select @error('jenis_kelamin') is-invalid @enderror"
+                                                    required>
                                                     <option value="L">Laki-Laki</option>
                                                     <option value="P">Perempuan</option>
                                                 </select>
@@ -1475,9 +1486,9 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
-                                                <input type="date" id="tanggal_lahir" class="form-control"
-                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required
-                                                    @error('tanggal_lahir') is-invalid @enderror>
+                                                <input type="date" id="tanggal_lahir"
+                                                    class="form-control @error('tanggal_lahir') is-invalid @enderror"
+                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required>
                                                 @error('tanggal_lahir')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1494,10 +1505,10 @@
                                             <div class="row g-3">
                                                 <div>
                                                     <label class="form-label" for="nis">NIS</label>
-                                                    <input type="number" id="nis" class="form-control"
-                                                        placeholder="212xxxxxxxxx" required name="nis"
-                                                        @error('nis') is-invalid
-                                                            @enderror />
+                                                    <input type="number" id="nis"
+                                                        class="form-control @error('nis') is-invalid
+                                                            @enderror"
+                                                        placeholder="212xxxxxxxxx" required name="nis" />
 
                                                     @error('nis')
                                                         <div class="invalid-feedback">
@@ -1507,9 +1518,9 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="sekolah">Sekolah</label>
-                                                    <input type="text" id="sekolah" class="form-control"
-                                                        name="sekolah" placeholder="SMK 17" required
-                                                        @error('sekolah') is-invalid @enderror />
+                                                    <input type="text" id="sekolah"
+                                                        class="form-control @error('sekolah') is-invalid @enderror"
+                                                        name="sekolah" placeholder="SMK 17" required />
                                                     @error('sekolah')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1518,9 +1529,9 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="kelas">Kelas</label>
-                                                    <input type="number" id="kelas" class="form-control"
-                                                        name="kelas" placeholder="10" required
-                                                        @error('kelas') is-invalid @enderror />
+                                                    <input type="number" id="kelas"
+                                                        class="form-control @error('kelas') is-invalid @enderror"
+                                                        name="kelas" placeholder="10" required />
 
                                                     @error('kelas')
                                                         <div class="invalid-feedback">
@@ -1538,9 +1549,9 @@
                                         <div class="row g-3">
                                             <div>
                                                 <label class="form-label" for="nama_kegiatan">Nama Kegiatan</label>
-                                                <input type="text" id="nama_kegiatan" class="form-control" required
-                                                    name="nama_kegiatan" placeholder="Masukkan nama kegiatan" required
-                                                    @error('nama_kegiatan') is-invalid @enderror />
+                                                <input type="text" id="nama_kegiatan"
+                                                    class="form-control @error('nama_kegiatan') is-invalid @enderror "
+                                                    required name="nama_kegiatan" placeholder="Masukkan nama kegiatan" />
                                                 @error('nama_kegiatan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1549,9 +1560,9 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
-                                                <input type="date" id="tanggal_mulai" class="form-control"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required
-                                                    @error('tanggal_mulai') is-invalid @enderror />
+                                                <input type="date" id="tanggal_mulai"
+                                                    class="form-control @error('tanggal_mulai') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required @ />
                                                 @error('tanggal_mulai')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1561,9 +1572,9 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_selesai">Tanggal
                                                     Selesai</label>
-                                                <input type="date" id="tanggal_selesai" class="form-control"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required
-                                                    @error('tanggal_selesai') is-invalid @enderror />
+                                                <input type="date" id="tanggal_selesai"
+                                                    class="form-control @error('tanggal_selesai') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required />
                                                 @error('tanggal_selesai')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1574,10 +1585,10 @@
                                                 <label class="form-label" for="surat_permohonan">Upload Surat
                                                     Permohonan:
                                                     (.pdf)</label>
-                                                <input type="file" id="surat_permohonan" class="form-control" required
-                                                    name="surat_permohonan"
-                                                    @error('surat_permohonan') is-invalid
-                                                        @enderror />
+                                                <input type="file" id="surat_permohonan"
+                                                    class="form-control @error('surat_permohonan') is-invalid
+                                                        @enderror"
+                                                    required name="surat_permohonan" />
                                                 @error('surat_permohonan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1697,5 +1708,14 @@
                 }
             });
         }
+
+        // disable previous date tanggal_mulai and tanggal_selesai
+        let today = new Date().toISOString().split('T')[0];
+        $('.data-diri #tanggal_mulai').attr('min', today);
+        $('.data-diri #tanggal_selesai').attr('min', today);
+        $('.data-pendidikan #tanggal_mulai').attr('min', today);
+        $('.data-pendidikan #tanggal_selesai').attr('min', today);
+        $('.data-permohonan #tanggal_mulai').attr('min', today);
+        $('.data-permohonan #tanggal_selesai').attr('min', today);
     </script>
 @endpush
