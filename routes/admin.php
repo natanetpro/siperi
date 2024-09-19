@@ -41,12 +41,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::prefix('menu')->name('menu.')->group(function () {
                 // panel
-                Route::get('panel', [ManajemenMenuController::class, 'index'])->name('panel.index');
-                Route::get('panel/create', [ManajemenMenuController::class, 'create'])->name('panel.create');
-                Route::post('panel', [ManajemenMenuController::class, 'store'])->name('panel.store');
-                Route::get('panel/{panel}/edit', [ManajemenMenuController::class, 'edit'])->name('panel.edit');
-                Route::put('panel/{panel}', [ManajemenMenuController::class, 'update'])->name('panel.update');
-                Route::delete('panel/{panel}', [ManajemenMenuController::class, 'destroy'])->name('panel.destroy');
+                Route::resource('panel', ManajemenMenuController::class);
+
+                // modul
+                Route::get('modul/{panel}', [ManajemenMenuController::class, 'index_modul'])->name('modul.index');
+                Route::get('modul/{panel}/create', [ManajemenMenuController::class, 'create_modul'])->name('modul.create');
+                Route::post('modul/{panel}', [ManajemenMenuController::class, 'store_modul'])->name('modul.store');
+                Route::get('modul/{modul}/edit', [ManajemenMenuController::class, 'edit_modul'])->name('modul.edit');
+                Route::put('modul/{modul}', [ManajemenMenuController::class, 'update_modul'])->name('modul.update');
+                Route::delete('modul/{modul}', [ManajemenMenuController::class, 'destroy_modul'])->name('modul.destroy');
             });
         });
     });

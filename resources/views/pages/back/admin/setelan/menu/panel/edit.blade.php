@@ -1,7 +1,5 @@
 @extends('layouts.back.app')
-@push('title')
-    Tambah Pembimbing
-@endpush
+
 @section('content')
     <div style="width: 300px" class="mb-3">
         <h4 class="fw-bold py-3"><span class="fw-bold">{{ $title }}</h4>
@@ -25,8 +23,9 @@
                         <div class="mb-3">
                             <label class="form-label">Peran</label>
                             <div class="select2-primary">
-                                <select id="select2Primary" class="select2 form-select @error('roles') is-invalid @enderror"
-                                    multiple name="roles[]">
+                                <select id="select2Primary select2"
+                                    class="select2 form-select @error('roles') is-invalid @enderror" multiple name="roles[]"
+                                    required>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->name }}"
                                             {{ in_array($role->name, $panel->roles->pluck('name')->toArray()) ? 'selected' : '' }}>

@@ -8,16 +8,13 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Menu extends Model
 {
-    use HasFactory, HasRoles;
-
-    protected $guard_name = 'web';
+    use HasFactory;
 
     protected $fillable = [
-        'key',
+        // 'key',
         'panel_id',
         'nama_menu',
         'parent',
-        'roles',
         'url',
     ];
 
@@ -27,12 +24,12 @@ class Menu extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Menu::class, 'parent', 'key');
+        return $this->belongsTo(Menu::class, 'parent', 'id');
     }
 
     public function children()
     {
-        return $this->hasMany(Menu::class, 'parent', 'key');
+        return $this->hasMany(Menu::class, 'parent', 'id');
     }
 
     public function panel()
