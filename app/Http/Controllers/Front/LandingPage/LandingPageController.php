@@ -43,14 +43,14 @@ class LandingPageController extends Controller
 
         DB::beginTransaction();
         try {
-            dd(strtotime($request->tanggal_selesai) <= strtotime($request->tanggal_mulai));
-            // jika tanggal mulai kurang dari tanggal sekarang
-            if (strtotime($request->tanggal_mulai) < strtotime(date('Y-m-d'))) {
-                return redirect()->back()->with('error', 'Tanggal mulai kegiatan tidak boleh kurang dari tanggal sekarang.');
+            // dd(strtotime($request->tanggal_selesai) <= strtotime($request->tanggal_mulai));
+            // // jika tanggal mulai kurang dari tanggal sekarang
+            if (strtotime($request->tanggal_mulai) <= strtotime(date('Y-m-d'))) {
+                throw new \Exception('Tanggal mulai kegiatan tidak boleh kurang dari tanggal sekarang.');
             }
             // jika tanggal selesai kurang dari atau sama dengan tanggal mulai
             if (strtotime($request->tanggal_selesai) <= strtotime($request->tanggal_mulai)) {
-                return redirect()->back()->with('error', 'Tanggal selesai kegiatan tidak boleh kurang dari atau sama dengan tanggal mulai.');
+                throw new \Exception('Tanggal selesai kegiatan tidak boleh kurang dari atau sama dengan tanggal mulai.');
             }
             $pemohon = Pemohon::create([
                 'nama_pemohon' => $request->nama_pemohon,
