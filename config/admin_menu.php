@@ -30,6 +30,11 @@ return [
                 'url' => 'admin/master-data/pembimbing',
                 'children' => []
             ],
+            [
+                'nama_menu' => 'Sertifikat',
+                'url' => 'admin/master-data/sertifikat',
+                'children' => []
+            ]
         ]
     ],
     [

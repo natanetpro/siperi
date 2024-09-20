@@ -14,12 +14,14 @@ class Certificate extends Model implements HasMedia
     protected $fillable = [
         'nama_pemimpin',
         'nip_pemimpin',
-        'ttd_pemimpin',
+        // 'ttd_pemimpin',
     ];
 
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('template')
+            ->singleFile();
+        $this->addMediaCollection('ttd_pemimpin')
             ->singleFile();
     }
 }

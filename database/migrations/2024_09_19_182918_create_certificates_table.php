@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_pemimpin');
             $table->string('nip_pemimpin');
-            $table->string('ttd_pemimpin');
+            // $table->string('ttd_pemimpin');
             $table->timestamps();
         });
     }

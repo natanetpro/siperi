@@ -5,6 +5,7 @@ use App\Http\Controllers\Back\Admin\DashboardController;
 use App\Http\Controllers\Back\Admin\MasterData\OperatorController;
 use App\Http\Controllers\Back\Admin\MasterData\PembimbingController;
 use App\Http\Controllers\Back\Admin\MasterData\PimpinanController;
+use App\Http\Controllers\Back\Admin\MasterData\SertifikatController;
 use App\Http\Controllers\Back\Admin\PengajuanController;
 use App\Http\Controllers\Back\Admin\Setelan\ManajemenMenuController;
 use App\Http\Controllers\Back\Admin\Setelan\ManejemenPeranController;
@@ -26,6 +27,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('pembimbing', PembimbingController::class);
             Route::resource('operator', OperatorController::class);
             Route::resource('pimpinan', PimpinanController::class);
+            Route::resource('sertifikat', SertifikatController::class);
         });
 
         // Pengajuan
