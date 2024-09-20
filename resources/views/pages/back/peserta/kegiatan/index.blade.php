@@ -322,6 +322,9 @@
                 $('#logbook-title').text('Tambah Aktivitas');
                 $('#logbook-modal').modal('show');
                 $('#logbook-modal form').attr('action', '{{ route('peserta.kegiatan.store') }}');
+                // min today
+                var today = new Date().toISOString().split('T')[0];
+                $('#logbook-modal form input[name="tanggal"]').attr('min', today);
             } else if (action === 'edit', id != null) {
                 $('#logbook-title').text('Edit Aktivitas');
                 $('#logbook-modal').modal('show');

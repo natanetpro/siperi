@@ -1,7 +1,7 @@
 <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
     <div class="container-xxl">
         <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
-            <a href="{{ route('admin.dashboard.index') }}" class="app-brand-link gap-2">
+            <a href="#" class="app-brand-link gap-2">
                 <span class="">
                     <img src="{{ asset('logo-banten.png') }}" alt="" width="50">
                 </span>
@@ -388,10 +388,28 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
-                            <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="h-auto rounded-circle" />
+                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->pemohon->nama_pemohon }}" alt
+                                class="h-auto rounded-circle" />
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0 me-3">
+                                        <div class="avatar avatar-online">
+                                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->pemohon->nama_pemohon }}"
+                                                alt class="h-auto rounded-circle" />
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span
+                                            class="fw-semibold d-block">{{ auth()->user()->pemohon->nama_pemohon }}</span>
+                                        <small class="text-muted">{{ auth()->user()->getRoleNames() }}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                         <li>
                             <span class="dropdown-item" id="logout" style="cursor: pointer" onclick="logout()">
                                 <i class="ti ti-logout me-2 ti-sm"></i>

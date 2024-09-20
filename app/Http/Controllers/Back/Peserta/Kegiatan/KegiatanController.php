@@ -47,6 +47,13 @@ class KegiatanController extends Controller
 
         DB::beginTransaction();
         try {
+            // check if dokumentasi is a valid url and google drive url
+            if (!filter_var($request->dokumentasi, FILTER_VALIDATE_URL) || !preg_match('/drive.google.com/', $request->dokumentasi)) {
+                throw new Exception('Dokumentasi harus berupa link google drive');
+            }
+            if ($request->tanggal < date('Y-m-d')) {
+                throw new Exception('Tanggal tidak boleh kurang dari hari ini');
+            }
             Logbook::create([
                 'user_kegiatan_id' => Auth::user()->userKegiatan->id,
                 'tanggal' => $request->tanggal,
