@@ -12,7 +12,7 @@
             <div class="d-flex flex-row gap-3">
                 <div class="d-flex flex-column gap-1">
                     <label for="" class="fw-bold">Jenis Kegiatan:</label>
-                    <select name="jenis_kegiatan" id="" class="select select2 form-control">
+                    <select name="jenis_kegiatan" id="" class="select form-control">
                         <option value="">Semua</option>
                         <option value="Riset">Penelitian/Riset</option>
                         <option value="KKP">Kuliah Kerja Praktik</option>
@@ -22,7 +22,7 @@
 
                 <div class="d-flex flex-column gap-1">
                     <label for="" class="fw-bold">Status:</label>
-                    <select name="status" id="" class="select select2 form-control">
+                    <select name="status" id="" class="select form-control">
                         <option value="">Semua</option>
                         <option value="Menunggu">Menunggu</option>
                         <option value="Ditolak">Ditolak</option>
@@ -331,7 +331,7 @@
                 $('#pengajuan-modal .modal-title').text('Detail Pengajuan');
 
                 $.ajax({
-                    url: '/admin/pengajuan/' + id,
+                    url: `pengajuan/${id}`,
                     type: 'GET',
                     success: function(response) {
                         $('#nama_lengkap').text(response.pemohon.nama_pemohon);
@@ -372,7 +372,7 @@
                         } else {
                             $('select[name=approval_admin]').attr('disabled', false);
                             $('button#submit-pengajuan').attr('disabled', false);
-                            $('form#form-approval').attr('action', '/admin/pengajuan/' + id);
+                            $('form#form-approval').attr('action', 'pengajuan/' + id);
                             $('button#submit-pengajuan').text('Simpan');
                         }
 
@@ -386,7 +386,7 @@
                             $('textarea[name=catatan_admin]').attr('disabled', false);
                         }
 
-                        $('form#form-approval').attr('action', '/admin/pengajuan/' + id);
+                        $('form#form-approval').attr('action', 'pengajuan/' + id);
 
                     }
                 });
@@ -425,7 +425,7 @@
 
             function openModalPembimbing(id) {
                 $('#pembimbing-modal').modal('show');
-                $('#pembimbing-modal form').attr('action', '/admin/pengajuan/' + id + '/set-pembimbing');
+                $('#pembimbing-modal form').attr('action', 'pengajuan/' + id + '/set-pembimbing');
             }
         </script>
     @endpush
