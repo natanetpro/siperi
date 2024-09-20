@@ -1191,7 +1191,7 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <label class="form-label" for="">Captcha : </label>
                                                 <div class="captcha d-flex gap-2 mb-2">
                                                     <span>{!! captcha_img() !!}</span>
@@ -1208,7 +1208,7 @@
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                             <div class="col-12 d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
@@ -1400,7 +1400,7 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <label class="form-label" for="">Captcha : </label>
                                                 <div class="captcha d-flex gap-2 mb-2">
                                                     <span>{!! captcha_img() !!}</span>
@@ -1417,7 +1417,7 @@
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                             <div class="col-12 d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
@@ -1595,7 +1595,7 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <label class="form-label" for="">Captcha : </label>
                                                 <div class="captcha d-flex gap-2 mb-2">
                                                     <span>{!! captcha_img() !!}</span>
@@ -1612,7 +1612,7 @@
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                             <div class="col-12 d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
@@ -1679,35 +1679,35 @@
             $(this).val($(this).val().toUpperCase());
         });
 
-        function refreshCaptchaRiset() {
-            $.ajax({
-                url: "{{ route('landing-page.reload-captcha.riset') }}",
-                type: 'get',
-                success: function(data) {
-                    $('.captcha span').html(data.captcha);
-                }
-            });
-        }
+        // function refreshCaptchaRiset() {
+        //     $.ajax({
+        //         url: "{{ route('landing-page.reload-captcha.riset') }}",
+        //         type: 'get',
+        //         success: function(data) {
+        //             $('.captcha span').html(data.captcha);
+        //         }
+        //     });
+        // }
 
-        function refreshCaptchaKKP() {
-            $.ajax({
-                url: "{{ route('landing-page.reload-captcha.kkp') }}",
-                type: 'get',
-                success: function(data) {
-                    $('.captcha span').html(data.captcha);
-                }
-            });
-        }
+        // function refreshCaptchaKKP() {
+        //     $.ajax({
+        //         url: "{{ route('landing-page.reload-captcha.kkp') }}",
+        //         type: 'get',
+        //         success: function(data) {
+        //             $('.captcha span').html(data.captcha);
+        //         }
+        //     });
+        // }
 
-        function refreshCaptchaPrakerin() {
-            $.ajax({
-                url: "{{ route('landing-page.reload-captcha.prakerin') }}",
-                type: 'get',
-                success: function(data) {
-                    $('.captcha span').html(data.captcha);
-                }
-            });
-        }
+        // function refreshCaptchaPrakerin() {
+        //     $.ajax({
+        //         url: "{{ route('landing-page.reload-captcha.prakerin') }}",
+        //         type: 'get',
+        //         success: function(data) {
+        //             $('.captcha span').html(data.captcha);
+        //         }
+        //     });
+        // }
 
         // disable previous date tanggal_mulai and tanggal_selesai
         let today = new Date().toISOString().split('T')[0];
