@@ -18,19 +18,19 @@
                 </li>
                 <li>
                     {{-- @dd(Auth::user()->getRoleNames()) --}}
-                    @if (Auth::user()->hasRole('Administrator'))
+                    @if (Auth::check() && Auth::user()->hasRole('Administrator'))
                         <a href="{{ route('admin.dashboard.index') }}"
                             class="cta-btn d-sm-block bg-danger">Dashboard</a>
-                    @elseif (Auth::user()->hasRole('Pemohon'))
+                    @elseif (Auth::check() && Auth::user()->hasRole('Pemohon'))
                         <a href="{{ route('peserta.dashboard.index') }}"
                             class="cta-btn d-sm-block bg-danger">Dashboard</a>
-                    @elseif (Auth::user()->hasRole('Pembimbing'))
+                    @elseif (Auth::check() && Auth::user()->hasRole('Pembimbing'))
                         <a href="{{ route('pembimbing.dashboard.index') }}"
                             class="cta-btn d-sm-block bg-danger">Dashboard</a>
-                    @elseif(Auth::user()->hasRole('Pimpinan'))
+                    @elseif(Auth::check() && Auth::user()->hasRole('Pimpinan'))
                         <a href="{{ route('admin.dashboard.index') }}"
                             class="cta-btn d-sm-block bg-danger">Dashboard</a>
-                    @elseif (Auth::user()->hasRole('Operator'))
+                    @elseif (Auth::check() && Auth::user()->hasRole('Operator'))
                         <a href="{{ route('admin.dashboard.index') }}"
                             class="cta-btn d-sm-block bg-danger">Dashboard</a>
                     @else
