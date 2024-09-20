@@ -175,35 +175,32 @@ class KegiatanController extends Controller
         if (!$template) {
             return redirect()->back()->with('error', 'Template sertifikat belum diupload. Silahkan hubungi admin');
         }
+        $output = public_path('storage/certificate/certificate.pdf');
         $templatePath = $this->downloadTemplate($template->media[1]->original_url);
-        dd($templatePath);
-        $pdf = $this->fillPDF($templatePath, $data);
-        return response()->file($pdf);
+        $this->fillPdf($templatePath, $output, $data);
+        return response()->download($output);
     }
 
-    private function fillPDF($template, $data)
+    private function fillPdf($file, $outputFile, $data)
     {
-        $pdf = new Fpdi();
-        $pdf->AddPage();
-        $pdf->setSourceFile($template);
-        $tplIdx = $pdf->importPage(1);
-        $pdf->useTemplate($tplIdx, 0, 0, 210);
-        $pdf->SetFont('Arial', '', 12);
-        $nama = $data->user->pemohon->nama_pemohon;
-        $kegiatan = $data->kegiatan->nama_kegiatan;
-        $pdf->Text(50, 100, $nama);
-        $pdf->Text(50, 110, $kegiatan);
+        $fpdi = new Fpdi();
+        $fpdi->setSourceFile($file);
+        $template = $fpdi->importPage(1);
+        $size = $fpdi->getTemplateSize($template);
+        $fpdi->AddPage($size['orientation'], [$size['width'], $size['height']]);
+        $fpdi->useTemplate($template);
+        $fpdi->SetFont('Arial', '', 12);
+        $fpdi->Text(100, 100, $data->user->pemohon->nama_pemohon);
 
-        return $pdf->Output('S');
+        return $fpdi->Output($outputFile, 'F');
     }
 
     private function downloadTemplate($url)
     {
         $contents = file_get_contents($url);
-        // dd($contents);
         $tempPath = storage_path('app/public/temp_template.pdf');
         file_put_contents($tempPath, $contents);
-        // dd('sukses');
+
         return $tempPath;
     }
 }
