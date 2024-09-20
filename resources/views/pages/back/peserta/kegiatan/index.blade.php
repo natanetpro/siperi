@@ -196,7 +196,7 @@
                         </div>
                         {{-- check jika logbook semua logbook telah disetujui dan telah upload laporan akhir --}}
                         @if ($logbooks->where('approval_pembimbing', 'Disetujui')->count() == $logbooks->count() && $laporan_akhir)
-                            <a href="#" class="btn btn-success mb-3">Download
+                            <a href="{{ route('peserta.sertifikat.index') }}" class="btn btn-success mb-3">Download
                                 Sertifikat</a>
                         @endif
                         {{-- <a href="" class="btn btn-success mb-3">Download Sertifikat</a> --}}

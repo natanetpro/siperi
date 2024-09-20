@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Back\Peserta\Kegiatan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Certificate;
 use App\Models\LaporanAkhir;
 use App\Models\Logbook;
+use App\Models\UserKegiatan;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use setasign\Fpdi\Fpdi;
 
 class KegiatanController extends Controller
 {
@@ -163,5 +166,44 @@ class KegiatanController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+
+    public function download_certificate()
+    {
+        $template = Certificate::with('media')->first();
+        $data = UserKegiatan::with(['user', 'kegiatan', 'user.pemohon'])->where('user_id', Auth::user()->id)->first();
+        if (!$template) {
+            return redirect()->back()->with('error', 'Template sertifikat belum diupload. Silahkan hubungi admin');
+        }
+        $templatePath = $this->downloadTemplate($template->media[1]->original_url);
+        dd($templatePath);
+        $pdf = $this->fillPDF($templatePath, $data);
+        return response()->file($pdf);
+    }
+
+    private function fillPDF($template, $data)
+    {
+        $pdf = new Fpdi();
+        $pdf->AddPage();
+        $pdf->setSourceFile($template);
+        $tplIdx = $pdf->importPage(1);
+        $pdf->useTemplate($tplIdx, 0, 0, 210);
+        $pdf->SetFont('Arial', '', 12);
+        $nama = $data->user->pemohon->nama_pemohon;
+        $kegiatan = $data->kegiatan->nama_kegiatan;
+        $pdf->Text(50, 100, $nama);
+        $pdf->Text(50, 110, $kegiatan);
+
+        return $pdf->Output('S');
+    }
+
+    private function downloadTemplate($url)
+    {
+        $contents = file_get_contents($url);
+        // dd($contents);
+        $tempPath = storage_path('app/public/temp_template.pdf');
+        file_put_contents($tempPath, $contents);
+        // dd('sukses');
+        return $tempPath;
     }
 }

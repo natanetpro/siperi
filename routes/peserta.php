@@ -24,5 +24,8 @@ Route::prefix('peserta')->name('peserta.')->group(function () {
         // Laporan Akhir Routes
         Route::post('/laporan-akhir', [KegiatanController::class, 'storeLaporanAkhir'])->name('laporan_akhir.store');
         Route::put('/laporan-akhir/{id}', [KegiatanController::class, 'updateLaporanAkhir'])->name('laporan_akhir.update');
+
+        // Certificate Routes
+        Route::get('/sertifikat', [KegiatanController::class, 'download_certificate'])->name('sertifikat.index');
     });
 });

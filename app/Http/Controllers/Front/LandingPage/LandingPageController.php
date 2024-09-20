@@ -38,7 +38,7 @@ class LandingPageController extends Controller
             'tanggal_selesai' => 'required|date',
             'surat_permohonan' => 'required|file|mimes:pdf|max:2048',
 
-            'captcha' => 'required|captcha',
+            // 'captcha' => 'required|captcha',
         ]);
 
         DB::beginTransaction();
@@ -107,7 +107,7 @@ class LandingPageController extends Controller
             'tanggal_selesai' => 'required|date',
             'surat_permohonan' => 'required|file|mimes:pdf|max:2048',
 
-            'captcha' => 'required|captcha',
+            // 'captcha' => 'required|captcha',
         ]);
 
         DB::beginTransaction();
@@ -174,7 +174,7 @@ class LandingPageController extends Controller
             'tanggal_selesai' => 'required|date',
             'surat_permohonan' => 'required|file|mimes:pdf|max:2048',
 
-            'captcha' => 'required|captcha',
+            // 'captcha' => 'required|captcha',
         ]);
 
         DB::beginTransaction();
