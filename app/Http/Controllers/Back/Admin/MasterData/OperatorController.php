@@ -62,7 +62,7 @@ class OperatorController extends Controller
                 'password' => bcrypt($request->password),
                 'pemohon_id' => null,
             ]);
-            $operator->assignRole('Operator');
+            $operator->assignRole(['Administrator', 'Operator']);
             DB::commit();
             return redirect()->route('admin.master-data.operator.index')->with('success', 'Data ' . $this->modul . ' berhasil ditambahkan');
         } catch (\Exception $e) {

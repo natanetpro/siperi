@@ -1013,9 +1013,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="nama">Nama Lengkap</label>
                                                 <input type="text" id="nama"
-                                                    class="form-control @error('nama_pemohon') is-invalid @enderror"
-                                                    placeholder="johndoe" required name="nama_pemohon" required>
-                                                @error('nama_pemohon')
+                                                    class="form-control @error('nama_pemohon_riset') is-invalid @enderror"
+                                                    placeholder="johndoe" required name="nama_pemohon_riset" required
+                                                    value="{{ old('nama_pemohon_riset') }}">
+                                                @error('nama_pemohon_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1024,10 +1025,11 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="email">Email</label>
                                                 <input type="email" id="email"
-                                                    class="form-control @error('email_pemohon') is-invalid @enderror"
+                                                    class="form-control @error('email_pemohon_riset') is-invalid @enderror"
                                                     placeholder="john.doe@email.com" aria-label="john.doe"
-                                                    name="email_pemohon" required>
-                                                @error('email_pemohon')
+                                                    name="email_pemohon_riset" required
+                                                    value="{{ old('email_pemohon_riset') }}">
+                                                @error('email_pemohon_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1036,11 +1038,12 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="no_telp_pemohon">Telepon</label>
                                                 <input type="number" id="no_telp_pemohon"
-                                                    class="form-control @error('no_telp_pemohon') is-invalid
+                                                    class="form-control @error('no_telp_pemohon_riset') is-invalid
                                                         @enderror"
-                                                    placeholder="08xxxxxxxxx" aria-label="john.doe" name="no_telp_pemohon"
-                                                    required>
-                                                @error('no_telp_pemohon')
+                                                    placeholder="08xxxxxxxxx" aria-label="john.doe"
+                                                    name="no_telp_pemohon_riset" required
+                                                    value="{{ old('no_telp_riset') }}">
+                                                @error('no_telp_pemohon_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1048,11 +1051,15 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                <select name="jenis_kelamin" id="jenis_kelamin"
-                                                    class="form-select @error('jenis_kelamin') is-invalid @enderror"
+                                                <select name="jenis_kelamin_riset" id="jenis_kelamin_riset"
+                                                    class="form-select @error('jenis_kelamin_riset') is-invalid @enderror"
                                                     required>
-                                                    <option value="L">Laki-Laki</option>
-                                                    <option value="P">Perempuan</option>
+                                                    <option value="L"
+                                                        {{ old('jenis_kelamin_riset') ? 'selected' : '' }}>Laki-Laki
+                                                    </option>
+                                                    <option value="P"
+                                                        {{ old('jenis_kelamin_riset') ? 'selected' : '' }}>Perempuan
+                                                    </option>
                                                 </select>
                                                 @error('jenis_kelamin')
                                                     <div class="invalid-feedback">
@@ -1063,9 +1070,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
                                                 <input type="date" id="tanggal_lahir"
-                                                    class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required>
-                                                @error('tanggal_lahir')
+                                                    class="form-control @error('tanggal_lahir_riset') is-invalid @enderror"
+                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir_riset" required
+                                                    value="{{ old('tanggal_lahir_riset') }}">
+                                                @error('tanggal_lahir_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1082,9 +1090,10 @@
                                                 <div>
                                                     <label class="form-label" for="nim">NIM</label>
                                                     <input type="number" id="nim"
-                                                        class="form-control @error('nim') is-invalid @enderror"
-                                                        placeholder="212xxxxxxxxx" required name="nim" />
-                                                    @error('nim')
+                                                        class="form-control @error('nim_riset') is-invalid @enderror"
+                                                        placeholder="212xxxxxxxxx" required name="nim_riset"
+                                                        value="{{ old('nim_riset') }}" />
+                                                    @error('nim_riset')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1093,9 +1102,11 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="universitas">Universitas</label>
                                                     <input type="text" id="universitas"
-                                                        class="form-control @error('universitas') is-invalid @enderror"
-                                                        name="universitas" placeholder="UNIVERSITAS SWISS" required />
-                                                    @error('universitas')
+                                                        class="form-control @error('universitas_riset') is-invalid @enderror"
+                                                        name="universitas_riset" placeholder="UNIVERSITAS SWISS" required
+                                                        style="text-transform: uppercase"
+                                                        value="{{ old('universitas_riset') }}" />
+                                                    @error('universitas_riset')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1104,9 +1115,11 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="fakultas">Fakultas</label>
                                                     <input type="text" id="fakultas"
-                                                        class="form-control @error('fakultas') is-invalid @enderror"
-                                                        name="fakultas" placeholder="ILMU BUDAYA" required />
-                                                    @error('fakultas')
+                                                        class="form-control @error('fakultas_riset') is-invalid @enderror"
+                                                        name="fakultas_riset" placeholder="ILMU BUDAYA" required
+                                                        style="text-transform: uppercase"
+                                                        value="{{ old('fakultas_riset') }}" />
+                                                    @error('fakultas_riset')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1115,9 +1128,11 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="prodi">Program Studi</label>
                                                     <input type="text" id="prodi"
-                                                        class="form-control @error('prodi') is-invalid @enderror"
-                                                        name="prodi" placeholder="SASTRA MESIN" required />
-                                                    @error('prodi')
+                                                        class="form-control @error('prodi_riset') is-invalid @enderror"
+                                                        name="prodi_riset" placeholder="SASTRA MESIN" required
+                                                        style="text-transform: uppercase"
+                                                        value="{{ old('prodi_riset') }}" />
+                                                    @error('prodi_riset')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1126,9 +1141,10 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="semester">Semester</label>
                                                     <input type="number" id="semester"
-                                                        class="form-control @error('semester') is-invalid @enderror"
-                                                        name="semester" placeholder="5" required />
-                                                    @error('semester')
+                                                        class="form-control @error('semester_riset') is-invalid @enderror"
+                                                        name="semester_riset" placeholder="5" required
+                                                        value="{{ old('semester_riset') }}" />
+                                                    @error('semester_riset')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1145,10 +1161,12 @@
                                             <div>
                                                 <label class="form-label" for="nama_kegiatan">Nama Kegiatan</label>
                                                 <input type="text" id="nama_kegiatan"
-                                                    class="form-control @error('nama_kegiatan') is-invalid @enderror"
-                                                    required name="nama_kegiatan" placeholder="Masukkan nama kegiatan"
-                                                    required />
-                                                @error('nama_kegiatan')
+                                                    class="form-control @error('nama_kegiatan_riset') is-invalid @enderror"
+                                                    required name="nama_kegiatan_riset"
+                                                    placeholder="Masukkan nama kegiatan" required
+                                                    style="text-transform: uppercase"
+                                                    value="{{ old('nama_kegiatan_riset') }}" />
+                                                @error('nama_kegiatan_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1157,9 +1175,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
                                                 <input type="date" id="tanggal_mulai"
-                                                    class="form-control @error('tanggal_mulai') is-invalid @enderror"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required />
-                                                @error('tanggal_mulai')
+                                                    class="form-control @error('tanggal_mulai_riset') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai_riset" required
+                                                    value="{{ old('tanggal_mulai_riset') }}" />
+                                                @error('tanggal_mulai_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1169,9 +1188,10 @@
                                                 <label class="form-label" for="tanggal_selesai">Tanggal
                                                     Selesai</label>
                                                 <input type="date" id="tanggal_selesai"
-                                                    class="form-control @error('tanggal_selesai') is-invalid @enderror"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required />
-                                                @error('tanggal_selesai')
+                                                    class="form-control @error('tanggal_selesai_riset') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai_riset" required
+                                                    value="{{ old('tanggal_selesai_riset') }}" />
+                                                @error('tanggal_selesai_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1182,33 +1202,33 @@
                                                     Permohonan:
                                                     (.pdf)</label>
                                                 <input type="file" id="surat_permohonan"
-                                                    class="form-control @error('surat_permohonan') is-invalid
+                                                    class="form-control @error('surat_permohonan_riset') is-invalid
                                                         @enderror"
-                                                    required name="surat_permohonan" />
-                                                @error('surat_permohonan')
+                                                    required name="surat_permohonan_riset" />
+                                                @error('surat_permohonan_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
                                             </div>
-                                            {{-- <div>
+                                            <div>
                                                 <label class="form-label" for="">Captcha : </label>
-                                                <div class="captcha d-flex gap-2 mb-2">
+                                                <div class="captcha_riset d-flex gap-2 mb-2">
                                                     <span>{!! captcha_img() !!}</span>
                                                     <button type="button" onclick="refreshCaptchaRiset()"
                                                         class="btn btn-sm btn-danger"><i
                                                             class="ti ti-rotate"></i></button>
                                                 </div>
                                                 <input type="text"
-                                                    class="form-control @error('captcha') is-invalid
+                                                    class="form-control @error('captcha_riset') is-invalid
                                                         @enderror"
-                                                    required name="captcha" />
-                                                @error('captcha')
+                                                    required name="captcha_riset" />
+                                                @error('captcha_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                            </div> --}}
+                                            </div>
                                             <div class="col-12 d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
@@ -1228,9 +1248,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="nama">Nama Lengkap</label>
                                                 <input type="text" id="nama"
-                                                    class="form-control @error('nama_pemohon') is-invalid @enderror"
-                                                    placeholder="johndoe" required name="nama_pemohon" required>
-                                                @error('nama_pemohon')
+                                                    class="form-control @error('nama_pemohon_kkp') is-invalid @enderror"
+                                                    placeholder="johndoe" required name="nama_pemohon_kkp" required
+                                                    value="{{ old('nama_pemohon_kkp') }}">
+                                                @error('nama_pemohon_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1239,10 +1260,11 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="email">Email</label>
                                                 <input type="email" id="email"
-                                                    class="form-control @error('email_pemohon') is-invalid @enderror"
+                                                    class="form-control @error('email_pemohon_kkp') is-invalid @enderror"
                                                     placeholder="john.doe@email.com" aria-label="john.doe"
-                                                    name="email_pemohon" required>
-                                                @error('email_pemohon')
+                                                    name="email_pemohon_kkp" required
+                                                    value="{{ old('email_pemohon_kkp') }}">
+                                                @error('email_pemohon_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1251,11 +1273,12 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="no_telp_pemohon">Telepon</label>
                                                 <input type="number" id="no_telp_pemohon"
-                                                    class="form-control @error('no_telp_pemohon') is-invalid
+                                                    class="form-control @error('no_telp_pemohon_kkp') is-invalid
                                                         @enderror"
                                                     placeholder="08xxxxxxxxx" aria-label="john.doe"
-                                                    name="no_telp_pemohon" required>
-                                                @error('no_telp_pemohon')
+                                                    name="no_telp_pemohon_kkp" required
+                                                    value="{{ old('no_telp_pemohon') }}">
+                                                @error('no_telp_pemohon_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1263,13 +1286,17 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                <select name="jenis_kelamin" id="jenis_kelamin"
-                                                    class="form-select @error('jenis_kelamin') is-invalid @enderror"
+                                                <select name="jenis_kelamin_kkp" id="jenis_kelamin_kkp"
+                                                    class="form-select @error('jenis_kelamin_kkp') is-invalid @enderror"
                                                     required>
-                                                    <option value="L">Laki-Laki</option>
-                                                    <option value="P">Perempuan</option>
+                                                    <option value="L"
+                                                        {{ old('jenis_kelamin_kkp') === 'L' ? 'selected' : '' }}>Laki-Laki
+                                                    </option>
+                                                    <option value="P"
+                                                        {{ old('jenis_kelamin_kkp') === 'P' ? 'selected' : '' }}>Perempuan
+                                                    </option>
                                                 </select>
-                                                @error('jenis_kelamin')
+                                                @error('jenis_kelamin_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1278,9 +1305,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
                                                 <input type="date" id="tanggal_lahir"
-                                                    class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required>
-                                                @error('tanggal_lahir')
+                                                    class="form-control @error('tanggal_lahir_kkp') is-invalid @enderror"
+                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir_kkp" required
+                                                    value="{{ old('tanggal_lahir_kkp') }}">
+                                                @error('tanggal_lahir_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1297,9 +1325,10 @@
                                                 <div>
                                                     <label class="form-label" for="nim">NIM</label>
                                                     <input type="number" id="nim"
-                                                        class="form-control @error('nim') is-invalid @enderror"
-                                                        placeholder="212xxxxxxxxx" required name="nim" />
-                                                    @error('nim')
+                                                        class="form-control @error('nim_kkp') is-invalid @enderror"
+                                                        placeholder="212xxxxxxxxx" required name="nim_kkp"
+                                                        style="text-transform: uppercase" value="{{ old('nim_kkp') }}" />
+                                                    @error('nim_kkp')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1308,9 +1337,11 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="universitas">Universitas</label>
                                                     <input type="text" id="universitas"
-                                                        class="form-control @error('universitas') is-invalid @enderror"
-                                                        name="universitas" placeholder="UNIVERSITAS SWISS" required />
-                                                    @error('universitas')
+                                                        class="form-control @error('universitas_kkp') is-invalid @enderror"
+                                                        name="universitas_kkp" placeholder="UNIVERSITAS SWISS" required
+                                                        style="text-transform: uppercase"
+                                                        value="{{ old('universitas_kkp') }}" />
+                                                    @error('universitas_kkp')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1319,9 +1350,11 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="fakultas">Fakultas</label>
                                                     <input type="text" id="fakultas"
-                                                        class="form-control @error('fakultas') is-invalid @enderror"
-                                                        name="fakultas" placeholder="ILMU BUDAYA" required />
-                                                    @error('fakultas')
+                                                        class="form-control @error('fakultas_kkp') is-invalid @enderror"
+                                                        name="fakultas_kkp" placeholder="ILMU BUDAYA" required
+                                                        style="text-transform: uppercase"
+                                                        value="{{ old('fakultas_kkp') }}" />
+                                                    @error('fakultas_kkp')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1330,9 +1363,11 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="prodi">Program Studi</label>
                                                     <input type="text" id="prodi"
-                                                        class="form-control @error('prodi') is-invalid @enderror"
-                                                        name="prodi" placeholder="SASTRA MESIN" required />
-                                                    @error('prodi')
+                                                        class="form-control @error('prodi_kkp') is-invalid @enderror"
+                                                        name="prodi_kkp" placeholder="SASTRA MESIN" required
+                                                        style="text-transform: uppercase"
+                                                        value="{{ old('prodi_kkp') }}" />
+                                                    @error('prodi_kkp')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1341,8 +1376,14 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="semester">Semester</label>
                                                     <input type="number" id="semester"
-                                                        class="form-control @error('semester') is-invalid @enderror"
-                                                        name="semester" placeholder="5" required />
+                                                        class="form-control @error('semester_kkp') is-invalid @enderror"
+                                                        name="semester_kkp" placeholder="5" required
+                                                        value="{{ old('semester_kkp') }}" />
+                                                    @error('semester_kkp')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -1355,9 +1396,11 @@
                                             <div>
                                                 <label class="form-label" for="nama_kegiatan">Nama Kegiatan</label>
                                                 <input type="text" id="nama_kegiatan"
-                                                    class="form-control @error('nama_kegiatan') is-invalid @enderror"
-                                                    required name="nama_kegiatan" placeholder="Masukkan nama kegiatan" />
-                                                @error('nama_kegiatan')
+                                                    class="form-control @error('nama_kegiatan_kkp') is-invalid @enderror"
+                                                    required name="nama_kegiatan_kkp" placeholder="Masukkan nama kegiatan"
+                                                    style="text-transform: uppercase"
+                                                    value="{{ old('nama_kegiatan_kkp') }}" />
+                                                @error('nama_kegiatan_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1366,9 +1409,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
                                                 <input type="date" id="tanggal_mulai"
-                                                    class="form-control @error('tanggal_mulai') is-invalid @enderror"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required />
-                                                @error('tanggal_mulai')
+                                                    class="form-control @error('tanggal_mulai_kkp') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai_kkp" required
+                                                    value="{{ old('tanggal_mulai_kkp') }}" />
+                                                @error('tanggal_mulai_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1378,9 +1422,10 @@
                                                 <label class="form-label" for="tanggal_selesai">Tanggal
                                                     Selesai</label>
                                                 <input type="date" id="tanggal_selesai"
-                                                    class="form-control @error('tanggal_selesai') is-invalid @enderror"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required />
-                                                @error('tanggal_selesai')
+                                                    class="form-control @error('tanggal_selesai_kkp') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai_kkp" required
+                                                    value="{{ old('tanggal_selesai_kkp') }}" />
+                                                @error('tanggal_selesai_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1391,33 +1436,33 @@
                                                     Permohonan:
                                                     (.pdf)</label>
                                                 <input type="file" id="surat_permohonan"
-                                                    class="form-control @error('surat_permohonan') is-invalid
+                                                    class="form-control @error('surat_permohonan_kkp') is-invalid
                                                         @enderror"
-                                                    required name="surat_permohonan" />
-                                                @error('surat_permohonan')
+                                                    required name="surat_permohonan_kkp" />
+                                                @error('surat_permohonan_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
                                             </div>
-                                            {{-- <div>
+                                            <div>
                                                 <label class="form-label" for="">Captcha : </label>
-                                                <div class="captcha d-flex gap-2 mb-2">
+                                                <div class="captcha_kkp d-flex gap-2 mb-2">
                                                     <span>{!! captcha_img() !!}</span>
                                                     <button type="button" onclick="refreshCaptchaKKP()"
                                                         class="btn btn-sm btn-danger"><i
                                                             class="ti ti-rotate"></i></button>
                                                 </div>
                                                 <input type="text"
-                                                    class="form-control @error('captcha') is-invalid
+                                                    class="form-control @error('captcha_kkp') is-invalid
                                                         @enderror"
-                                                    required name="captcha" />
-                                                @error('captcha')
+                                                    required name="captcha_kkp" />
+                                                @error('captcha_kkp')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                            </div> --}}
+                                            </div>
                                             <div class="col-12 d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
@@ -1437,9 +1482,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="nama">Nama Lengkap</label>
                                                 <input type="text" id="nama"
-                                                    class="form-control @error('nama_pemohon') is-invalid @enderror"
-                                                    placeholder="johndoe" required name="nama_pemohon" required>
-                                                @error('nama_pemohon')
+                                                    class="form-control @error('nama_pemohon_prakerin') is-invalid @enderror"
+                                                    placeholder="johndoe" required name="nama_pemohon_prakerin" required
+                                                    value="{{ old('nama_pemohon_prakerin') }}">
+                                                @error('nama_pemohon_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1448,10 +1494,11 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="email">Email</label>
                                                 <input type="email" id="email"
-                                                    class="form-control @error('email_pemohon') is-invalid @enderror"
+                                                    class="form-control @error('email_pemohon_prakerin') is-invalid @enderror"
                                                     placeholder="john.doe@email.com" aria-label="john.doe"
-                                                    name="email_pemohon" required>
-                                                @error('email_pemohon')
+                                                    name="email_pemohon_prakerin" required
+                                                    value="{{ old('email_pemohon_prakerin') }}">
+                                                @error('email_pemohon_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1459,12 +1506,13 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="no_telp_pemohon">Telepon</label>
-                                                <input type="number" id="no_telp_pemohon"
-                                                    class="form-control @error('no_telp_pemohon') is-invalid
+                                                <input type="number" id="no_telp_pemohon_prakerin"
+                                                    class="form-control @error('no_telp_pemohon_prakerin') is-invalid
                                                         @enderror"
                                                     placeholder="08xxxxxxxxx" aria-label="john.doe"
-                                                    name="no_telp_pemohon" required>
-                                                @error('no_telp_pemohon')
+                                                    name="no_telp_pemohon_prakerin" required
+                                                    value="{{ old('no_telp_pemohon_prakerin') }}">
+                                                @error('no_telp_pemohon_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1472,13 +1520,17 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
-                                                <select name="jenis_kelamin" id="jenis_kelamin"
-                                                    class="form-select @error('jenis_kelamin') is-invalid @enderror"
+                                                <select name="jenis_kelamin_prakerin" id="jenis_kelamin_prakerin"
+                                                    class="form-select @error('jenis_kelamin_prakerin') is-invalid @enderror"
                                                     required>
-                                                    <option value="L">Laki-Laki</option>
-                                                    <option value="P">Perempuan</option>
+                                                    <option value="L"
+                                                        {{ old('jenis_kelamin_prakerin') === 'L' ? 'selected' : '' }}>
+                                                        Laki-Laki</option>
+                                                    <option value="P">
+                                                        {{ old('jenis_kelamin_prakerin') === 'P' ? 'selected' : '' }}Perempuan
+                                                    </option>
                                                 </select>
-                                                @error('jenis_kelamin')
+                                                @error('jenis_kelamin_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1487,9 +1539,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
                                                 <input type="date" id="tanggal_lahir"
-                                                    class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir" required>
-                                                @error('tanggal_lahir')
+                                                    class="form-control @error('tanggal_lahir_prakerin') is-invalid @enderror"
+                                                    placeholder="YYYY/MM/DD" name="tanggal_lahir_prakerin" required
+                                                    value="{{ old('tanggal_lahir_prakerin') }}">
+                                                @error('tanggal_lahir_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1506,11 +1559,12 @@
                                                 <div>
                                                     <label class="form-label" for="nis">NIS</label>
                                                     <input type="number" id="nis"
-                                                        class="form-control @error('nis') is-invalid
+                                                        class="form-control @error('nis_prakerin') is-invalid
                                                             @enderror"
-                                                        placeholder="212xxxxxxxxx" required name="nis" />
+                                                        placeholder="212xxxxxxxxx" required name="nis_prakerin"
+                                                        value="{{ old('nis_prakerin') }}" />
 
-                                                    @error('nis')
+                                                    @error('nis_prakerin')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1519,9 +1573,11 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="sekolah">Sekolah</label>
                                                     <input type="text" id="sekolah"
-                                                        class="form-control @error('sekolah') is-invalid @enderror"
-                                                        name="sekolah" placeholder="SMK 17" required />
-                                                    @error('sekolah')
+                                                        class="form-control @error('sekolah_prakerin') is-invalid @enderror"
+                                                        name="sekolah_prakerin" placeholder="SMK 17" required
+                                                        style="text-transform: uppercase"
+                                                        value="{{ old('sekolah_prakerin') }}" />
+                                                    @error('sekolah_prakerin')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1530,10 +1586,11 @@
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="kelas">Kelas</label>
                                                     <input type="number" id="kelas"
-                                                        class="form-control @error('kelas') is-invalid @enderror"
-                                                        name="kelas" placeholder="10" required />
+                                                        class="form-control @error('kelas_prakerin') is-invalid @enderror"
+                                                        name="kelas_prakerin" placeholder="10" required
+                                                        value="{{ old('kelas_prakerin') }}" />
 
-                                                    @error('kelas')
+                                                    @error('kelas_prakerin')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>
@@ -1550,9 +1607,11 @@
                                             <div>
                                                 <label class="form-label" for="nama_kegiatan">Nama Kegiatan</label>
                                                 <input type="text" id="nama_kegiatan"
-                                                    class="form-control @error('nama_kegiatan') is-invalid @enderror "
-                                                    required name="nama_kegiatan" placeholder="Masukkan nama kegiatan" />
-                                                @error('nama_kegiatan')
+                                                    class="form-control @error('nama_kegiatan_prakerin') is-invalid @enderror "
+                                                    required name="nama_kegiatan_prakerin"
+                                                    placeholder="Masukkan nama kegiatan" style="text-transform: uppercase"
+                                                    value="{{ old('nama_kegiatan_prakerin') }}" />
+                                                @error('nama_kegiatan_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1561,9 +1620,10 @@
                                             <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_mulai">Tanggal Mulai</label>
                                                 <input type="date" id="tanggal_mulai"
-                                                    class="form-control @error('tanggal_mulai') is-invalid @enderror"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai" required @ />
-                                                @error('tanggal_mulai')
+                                                    class="form-control @error('tanggal_mulai_prakerin') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_mulai_prakerin" required
+                                                    value="{{ old('tanggal_mulai_prakerin') }}" />
+                                                @error('tanggal_mulai_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1573,9 +1633,10 @@
                                                 <label class="form-label" for="tanggal_selesai">Tanggal
                                                     Selesai</label>
                                                 <input type="date" id="tanggal_selesai"
-                                                    class="form-control @error('tanggal_selesai') is-invalid @enderror"
-                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai" required />
-                                                @error('tanggal_selesai')
+                                                    class="form-control @error('tanggal_selesai_prakerin') is-invalid @enderror"
+                                                    placeholder="YYYY-MM-DD" name="tanggal_selesai_prakerin" required
+                                                    value="{{ old('tanggal_selesai_prakerin') }}" />
+                                                @error('tanggal_selesai_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -1586,33 +1647,33 @@
                                                     Permohonan:
                                                     (.pdf)</label>
                                                 <input type="file" id="surat_permohonan"
-                                                    class="form-control @error('surat_permohonan') is-invalid
+                                                    class="form-control @error('surat_permohonan_prakerin') is-invalid
                                                         @enderror"
-                                                    required name="surat_permohonan" />
-                                                @error('surat_permohonan')
+                                                    required name="surat_permohonan_prakerin" />
+                                                @error('surat_permohonan_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
                                             </div>
-                                            {{-- <div>
+                                            <div>
                                                 <label class="form-label" for="">Captcha : </label>
-                                                <div class="captcha d-flex gap-2 mb-2">
+                                                <div class="captcha_prakerin d-flex gap-2 mb-2">
                                                     <span>{!! captcha_img() !!}</span>
                                                     <button type="button" onclick="refreshCaptchaPrakerin()"
                                                         class="btn btn-sm btn-danger"><i
                                                             class="ti ti-rotate"></i></button>
                                                 </div>
                                                 <input type="text"
-                                                    class="form-control @error('captcha') is-invalid
+                                                    class="form-control @error('captcha_prakerin') is-invalid
                                                         @enderror"
-                                                    required name="captcha" />
-                                                @error('captcha')
+                                                    required name="captcha_prakerin" />
+                                                @error('captcha_prakerin')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                            </div> --}}
+                                            </div>
                                             <div class="col-12 d-flex justify-content-between">
                                                 <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
@@ -1679,35 +1740,35 @@
             $(this).val($(this).val().toUpperCase());
         });
 
-        // function refreshCaptchaRiset() {
-        //     $.ajax({
-        //         url: "{{ route('landing-page.reload-captcha.riset') }}",
-        //         type: 'get',
-        //         success: function(data) {
-        //             $('.captcha span').html(data.captcha);
-        //         }
-        //     });
-        // }
+        function refreshCaptchaRiset() {
+            $.ajax({
+                url: "{{ route('landing-page.reload-captcha.riset') }}",
+                type: 'get',
+                success: function(data) {
+                    $('.captcha_riset span').html(data.captcha);
+                }
+            });
+        }
 
-        // function refreshCaptchaKKP() {
-        //     $.ajax({
-        //         url: "{{ route('landing-page.reload-captcha.kkp') }}",
-        //         type: 'get',
-        //         success: function(data) {
-        //             $('.captcha span').html(data.captcha);
-        //         }
-        //     });
-        // }
+        function refreshCaptchaKKP() {
+            $.ajax({
+                url: "{{ route('landing-page.reload-captcha.kkp') }}",
+                type: 'get',
+                success: function(data) {
+                    $('.captcha_kkp span').html(data.captcha);
+                }
+            });
+        }
 
-        // function refreshCaptchaPrakerin() {
-        //     $.ajax({
-        //         url: "{{ route('landing-page.reload-captcha.prakerin') }}",
-        //         type: 'get',
-        //         success: function(data) {
-        //             $('.captcha span').html(data.captcha);
-        //         }
-        //     });
-        // }
+        function refreshCaptchaPrakerin() {
+            $.ajax({
+                url: "{{ route('landing-page.reload-captcha.prakerin') }}",
+                type: 'get',
+                success: function(data) {
+                    $('.captcha_prakerin span').html(data.captcha);
+                }
+            });
+        }
 
         // disable previous date tanggal_mulai and tanggal_selesai
         let today = new Date().toISOString().split('T')[0];

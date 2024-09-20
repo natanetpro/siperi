@@ -46,11 +46,11 @@ return [
                 'url' => 'admin/setelan/peran',
                 'children' => []
             ],
-            [
-                'nama_menu' => 'Manajemen Menu',
-                'url' => 'admin/setelan/menu/panel',
-                'children' => []
-            ]
+            // [
+            //     'nama_menu' => 'Manajemen Menu',
+            //     'url' => 'admin/setelan/menu/panel',
+            //     'children' => []
+            // ]
         ]
     ]
 ];
