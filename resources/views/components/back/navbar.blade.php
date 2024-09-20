@@ -388,8 +388,8 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
-                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->pemohon->nama_pemohon }}" alt
-                                class="h-auto rounded-circle" />
+                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->pemohon?->nama_pemohon ?? auth()->user()->nama }}"
+                                alt class="h-auto rounded-circle" />
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -398,13 +398,13 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
-                                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->pemohon->nama_pemohon }}"
+                                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->pemohon?->nama_pemohon ?? auth()->user()->nama }}"
                                                 alt class="h-auto rounded-circle" />
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
                                         <span
-                                            class="fw-semibold d-block">{{ auth()->user()->pemohon->nama_pemohon }}</span>
+                                            class="fw-semibold d-block">{{ auth()->user()->pemohon?->nama_pemohon ?? auth()->user()->nama }}</span>
                                         <small class="text-muted">{{ auth()->user()->getRoleNames() }}</small>
                                     </div>
                                 </div>
