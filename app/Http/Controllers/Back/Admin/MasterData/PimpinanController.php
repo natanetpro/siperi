@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Back\Admin\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApprovalPengurusMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PimpinanController extends Controller
 {
@@ -63,6 +65,8 @@ class PimpinanController extends Controller
             ]);
             $pimpinan->assignRole(['Administrator', 'Pimpinan']);
             DB::commit();
+            Mail::to($request->email)->queue(new ApprovalPengurusMail($request->nama, $request->password, 'Pimpinan'));
+
             return redirect()->route('admin.master-data.pimpinan.index')->with('success', 'Data ' . $this->modul . ' berhasil ditambahkan.');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -114,6 +118,7 @@ class PimpinanController extends Controller
                 ]);
             }
             DB::commit();
+            // Mail::to($request->email)->queue(new ApprovalPengurusMail($request->nama, $request->password, 'Pimpinan'));
             return redirect()->route('admin.master-data.pimpinan.index')->with('success', 'Data ' . $this->modul . ' berhasil diubah.');
         } catch (\Exception $e) {
             DB::rollBack();

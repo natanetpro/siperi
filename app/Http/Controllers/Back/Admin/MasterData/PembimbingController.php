@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Back\Admin\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApprovalPengurusMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Routing\RequestContext;
 
 class PembimbingController extends Controller
@@ -68,6 +70,7 @@ class PembimbingController extends Controller
                 'pemohon_id' => null,
             ]);
             $pembimbing->assignRole('Pembimbing');
+            Mail::to($request->email)->queue(new ApprovalPengurusMail($request->nama, $request->password, 'Pembimbing'));
             DB::commit();
             return redirect()->route('admin.master-data.pembimbing.index')->with('success', 'Data ' . $this->modul . ' berhasil ditambahkan.');
         } catch (\Exception $e) {
@@ -122,6 +125,7 @@ class PembimbingController extends Controller
                 ]);
             }
             DB::commit();
+            // Mail::to($request->email)->queue(new ApprovalPengurusMail($request->nama, $request->password, 'Pembimbing'));
             return redirect()->route('admin.master-data.pembimbing.index')->with('success', 'Data ' . $this->modul . ' berhasil diubah.');
         } catch (\Exception $e) {
             DB::rollBack();
