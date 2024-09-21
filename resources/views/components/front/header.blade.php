@@ -46,7 +46,7 @@
 @push('scripts')
     <script>
         function redirectDashboard() {
-            window.location.href = "{{ route('peserta.login.index') }}";
+            window.location.href = "{{ route('login') }}";
         }
     </script>
 @endpush

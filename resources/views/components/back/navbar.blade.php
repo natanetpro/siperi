@@ -432,50 +432,21 @@
 </nav>
 
 @push('scripts')
-    @if (Auth::user()->hasRole('Administrator'))
-        <script>
-            function logout() {
-                $.ajax({
-                    url: `{{ route('admin.logout') }}`,
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': `{{ csrf_token() }}`
-                    },
-                    success: function(response) {
-                        window.location.href = `{{ route('admin.login.index') }}`
-                    }
-                })
-            }
-        </script>
-    @elseif (Auth::user()->hasRole('Pembimbing'))
-        <script>
-            function logout() {
-                $.ajax({
-                    url: `{{ route('pembimbing.logout') }}`,
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': `{{ csrf_token() }}`
-                    },
-                    success: function(response) {
-                        window.location.href = `{{ route('pembimbing.login.index') }}`
-                    }
-                })
-            }
-        </script>
-    @elseif (Auth::user()->hasRole('Pemohon'))
-        <script>
-            function logout() {
-                $.ajax({
-                    url: `{{ route('peserta.logout') }}`,
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': `{{ csrf_token() }}`
-                    },
-                    success: function(response) {
-                        window.location.href = `{{ route('peserta.login.index') }}`
-                    }
-                })
-            }
-        </script>
-    @endif
+    <script>
+        function logout() {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Anda akan keluar dari aplikasi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Keluar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('logout') }}";
+                }
+            });
+        }
+    </script>
 @endpush

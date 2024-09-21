@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Back\Admin\Auth;
+namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -26,17 +26,23 @@ class AuthController extends Controller
             if (Auth::user()->hasRole('Administrator')) {
                 $request->session()->regenerate();
                 return redirect()->route('admin.dashboard.index');
+            } elseif (Auth::user()->hasRole('Pembimbing')) {
+                $request->session()->regenerate();
+                return redirect()->route('pembimbing.dashboard.index');
+            } elseif (Auth::user()->hasRole('Pemohon')) {
+                $request->session()->regenerate();
+                return redirect()->route('peserta.dashboard.index');
             } else {
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
-                return redirect()->route('admin.login.index')->with('error', 'Anda tidak memiliki akses');
+                return redirect()->route('login')->with('error', 'Anda tidak memiliki akses');
             }
         }
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login.index')->with('error', 'Nama atau password salah');
+        return redirect()->route('login')->with('error', 'Nama atau password salah');
     }
 
     public function logout(Request $request)
@@ -44,6 +50,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login.index');
+        return redirect()->route('login');
     }
 }
