@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->date('tanggal_lahir');
             $table->string('no_telp_pemohon');
-            $table->string('email_pemohon')->unique();
+            $table->string('email_pemohon');
             $table->timestamps();
         });
     }

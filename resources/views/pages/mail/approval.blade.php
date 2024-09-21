@@ -77,7 +77,7 @@
                     <li><strong>Password:</strong> {{ $password }}</li>
                 </ul>
                 <p>Silakan klik tombol di bawah ini untuk verifikasi akun Anda:</p>
-                <p><a href="{{ route('verifikasi', $nama) }}" class="btn">Verifikasi Akun</a></p>
+                <a href="{{ route('verifikasi', $nama) }}" class="btn">Verifikasi Akun</a>
             @else
                 <p>{{ $pesan }}</p>
             @endif
