@@ -35,4 +35,9 @@ class UserKegiatan extends Model
     {
         return $this->hasMany(Logbook::class, 'user_kegiatan_id');
     }
+
+    public function laporan_akhir()
+    {
+        return $this->hasOne(LaporanAkhir::class, 'user_kegiatan_id');
+    }
 }

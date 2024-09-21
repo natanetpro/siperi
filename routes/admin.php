@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Back\Admin\Auth\AuthController;
 use App\Http\Controllers\Back\Admin\DashboardController;
+use App\Http\Controllers\Back\Admin\KegiatanController;
 use App\Http\Controllers\Back\Admin\MasterData\OperatorController;
 use App\Http\Controllers\Back\Admin\MasterData\PembimbingController;
 use App\Http\Controllers\Back\Admin\MasterData\PimpinanController;
@@ -37,6 +38,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('sertifikat/siswa/edit', [SertifikatController::class, 'editSertifSiswa'])->name('sertifikat.edit-siswa');
             Route::put('sertifikat/siswa', [SertifikatController::class, 'updateSertifSiswa'])->name('sertifikat.update-siswa');
         });
+
+        // Kegiatan
+        Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
+        Route::get('/kegiatan/{id}', [KegiatanController::class, 'find'])->name('kegiatan.find');
 
         // Pengajuan
         Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');

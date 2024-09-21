@@ -12,6 +12,11 @@ return [
         'children' => []
     ],
     [
+        'nama_menu' => 'Kegiatan',
+        'url' => 'admin/kegiatan',
+        'children' => []
+    ],
+    [
         'nama_menu' => 'Master Data',
         'url' => 'admin/master-data/*',
         'children' => [
