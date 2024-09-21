@@ -183,7 +183,7 @@ class KegiatanController extends Controller
             return redirect()->back()->with('error', 'Template sertifikat belum diupload. Silahkan hubungi admin');
         }
         $output = public_path('storage/certificate/certificate.pdf');
-        $templatePath = $this->downloadTemplate($template->media[0]->original_url);
+        $templatePath = $this->downloadTemplate($template->media[1]->original_url);
         $this->fillPdf($templatePath, $output, $data);
         return response()->download($output);
     }

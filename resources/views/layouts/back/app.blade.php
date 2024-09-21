@@ -64,6 +64,10 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="{{ asset('sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
     <style>
+        #template-customizer {
+            display: none;
+        }
+
         /* body {
             -webkit-user-select: none;
             -ms-user-select: none;
@@ -109,7 +113,7 @@
                     <!--/ Content -->
 
                     <!-- Footer -->
-                    @include('components.back.footer')
+                    {{-- @include('components.back.footer') --}}
                     <!-- / Footer -->
 
                     <div class="content-backdrop fade"></div>
