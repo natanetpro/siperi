@@ -13,8 +13,9 @@ class Certificate extends Model implements HasMedia
 
     protected $fillable = [
         'nama_pemimpin',
+        'jabatan_pemimpin',
         'nip_pemimpin',
-        // 'ttd_pemimpin',
+        'jenis_sertifikat',
     ];
 
     public function registerMediaCollections(): void

@@ -27,7 +27,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('pembimbing', PembimbingController::class);
             Route::resource('operator', OperatorController::class);
             Route::resource('pimpinan', PimpinanController::class);
-            Route::resource('sertifikat', SertifikatController::class);
+            Route::resource('sertifikat', SertifikatController::class)->except(['create', 'store', 'edit', 'update', 'destroy', 'show']);
+            Route::get('sertifikat/mahasiswa/create', [SertifikatController::class, 'createSertifMahasiswa'])->name('sertifikat.create-mahasiswa');
+            Route::post('sertifikat/mahasiswa', [SertifikatController::class, 'storeSertifMahasiswa'])->name('sertifikat.store-mahasiswa');
+            Route::get('sertifikat/mahasiswa/edit', [SertifikatController::class, 'editSertifikatMahasiswa'])->name('sertifikat.edit-mahasiswa');
+            Route::put('sertifikat/mahasiswa', [SertifikatController::class, 'updateSertifikatMahasiswa'])->name('sertifikat.update-mahasiswa');
+            Route::get('sertifikat/siswa/create', [SertifikatController::class, 'createSertifSiswa'])->name('sertifikat.create-siswa');
+            Route::post('sertifikat/siswa', [SertifikatController::class, 'storeSertifSiswa'])->name('sertifikat.store-siswa');
+            Route::get('sertifikat/siswa/edit', [SertifikatController::class, 'editSertifSiswa'])->name('sertifikat.edit-siswa');
+            Route::put('sertifikat/siswa', [SertifikatController::class, 'updateSertifSiswa'])->name('sertifikat.update-siswa');
         });
 
         // Pengajuan

@@ -3,10 +3,13 @@
 @section('content')
     <div style="width: 300px" class="mb-3">
         <h4 class="fw-bold py-3"><span class="fw-bold">{{ $title }}</h4>
-        @if ($certificate->count() < 1)
+        {{-- <div class="d-flex gap-3">
             <a href="{{ route('admin.master-data.sertifikat.create') }}"><button class="btn btn-primary">Tambah
-                    Data</button></a>
-        @endif
+                    Sertif Mahasiswa</button></a>
+            <a href="{{ route('admin.master-data.sertifikat.create') }}"><button class="btn btn-primary"
+                    style="width: 300px">Tambah
+                    Sertif Siswa</button></a>
+        </div> --}}
     </div>
 
     <!-- DataTable with Buttons -->
@@ -15,10 +18,36 @@
             <table class="datatables-basic table" id="sertifikat">
                 <thead>
                     <tr>
-                        <th>Pemimpin</th>
+                        <th>Jenis</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td>Mahasiswa</td>
+                        <td>
+                            @if (count($certificate->where('jenis_sertifikat', 'Mahasiswa')) == 0)
+                                <a href="{{ route('admin.master-data.sertifikat.create-mahasiswa') }}"
+                                    class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
+                            @else
+                                <a href="{{ route('admin.master-data.sertifikat.edit-mahasiswa') }}"
+                                    class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Siswa</td>
+                        <td>
+                            @if (count($certificate->where('jenis_sertifikat', 'Siswa')) == 0)
+                                <a href="{{ route('admin.master-data.sertifikat.create-siswa') }}"
+                                    class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
+                            @else
+                                <a href="{{ route('admin.master-data.sertifikat.edit-siswa') }}"
+                                    class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -51,22 +80,7 @@
         </script>
     @endif
     <script>
-        $('#sertifikat').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{{ route('admin.master-data.sertifikat.index') }}',
-            columns: [{
-                    data: 'nama_pemimpin',
-                    name: 'nama_pemimpin',
-                },
-                {
-                    data: 'aksi',
-                    name: 'aksi',
-                    orderable: false,
-                    searchable: false
-                },
-            ]
-        });
+        $('#sertifikat').DataTable();
 
         function deleteSertifikat(id) {
             Swal.fire({

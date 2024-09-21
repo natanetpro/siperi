@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pemimpin');
+            $table->string('jabatan_pemimpin');
             $table->string('nip_pemimpin');
+            $table->enum('jenis_sertifikat', ['Mahasiswa', 'Siswa']);
             // $table->string('ttd_pemimpin');
             $table->timestamps();
         });

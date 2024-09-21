@@ -17,122 +17,152 @@ class SertifikatController extends Controller
     public function index(Request $request)
     {
         $certificate = Certificate::with('media')->get();
-        // return $certificate;
-        if ($request->ajax()) {
-            return datatables()->of($certificate)
-                ->addColumn('aksi', function ($data) {
-                    $button = '<a href="' . route('admin.master-data.sertifikat.edit', $data->id) . '" type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>';
-                    $button .= '&nbsp;&nbsp;&nbsp;<button type="button" onclick="deleteSertifikat(' . $data->id . ')" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"><i class="ti ti-trash"></i></button>';
-                    return $button;
-                })
-                ->rawColumns(['aksi'])
-                ->make(true);
-        }
-
         return view('pages.back.admin.master-data.sertifikat.index', ['title' => $this->title, 'certificate' => $certificate]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function createSertifMahasiswa()
     {
-        return view('pages.back.admin.master-data.sertifikat.create', ['title' => $this->title]);
+        return view('pages.back.admin.master-data.sertifikat.create-mahasiswa', ['title' => $this->title]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function storeSertifMahasiswa(Request $request)
     {
         $request->validate([
             'nama_pemimpin' => 'required',
-            'nip_pemimpin' => 'required',
+            'jabatan_pemimpin' => 'required',
             'ttd_pemimpin' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'template' => 'required|file|mimes:pdf|max:2048',
         ]);
 
         DB::beginTransaction();
         try {
-            $sertifikat = Certificate::create([
+            $certificate = Certificate::create([
                 'nama_pemimpin' => $request->nama_pemimpin,
+                'jabatan_pemimpin' => $request->jabatan_pemimpin,
                 'nip_pemimpin' => $request->nip_pemimpin,
+                'jenis_sertifikat' => 'Mahasiswa',
             ]);
-            $sertifikat->addMediaFromRequest('ttd_pemimpin')->toMediaCollection('ttd_pemimpin');
-            $sertifikat->addMediaFromRequest('template')->toMediaCollection('template');
+            $certificate->addMedia($request->ttd_pemimpin)->toMediaCollection('ttd_pemimpin');
+            $certificate->addMedia($request->template)->toMediaCollection('template');
             DB::commit();
-            return redirect()->route('admin.master-data.sertifikat.index')->with('success', 'Data berhasil disimpan');
+            return redirect()->route('admin.master-data.sertifikat.index')->with('success', 'Sertifikat berhasil ditambahkan');
         } catch (Exception $e) {
             DB::rollBack();
-            throw new Exception($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Certificate $sertifikat)
+    public function editSertifikatMahasiswa()
     {
-        //
+        $certificate = Certificate::where('jenis_sertifikat', 'Mahasiswa')->first();
+        return view('pages.back.admin.master-data.sertifikat.edit-mahasiswa', ['title' => $this->title, 'certificate' => $certificate]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Certificate $sertifikat)
-    {
-        return view('pages.back.admin.master-data.sertifikat.edit', ['title' => $this->title, 'sertifikat' => $sertifikat]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Certificate $sertifikat)
+    public function updateSertifikatMahasiswa(Request $request)
     {
         $request->validate([
             'nama_pemimpin' => 'required',
-            'nip_pemimpin' => 'required',
+            'jabatan_pemimpin' => 'required',
             'ttd_pemimpin' => 'image|mimes:jpeg,png,jpg|max:2048',
             'template' => 'file|mimes:pdf|max:2048',
         ]);
 
         DB::beginTransaction();
         try {
-            $sertifikat->update([
+            $certificate = Certificate::where('jenis_sertifikat', 'Mahasiswa')->first();
+            $certificate->update([
                 'nama_pemimpin' => $request->nama_pemimpin,
+                'jabatan_pemimpin' => $request->jabatan_pemimpin,
                 'nip_pemimpin' => $request->nip_pemimpin,
             ]);
             if ($request->hasFile('ttd_pemimpin')) {
-                $sertifikat->clearMediaCollection('ttd_pemimpin');
-                $sertifikat->addMediaFromRequest('ttd_pemimpin')->toMediaCollection('ttd_pemimpin');
+                // clear media
+                $certificate->clearMediaCollection('ttd_pemimpin');
+                $certificate->addMedia($request->ttd_pemimpin)->toMediaCollection('ttd_pemimpin');
             }
             if ($request->hasFile('template')) {
-                $sertifikat->clearMediaCollection('template');
-                $sertifikat->addMediaFromRequest('template')->toMediaCollection('template');
+                // clear media
+                $certificate->clearMediaCollection('template');
+                $certificate->addMedia($request->template)->toMediaCollection('template');
             }
             DB::commit();
-            return redirect()->route('admin.master-data.sertifikat.index')->with('success', 'Data berhasil diubah');
+            return redirect()->route('admin.master-data.sertifikat.index')->with('success', 'Sertifikat berhasil diubah');
         } catch (Exception $e) {
             DB::rollBack();
-            throw new Exception($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Certificate $sertifikat)
+    function createSertifSiswa()
     {
+        return view('pages.back.admin.master-data.sertifikat.create-siswa', ['title' => $this->title]);
+    }
+
+    function storeSertifSiswa(Request $request)
+    {
+        $request->validate([
+            'nama_pemimpin' => 'required',
+            'jabatan_pemimpin' => 'required',
+            'ttd_pemimpin' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'template' => 'required|file|mimes:pdf|max:2048',
+        ]);
+
         DB::beginTransaction();
         try {
-            $sertifikat->delete();
-            $sertifikat->clearMediaCollection('ttd_pemimpin');
-            $sertifikat->clearMediaCollection('template');
+            $certificate = Certificate::create([
+                'nama_pemimpin' => $request->nama_pemimpin,
+                'jabatan_pemimpin' => $request->jabatan_pemimpin,
+                'nip_pemimpin' => $request->nip_pemimpin,
+                'jenis_sertifikat' => 'Siswa',
+            ]);
+            $certificate->addMedia($request->ttd_pemimpin)->toMediaCollection('ttd_pemimpin');
+            $certificate->addMedia($request->template)->toMediaCollection('template');
             DB::commit();
-            return response()->json(['success' => 'Data berhasil dihapus']);
+            return redirect()->route('admin.master-data.sertifikat.index')->with('success', 'Sertifikat berhasil ditambahkan');
         } catch (Exception $e) {
             DB::rollBack();
-            throw new Exception($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    function editSertifSiswa()
+    {
+        $certificate = Certificate::where('jenis_sertifikat', 'Siswa')->first();
+        return view('pages.back.admin.master-data.sertifikat.edit-siswa', ['title' => $this->title, 'certificate' => $certificate]);
+    }
+
+    function updateSertifSiswa(Request $request)
+    {
+        $request->validate([
+            'nama_pemimpin' => 'required',
+            'jabatan_pemimpin' => 'required',
+            'ttd_pemimpin' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'template' => 'file|mimes:pdf|max:2048',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $certificate = Certificate::where('jenis_sertifikat', 'Siswa')->first();
+            $certificate->update([
+                'nama_pemimpin' => $request->nama_pemimpin,
+                'jabatan_pemimpin' => $request->jabatan_pemimpin,
+                'nip_pemimpin' => $request->nip_pemimpin,
+            ]);
+            if ($request->hasFile('ttd_pemimpin')) {
+                // clear media
+                $certificate->clearMediaCollection('ttd_pemimpin');
+                $certificate->addMedia($request->ttd_pemimpin)->toMediaCollection('ttd_pemimpin');
+            }
+            if ($request->hasFile('template')) {
+                // clear media
+                $certificate->clearMediaCollection('template');
+                $certificate->addMedia($request->template)->toMediaCollection('template');
+            }
+            DB::commit();
+            return redirect()->route('admin.master-data.sertifikat.index')->with('success', 'Sertifikat berhasil diubah');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 }

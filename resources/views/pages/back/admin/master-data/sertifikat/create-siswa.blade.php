@@ -9,7 +9,7 @@
         <div class="col-xl">
             <div class="card mb-4">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.master-data.sertifikat.store') }}"
+                    <form method="POST" action="{{ route('admin.master-data.sertifikat.store-siswa') }}"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
@@ -17,6 +17,14 @@
                             <input type="text" class="form-control @error('nama_pemimpin') is-invalid @enderror"
                                 name="nama_pemimpin" required value="{{ old('nama_pemimpin') }}" />
                             @error('nama_pemimpin')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Jabatan Pemimpin</label>
+                            <input type="text" class="form-control @error('jabatan_pemimpin') is-invalid @enderror"
+                                name="jabatan_pemimpin" required value="{{ old('jabatan_pemimpin') }}" />
+                            @error('jabatan_pemimpin')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
