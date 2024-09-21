@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Back\AuthController;
+use App\Http\Controllers\Back\Peserta\VerifikasiController;
 use App\Http\Controllers\Front\LandingPage\LandingPageController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +13,7 @@ Route::get('/', [LandingPageController::class, 'index'])->name('landing-page.ind
 Route::post('/daftar-riset', [LandingPageController::class, 'daftarRiset'])->name('landing-page.daftar.riset');
 Route::post('/daftar-kkp', [LandingPageController::class, 'daftarKKP'])->name('landing-page.daftar.kkp');
 Route::post('/daftar-prakerin', [LandingPageController::class, 'daftarPrakerin'])->name('landing-page.daftar.prakerin');
+Route::get('verifikasi/{nama}', [VerifikasiController::class, 'verifyAccount'])->name('verifikasi');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');

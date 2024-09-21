@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApprovalPemohonMail;
 use App\Models\DetailPemohonKuliah;
 use App\Models\DetailPemohonSekolah;
 use App\Models\Kegiatan;
@@ -12,6 +13,7 @@ use App\Models\UserKegiatan;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PengajuanController extends Controller
 {
@@ -83,6 +85,11 @@ class PengajuanController extends Controller
                     'approval_admin' => $request->approval_admin,
                     'catatan_admin' => $request->catatan_admin,
                 ]);
+
+                // send email
+                $pemohon = Pemohon::find($pengajuan->pemohon_id);
+                Mail::to($pemohon->email_pemohon)
+                    ->queue(new ApprovalPemohonMail($pemohon->nama_pemohon, $request->approval_admin, $request->catatan_admin, '', ''));
             } elseif ($request->approval_admin === 'Disetujui') {
                 $pengajuan->update([
                     'approval_admin' => $request->approval_admin,
@@ -91,6 +98,9 @@ class PengajuanController extends Controller
                 $firstRiset = 10000;
                 $firstKKP = 20000;
                 $firstPrakerin = 30000;
+
+                // random string
+                $password = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 8);
 
                 $user = User::query();
                 $lastPemohon = $user->role('Pemohon')->whereHas('userKegiatan', function ($query) use ($pengajuan) {
@@ -105,7 +115,7 @@ class PengajuanController extends Controller
                         $new_user = User::create([
                             'nama' => $firstRiset + 1,
                             'email' => $firstRiset + 1 . '@siperi.test',
-                            'password' => bcrypt('password'),
+                            'password' => $password,
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
@@ -113,7 +123,7 @@ class PengajuanController extends Controller
                         $new_user = User::create([
                             'nama' => $firstKKP + 1,
                             'email' => $firstKKP + 1 . '@siperi.test',
-                            'password' => bcrypt('password'),
+                            'password' => $password,
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
@@ -121,7 +131,7 @@ class PengajuanController extends Controller
                         $new_user = User::create([
                             'nama' => $firstPrakerin + 1,
                             'email' => $firstPrakerin + 1 . '@siperi.test',
-                            'password' => bcrypt('password'),
+                            'password' => $password,
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
@@ -134,7 +144,7 @@ class PengajuanController extends Controller
                         $new_user = User::create([
                             'nama' => $lastPemohonName + 1,
                             'email' => $lastPemohonName + 1 . '@siperi.test',
-                            'password' => bcrypt('password'),
+                            'password' => $password,
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
@@ -142,7 +152,7 @@ class PengajuanController extends Controller
                         $new_user = User::create([
                             'nama' => $lastPemohonName + 1,
                             'email' => $lastPemohonName + 1 . '@siperi.test',
-                            'password' => bcrypt('password'),
+                            'password' => $password,
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
@@ -150,7 +160,7 @@ class PengajuanController extends Controller
                         $new_user = User::create([
                             'nama' => $lastPemohonName + 1,
                             'email' => $lastPemohonName + 1 . '@siperi.test',
-                            'password' => bcrypt('password'),
+                            'password' => $password,
                             'no_telp' => $pengajuan->pemohon->no_telp_pemohon,
                             'pemohon_id' => $pengajuan->pemohon->id,
                         ]);
@@ -166,6 +176,12 @@ class PengajuanController extends Controller
                     'kegiatan_id' => $pengajuan->id,
                     'active' => true,
                 ]);
+
+                // send email
+                $pemohon = Pemohon::find($pengajuan->pemohon_id);
+                $message = 'Selamat, permohonan anda telah disetujui. Berikut adalah akun anda:';
+                Mail::to($pemohon->email_pemohon)
+                    ->queue(new ApprovalPemohonMail($pemohon->nama_pemohon, $request->approval_admin, $message, $new_user->nama, $password));
             }
 
             DB::commit();

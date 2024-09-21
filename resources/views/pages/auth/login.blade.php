@@ -58,5 +58,13 @@
                 text: `{{ session('error') }}`,
             });
         </script>
+    @elseif (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: `{{ session('success') }}`,
+            });
+        </script>
     @endif
 @endpush

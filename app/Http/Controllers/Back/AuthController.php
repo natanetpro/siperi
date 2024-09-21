@@ -23,20 +23,20 @@ class AuthController extends Controller
         $credentials = $request->only('nama', 'password');
 
         if (Auth::attempt($credentials)) {
-            if (Auth::user()->hasRole('Administrator')) {
+            if (Auth::user()->hasRole('Administrator') && Auth::user()->email_verified_at) {
                 $request->session()->regenerate();
                 return redirect()->route('admin.dashboard.index');
-            } elseif (Auth::user()->hasRole('Pembimbing')) {
+            } elseif (Auth::user()->hasRole('Pembimbing') && Auth::user()->email_verified_at) {
                 $request->session()->regenerate();
                 return redirect()->route('pembimbing.dashboard.index');
-            } elseif (Auth::user()->hasRole('Pemohon')) {
+            } elseif (Auth::user()->hasRole('Pemohon') && Auth::user()->email_verified_at) {
                 $request->session()->regenerate();
                 return redirect()->route('peserta.dashboard.index');
             } else {
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
-                return redirect()->route('login')->with('error', 'Anda tidak memiliki akses');
+                return redirect()->route('login')->with('error', 'Akun belum diverifikasi');
             }
         }
         Auth::logout();
