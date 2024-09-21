@@ -16,7 +16,7 @@
                     <button class="bg-success cta-btn d-sm-block" data-bs-toggle="modal"
                         data-bs-target="#exLargeModal">Daftar</button>
                 </li>
-                <li>
+                <li class="mt-3 mt-lg-0">
                     {{-- @dd(Auth::user()->getRoleNames()) --}}
                     @if (Auth::check() && Auth::user()->hasRole('Administrator'))
                         <a href="{{ route('admin.dashboard.index') }}"

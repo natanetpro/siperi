@@ -1002,9 +1002,7 @@
                             <div class="bs-stepper-content d-flex flex-column gap-5">
                                 <!-- Account Details -->
                                 <div id="account-details" class="content data-diri">
-                                    <form action="{{ route('landing-page.daftar.riset') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
+                                    <form action="#" method="POST" enctype="multipart/form-data" id="riset">
                                         <div class="content-header mb-3">
                                             <h6 class="mb-0">Data Diri</h6>
                                             <small>Silahkan masukkan data diri pemohon</small>
@@ -1042,7 +1040,7 @@
                                                         @enderror"
                                                     placeholder="08xxxxxxxxx" aria-label="john.doe"
                                                     name="no_telp_pemohon_riset" required
-                                                    value="{{ old('no_telp_riset') }}">
+                                                    value="{{ old('no_telp_pemohon_riset') }}">
                                                 @error('no_telp_pemohon_riset')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -1103,7 +1101,7 @@
                                                     <label class="form-label" for="universitas">Universitas</label>
                                                     <input type="text" id="universitas"
                                                         class="form-control @error('universitas_riset') is-invalid @enderror"
-                                                        name="universitas_riset" placeholder="UNIVERSITAS SWISS" required
+                                                        name="universitas_riset" required
                                                         style="text-transform: uppercase"
                                                         value="{{ old('universitas_riset') }}" />
                                                     @error('universitas_riset')
@@ -1116,8 +1114,7 @@
                                                     <label class="form-label" for="fakultas">Fakultas</label>
                                                     <input type="text" id="fakultas"
                                                         class="form-control @error('fakultas_riset') is-invalid @enderror"
-                                                        name="fakultas_riset" placeholder="ILMU BUDAYA" required
-                                                        style="text-transform: uppercase"
+                                                        name="fakultas_riset" required style="text-transform: uppercase"
                                                         value="{{ old('fakultas_riset') }}" />
                                                     @error('fakultas_riset')
                                                         <div class="invalid-feedback">
@@ -1129,8 +1126,7 @@
                                                     <label class="form-label" for="prodi">Program Studi</label>
                                                     <input type="text" id="prodi"
                                                         class="form-control @error('prodi_riset') is-invalid @enderror"
-                                                        name="prodi_riset" placeholder="SASTRA MESIN" required
-                                                        style="text-transform: uppercase"
+                                                        name="prodi_riset" required style="text-transform: uppercase"
                                                         value="{{ old('prodi_riset') }}" />
                                                     @error('prodi_riset')
                                                         <div class="invalid-feedback">
@@ -1142,7 +1138,7 @@
                                                     <label class="form-label" for="semester">Semester</label>
                                                     <input type="number" id="semester"
                                                         class="form-control @error('semester_riset') is-invalid @enderror"
-                                                        name="semester_riset" placeholder="5" required
+                                                        name="semester_riset" required
                                                         value="{{ old('semester_riset') }}" />
                                                     @error('semester_riset')
                                                         <div class="invalid-feedback">
@@ -1200,7 +1196,7 @@
                                             <div>
                                                 <label class="form-label" for="surat_permohonan">Upload Surat
                                                     Permohonan:
-                                                    (.pdf)</label>
+                                                    (.pdf, Max. 2MB)</label>
                                                 <input type="file" id="surat_permohonan"
                                                     class="form-control @error('surat_permohonan_riset') is-invalid
                                                         @enderror"
@@ -1211,7 +1207,7 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <label class="form-label" for="">Captcha : </label>
                                                 <div class="captcha_riset d-flex gap-2 mb-2">
                                                     <span>{!! captcha_img() !!}</span>
@@ -1228,17 +1224,17 @@
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                             <div class="col-12 d-flex justify-content-between">
-                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="button" onclick="submitRiset()" class="btn btn-success"
+                                                    aria-hidden="true">Submit</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <!-- Personal Info -->
                                 <div id="personal-info" class="content data-pendidikan">
-                                    <form action="{{ route('landing-page.daftar.kkp') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form action="#" method="POST" enctype="multipart/form-data" id="kkp">
                                         @csrf
                                         <div class="content-header mb-3">
                                             <h6 class="mb-0">Data Diri</h6>
@@ -1338,8 +1334,7 @@
                                                     <label class="form-label" for="universitas">Universitas</label>
                                                     <input type="text" id="universitas"
                                                         class="form-control @error('universitas_kkp') is-invalid @enderror"
-                                                        name="universitas_kkp" placeholder="UNIVERSITAS SWISS" required
-                                                        style="text-transform: uppercase"
+                                                        name="universitas_kkp" required style="text-transform: uppercase"
                                                         value="{{ old('universitas_kkp') }}" />
                                                     @error('universitas_kkp')
                                                         <div class="invalid-feedback">
@@ -1351,8 +1346,7 @@
                                                     <label class="form-label" for="fakultas">Fakultas</label>
                                                     <input type="text" id="fakultas"
                                                         class="form-control @error('fakultas_kkp') is-invalid @enderror"
-                                                        name="fakultas_kkp" placeholder="ILMU BUDAYA" required
-                                                        style="text-transform: uppercase"
+                                                        name="fakultas_kkp" required style="text-transform: uppercase"
                                                         value="{{ old('fakultas_kkp') }}" />
                                                     @error('fakultas_kkp')
                                                         <div class="invalid-feedback">
@@ -1364,8 +1358,7 @@
                                                     <label class="form-label" for="prodi">Program Studi</label>
                                                     <input type="text" id="prodi"
                                                         class="form-control @error('prodi_kkp') is-invalid @enderror"
-                                                        name="prodi_kkp" placeholder="SASTRA MESIN" required
-                                                        style="text-transform: uppercase"
+                                                        name="prodi_kkp" required style="text-transform: uppercase"
                                                         value="{{ old('prodi_kkp') }}" />
                                                     @error('prodi_kkp')
                                                         <div class="invalid-feedback">
@@ -1377,8 +1370,7 @@
                                                     <label class="form-label" for="semester">Semester</label>
                                                     <input type="number" id="semester"
                                                         class="form-control @error('semester_kkp') is-invalid @enderror"
-                                                        name="semester_kkp" placeholder="5" required
-                                                        value="{{ old('semester_kkp') }}" />
+                                                        name="semester_kkp" required value="{{ old('semester_kkp') }}" />
                                                     @error('semester_kkp')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -1434,7 +1426,7 @@
                                             <div>
                                                 <label class="form-label" for="surat_permohonan">Upload Surat
                                                     Permohonan:
-                                                    (.pdf)</label>
+                                                    (.pdf, Max. 2MB)</label>
                                                 <input type="file" id="surat_permohonan"
                                                     class="form-control @error('surat_permohonan_kkp') is-invalid
                                                         @enderror"
@@ -1445,7 +1437,7 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <label class="form-label" for="">Captcha : </label>
                                                 <div class="captcha_kkp d-flex gap-2 mb-2">
                                                     <span>{!! captcha_img() !!}</span>
@@ -1462,17 +1454,17 @@
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                             <div class="col-12 d-flex justify-content-between">
-                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="button" onclick="submitKKP()" class="btn btn-success"
+                                                    aria-hidden="true">Submit</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <!-- Social Links -->
                                 <div id="social-links" class="content data-permohonan">
-                                    <form action="{{ route('landing-page.daftar.prakerin') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form action="#" method="POST" enctype="multipart/form-data" id="prakerin">
                                         @csrf
                                         <div class="content-header mb-3">
                                             <h6 class="mb-0">Data Diri</h6>
@@ -1574,8 +1566,7 @@
                                                     <label class="form-label" for="sekolah">Sekolah</label>
                                                     <input type="text" id="sekolah"
                                                         class="form-control @error('sekolah_prakerin') is-invalid @enderror"
-                                                        name="sekolah_prakerin" placeholder="SMK 17" required
-                                                        style="text-transform: uppercase"
+                                                        name="sekolah_prakerin" required style="text-transform: uppercase"
                                                         value="{{ old('sekolah_prakerin') }}" />
                                                     @error('sekolah_prakerin')
                                                         <div class="invalid-feedback">
@@ -1587,7 +1578,7 @@
                                                     <label class="form-label" for="kelas">Kelas</label>
                                                     <input type="number" id="kelas"
                                                         class="form-control @error('kelas_prakerin') is-invalid @enderror"
-                                                        name="kelas_prakerin" placeholder="10" required
+                                                        name="kelas_prakerin" required
                                                         value="{{ old('kelas_prakerin') }}" />
 
                                                     @error('kelas_prakerin')
@@ -1645,7 +1636,7 @@
                                             <div>
                                                 <label class="form-label" for="surat_permohonan">Upload Surat
                                                     Permohonan:
-                                                    (.pdf)</label>
+                                                    (.pdf, Max. 2MB)</label>
                                                 <input type="file" id="surat_permohonan"
                                                     class="form-control @error('surat_permohonan_prakerin') is-invalid
                                                         @enderror"
@@ -1656,7 +1647,7 @@
                                                     </div>
                                                 @enderror
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <label class="form-label" for="">Captcha : </label>
                                                 <div class="captcha_prakerin d-flex gap-2 mb-2">
                                                     <span>{!! captcha_img() !!}</span>
@@ -1673,9 +1664,10 @@
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                             <div class="col-12 d-flex justify-content-between">
-                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="button" onclick="submitPrakerin()" class="btn btn-success"
+                                                    aria-hidden="true">Submit</button>
                                             </div>
                                         </div>
                                     </form>
@@ -1723,49 +1715,273 @@
         </script>
     @endif
     <script>
-        // capitalize universitas, fakultas, prodi, sekolah, nama kegiatan
-        $('input[name="universitas"]').on('keyup', function() {
-            $(this).val($(this).val().toUpperCase());
-        });
-        $('input[name="fakultas"]').on('keyup', function() {
-            $(this).val($(this).val().toUpperCase());
-        });
-        $('input[name="prodi"]').on('keyup', function() {
-            $(this).val($(this).val().toUpperCase());
-        });
-        $('input[name="sekolah"]').on('keyup', function() {
-            $(this).val($(this).val().toUpperCase());
-        });
-        $('input[name="nama_kegiatan"]').on('keyup', function() {
-            $(this).val($(this).val().toUpperCase());
-        });
+        function closeModal() {
+            $('button.btn-close').click();
+            $('#exLargeModal').modal('hide');
+        }
 
-        function refreshCaptchaRiset() {
+        function submitRiset() {
+            // Ambil form elemen
+            var form = $('form#riset');
+            // console.log(form);
+
+            // Ambil data yang diinput
+            var formData = new FormData(form[0]);
+
+            // Kirim permintaan AJAX
             $.ajax({
-                url: "{{ route('landing-page.reload-captcha.riset') }}",
-                type: 'get',
-                success: function(data) {
-                    $('.captcha_riset span').html(data.captcha);
+                url: "{{ route('landing-page.daftar.riset') }}", // Ganti dengan route yang benar
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // hilangkan pesan error yang sudah ada
+                        $('.is-invalid').removeClass('is-invalid');
+                        $('.invalid-feedback').remove();
+                        // close modal
+                        closeModal();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.success,
+                        });
+
+                        // Bersihkan form
+                        form.trigger('reset');
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: response.error,
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.status == 422) {
+                        if (xhr.responseJSON.error) {
+                            closeModal();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: 'Terjadi kesalahan, coba lagi.' + xhr.responseJSON.error,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: 'Terjadi kesalahan, coba lagi.',
+                            });
+                        }
+
+                        var errors = xhr.responseJSON.errors;
+
+                        // Loop untuk semua error dan tambahkan class is-invalid serta pesan error
+                        for (var key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                var inputElement = $('[name="' + key + '"]');
+
+                                // Hapus pesan error yang sudah ada sebelumnya
+                                inputElement.removeClass('is-invalid');
+                                inputElement.next('.invalid-feedback').remove();
+
+                                // Tambahkan class is-invalid
+                                inputElement.addClass('is-invalid');
+
+                                // Tambahkan pesan error setelah elemen input
+                                inputElement.after('<div class="invalid-feedback">' + errors[key][0] +
+                                    '</div>');
+                            }
+                        }
+                    } else {
+                        closeModal();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Terjadi kesalahan, coba lagi.',
+                        });
+                    }
                 }
             });
         }
 
-        function refreshCaptchaKKP() {
+        function submitKKP() {
+            // Ambil form elemen
+            var form = $('form#kkp');
+            // console.log(form);
+
+            // Ambil data yang diinput
+            var formData = new FormData(form[0]);
+
+            // Kirim permintaan AJAX
             $.ajax({
-                url: "{{ route('landing-page.reload-captcha.kkp') }}",
-                type: 'get',
-                success: function(data) {
-                    $('.captcha_kkp span').html(data.captcha);
+                url: "{{ route('landing-page.daftar.kkp') }}", // Ganti dengan route yang benar
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // hilangkan pesan error yang sudah ada
+                        $('.is-invalid').removeClass('is-invalid');
+                        $('.invalid-feedback').remove();
+                        // close modal
+                        closeModal();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.success,
+                        });
+
+                        // Bersihkan form
+                        form.trigger('reset');
+                    } else {
+                        closeModal();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: response.error,
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+
+                    if (xhr.status === 422) {
+                        if (xhr.responseJSON.error) {
+                            closeModal();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: 'Terjadi kesalahan, coba lagi.' + xhr.responseJSON.error,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: 'Terjadi kesalahan, coba lagi.',
+                            });
+                        }
+                        var errors = xhr.responseJSON.errors;
+
+                        // Loop untuk semua error dan tambahkan class is-invalid serta pesan error
+                        for (var key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                var inputElement = $('[name="' + key + '"]');
+
+                                // Hapus pesan error yang sudah ada sebelumnya
+                                inputElement.removeClass('is-invalid');
+                                inputElement.next('.invalid-feedback').remove();
+
+                                // Tambahkan class is-invalid
+                                inputElement.addClass('is-invalid');
+
+                                // Tambahkan pesan error setelah elemen input
+                                inputElement.after('<div class="invalid-feedback">' + errors[key][0] +
+                                    '</div>');
+                            }
+                        }
+                    } else {
+                        closeModal();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Terjadi kesalahan, coba lagi.',
+                        });
+                    }
                 }
             });
         }
 
-        function refreshCaptchaPrakerin() {
+        function submitPrakerin() {
+            // Ambil form elemen
+            var form = $('form#prakerin');
+            // console.log(form);
+
+            // Ambil data yang diinput
+            var formData = new FormData(form[0]);
+
+            // Kirim permintaan AJAX
             $.ajax({
-                url: "{{ route('landing-page.reload-captcha.prakerin') }}",
-                type: 'get',
-                success: function(data) {
-                    $('.captcha_prakerin span').html(data.captcha);
+                url: "{{ route('landing-page.daftar.prakerin') }}", // Ganti dengan route yang benar
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': `{{ csrf_token() }}`
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // hilangkan pesan error yang sudah ada
+                        $('.is-invalid').removeClass('is-invalid');
+                        $('.invalid-feedback').remove();
+                        // close modal
+                        closeModal();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.success,
+                        });
+                    } else {
+                        closeModal();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: response.error,
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+
+                    if (xhr.status === 422) {
+                        if (xhr.responseJSON.error) {
+                            closeModal();
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: 'Terjadi kesalahan, coba lagi.' + xhr.responseJSON.error,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: 'Terjadi kesalahan, coba lagi.',
+                            });
+                        }
+                        var errors = xhr.responseJSON.errors;
+
+                        // Loop untuk semua error dan tambahkan class is-invalid serta pesan error
+                        for (var key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                var inputElement = $('[name="' + key + '"]');
+
+                                // Hapus pesan error yang sudah ada sebelumnya
+                                inputElement.removeClass('is-invalid');
+                                inputElement.next('.invalid-feedback').remove();
+
+                                // Tambahkan class is-invalid
+                                inputElement.addClass('is-invalid');
+
+                                // Tambahkan pesan error setelah elemen input
+                                inputElement.after('<div class="invalid-feedback">' + errors[key][0] +
+                                    '</div>');
+                            }
+                        }
+                    } else {
+                        closeModal();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Terjadi kesalahan, coba lagi.',
+                        });
+                    }
                 }
             });
         }
