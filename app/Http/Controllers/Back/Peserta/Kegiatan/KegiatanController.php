@@ -177,7 +177,7 @@ class KegiatanController extends Controller
 
     public function download_certificate()
     {
-        $template = Certificate::with('media')->first();
+        $template = Auth::user()->pemohon->detailPemohonKuliah ? Certificate::with('media')->whereJenisSertifikat('Mahasiswa')->first() : Certificate::with('media')->whereJenisSertifikat('Siswa')->first();
         $data = UserKegiatan::with(['user', 'kegiatan', 'user.pemohon'])->where('user_id', Auth::user()->id)->first();
         if (!$template) {
             return redirect()->back()->with('error', 'Template sertifikat belum diupload. Silahkan hubungi admin');

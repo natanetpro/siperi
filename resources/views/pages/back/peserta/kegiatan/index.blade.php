@@ -143,7 +143,7 @@
                                 <small>Masukkan laporan akhir sebagai validasi kegiatan anda</small>
                             </div>
                         </div>
-                        @if (Auth::user()->userKegiatan->active)
+                        @if (Auth::user()->userKegiatan->active && !$laporan_akhir)
                             <button class="btn btn-success mb-3" onclick="openModalLaporanAkhir('create')">Kirim Laporan
                                 Akhir</button>
                         @endif
