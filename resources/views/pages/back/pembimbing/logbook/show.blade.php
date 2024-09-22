@@ -5,11 +5,12 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="faq-header d-flex flex-column justify-content-center align-items-center rounded">
-            <h3 class="text-center">{{ Auth::user()->userKegiatan->kegiatan->nama_kegiatan }}</h3>
-            <p class="text-center mb-0 px-3">Oleh: {{ Auth::user()->pemohon->nama_pemohon }}
-                ({{ \Carbon\Carbon::parse(Auth::user()->pemohon->tanggal_mulai)->format('d M Y') }} -
-                {{ \Carbon\Carbon::parse(Auth::user()->pemohon->tanggal_selesai)->format('d M Y') }})</p>
-            @switch(Auth::user()->userKegiatan->active)
+            <h3 class="text-center">{{ $peserta->userKegiatan->kegiatan->nama_kegiatan }}</h3>
+            <p class="text-center mb-0 px-3">Oleh: {{ $peserta->pemohon->nama_pemohon }}
+                ({{ \Carbon\Carbon::parse($peserta->userKegiatan->kegiatan->tanggal_mulai)->format('d M Y') }} s/d
+                {{ \Carbon\Carbon::parse($peserta->userKegiatan->kegiatan->tanggal_selesai)->format('d M Y') }})</p>
+
+            @switch($peserta->userKegiatan->active)
                 @case(true)
                     <span class="badge bg-success mt-4">Sedang Berjalan</span>
                 @break
@@ -21,6 +22,7 @@
         </div>
 
         <div class="row mt-4">
+            <!-- Navigation -->
             <div class="col-lg-3 col-md-4 col-12 mb-md-0 mb-3">
                 <div class="d-flex justify-content-between flex-column mb-2 mb-md-0">
                     <div class="d-none d-md-block">
@@ -31,6 +33,8 @@
                     </div>
                 </div>
             </div>
+            <!-- /Navigation -->
+
             <!-- FAQ's -->
             <div class="col-lg-9 col-md-8 col-12">
                 <div class="tab-content py-0">
@@ -45,13 +49,10 @@
                                 <h4 class="mb-0">
                                     <span class="align-middle">Logbook</span>
                                 </h4>
-                                <small>Masukkan seluruh aktivitas kegiatan anda</small>
+                                <small>Detail logbook peserta bimbingan</small>
                             </div>
                         </div>
-                        @if (Auth::user()->userKegiatan->active)
-                            <button class="btn btn-success mb-3" onclick="openModalLogbook('create')">Tambah
-                                Aktivitas</button>
-                        @endif
+
                         <div id="accordionPayment" class="accordion">
                             @forelse ($logbooks as $logbook)
                                 <div class="card accordion-item">
@@ -83,14 +84,24 @@
                                                         <p class="card-text">
                                                             {{ $logbook->aktivitas }}
                                                         </p>
-                                                        @if (Auth::user()->userKegiatan->active && $logbook->approval_pembimbing == 'Menunggu')
-                                                            <button class="btn btn-warning btn-sm"
-                                                                onclick="openModalLogbook('edit', {{ $logbook->id }})"><i
-                                                                    class="ti ti-pencil"></i></button>
-                                                        @elseif($logbook->approval_pembimbing == 'Ditolak')
-                                                            <button class="btn btn-warning btn-sm"
-                                                                onclick="openModalLogbook('edit', {{ $logbook->id }})"><i
-                                                                    class="ti ti-pencil"></i></button>
+                                                        @if ($logbook->approval_pembimbing === 'Menunggu')
+                                                            <div class="d-flex gap-3">
+                                                                <form id="approve-logbook"
+                                                                    action="{{ route('pembimbing.logbook.approve', $logbook->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <button type="button"
+                                                                        onclick="approveLogbook({{ $logbook->id }})"
+                                                                        class="btn btn-success btn-sm"><i
+                                                                            class="ti ti-check"></i></button>
+                                                                </form>
+                                                                <form onsubmit="return false;">
+                                                                    <button onclick="rejectLogbook({{ $logbook->id }})"
+                                                                        class="btn btn-danger btn-sm"><i
+                                                                            class="ti ti-x"></i></button>
+                                                                </form>
+                                                            </div>
                                                         @endif
                                                     </div>
                                                     <div class="d-flex flex-column gap-2">
@@ -113,72 +124,26 @@
         </div>
     </div>
 
-    {{-- Modal --}}
-    <div class="modal fade" id="logbook-modal" tabindex="-1" role="dialog" aria-labelledby="logbook-modalLabel"
+    {{-- Modal Reject Logbook --}}
+    <div class="modal fade" id="reject-logbook" tabindex="-1" role="dialog" aria-labelledby="logbook-modalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
                 <form action="" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title" id="logbook-title">Tambah Aktivitas</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body
-                    ">
-                        <div class="mb-3">
-                            <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
-                                name="tanggal" required>
-                            @error('tanggal')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="aktivitas" class="form-label">Aktivitas</label>
-                            <textarea class="form-control" id="aktivitas @error('aktivitas') is-invalid @enderror" name="aktivitas" rows="3"
-                                required></textarea>
-                            @error('aktivitas')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        {{-- <div class="mb-3">
-                            <label for="hasil" class="form-label">Dokumentasi (link drive)</label>
-                            <input type="text" class="form-control @error('dokumentasi') is-invalid @enderror" required
-                                placeholder="https://drive.google.com/" name="dokumentasi">
-                            @error('dokumentasi')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div> --}}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- 
-    <div class="modal fade" id="laporan-akhir-modal" tabindex="-1" role="dialog"
-        aria-labelledby="laporan-akhir-modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-            <div class="modal-content">
-                <form action="" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="laporan-akhir-title">Kirim Laporan Akhir</h5>
+                        <h5 class="modal-title" id="logbook-title">Alasan Penolakan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body
                     ">
                         <div class="mb-3">
                             <label for="laporan_akhir" class="form-label
-                            ">Laporan
-                                Akhir (.pdf)</label>
-                            <input type="file" class="form-control @error('laporan_akhir') is-invalid @enderror"
-                                id="laporan_akhir" name="laporan_akhir" required>
-                            @error('laporan_akhir')
+                            ">Catatan</label>
+                            <textarea class="form-control @error('catatan_pembimbing') is-invalid @enderror" name="catatan_pembimbing"
+                                id="catatan_pembimbing" rows="3" required></textarea>
+                            @error('catatan_pembimbing')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -190,8 +155,7 @@
                 </form>
             </div>
         </div>
-    </div> --}}
-    {{-- /Modal --}}
+    </div>
 @endsection
 
 @push('scripts')
@@ -221,33 +185,27 @@
         </script>
     @endif
     <script>
-        function openModalLogbook(action, id = null) {
-            $('#logbook-modal form').trigger('reset');
-            if (action === 'create') {
-                $('#logbook-title').text('Tambah Aktivitas');
-                $('#logbook-modal').modal('show');
-                $('#logbook-modal form').attr('action', '{{ route('peserta.logbook.store') }}');
-                // min today
-                var today = new Date().toISOString().split('T')[0];
-                $('#logbook-modal form input[name="tanggal"]').attr('min', today);
-                // remove method PUT
-                $("#logbook-modal form input[name='_method']").remove();
-            } else if (action === 'edit', id != null) {
-                $('#logbook-title').text('Edit Aktivitas');
-                $('#logbook-modal').modal('show');
+        function approveLogbook(id) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Data yang sudah disimpan tidak dapat diubah kembali!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Simpan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#approve-logbook').submit();
+                }
+            })
+        }
 
-                $.ajax({
-                    url: `{{ route('peserta.logbook.show', '') }}/${id}`,
-                    type: 'GET',
-                    success: function(response) {
-                        $('#logbook-modal form').attr('action',
-                            `{{ route('peserta.logbook.update', '') }}/${id}`);
-                        $("#logbook-modal form").append('<input type="hidden" name="_method" value="PUT">');
-                        $('#logbook-modal form input[name="tanggal"]').val(response.tanggal);
-                        $('#logbook-modal form textarea[name="aktivitas"]').val(response.aktivitas);
-                    }
-                })
-            }
+
+        function rejectLogbook(id) {
+            $('#reject-logbook').modal('show');
+            $('#reject-logbook form').attr('action', `{{ route('pembimbing.logbook.reject', '') }}/${id}`);
         }
     </script>
 @endpush

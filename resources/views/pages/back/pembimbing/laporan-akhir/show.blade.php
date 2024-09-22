@@ -5,19 +5,10 @@
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="faq-header d-flex flex-column justify-content-center align-items-center rounded">
-            <h3 class="text-center">{{ Auth::user()->userKegiatan->kegiatan->nama_kegiatan }}</h3>
-            <p class="text-center mb-0 px-3">Oleh: {{ Auth::user()->pemohon->nama_pemohon }}
-                ({{ \Carbon\Carbon::parse(Auth::user()->pemohon->tanggal_mulai)->format('d M Y') }} -
-                {{ \Carbon\Carbon::parse(Auth::user()->pemohon->tanggal_selesai)->format('d M Y') }})</p>
-            @switch(Auth::user()->userKegiatan->active)
-                @case(true)
-                    <span class="badge bg-success mt-4">Sedang Berjalan</span>
-                @break
-
-                @case(false)
-                    <span class="badge bg-danger mt-4">Selesai</span>
-                @break
-            @endswitch
+            <h3 class="text-center">{{ $peserta->userKegiatan->kegiatan->nama_kegiatan }}</h3>
+            <p class="text-center mb-0 px-3">Oleh: {{ $peserta->pemohon->nama_pemohon }}
+                ({{ \Carbon\Carbon::parse($peserta->userKegiatan->kegiatan->tanggal_mulai)->format('d M Y') }} s/d
+                {{ \Carbon\Carbon::parse($peserta->userKegiatan->kegiatan->tanggal_selesai)->format('d M Y') }})</p>
         </div>
 
         <div class="row mt-4">
@@ -48,43 +39,49 @@
                                 <h4 class="mb-0">
                                     <span class="align-middle">Laporan Akhir</span>
                                 </h4>
-                                <small>Masukkan laporan akhir sebagai validasi kegiatan anda</small>
+                                <small>Detail laporan akhir peserta bimbingan</small>
                             </div>
                         </div>
-                        @if (Auth::user()->userKegiatan->active && !$laporanAkhir)
-                            <button class="btn btn-success mb-3" onclick="openModalLaporanAkhir('create')">Kirim Laporan
-                                Akhir</button>
-                        @endif
-                        @if (!$laporanAkhir)
+                        @if (!$laporan_akhir)
                             <p>Belum ada laporan akhir</p>
                         @else
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
-                                        <a href="{{ $laporanAkhir->media[0]->original_url }}" class="card-text">
+                                        <a href="{{ $laporan_akhir->getFirstMediaUrl('laporan_akhir') }}" class="card-text">
                                             Lihat Dokumen Akhir
-                                            @if ($laporanAkhir->approval_pembimbing == 'Menunggu')
+                                            @if ($laporan_akhir->approval_pembimbing == 'Menunggu')
                                                 <span class="badge ms-3 bg-warning">
-                                                    {{ $laporanAkhir->approval_pembimbing }}
-                                                @elseif($laporanAkhir->approval_pembimbing == 'Disetujui')
+                                                    {{ $laporan_akhir->approval_pembimbing }}
+                                                @elseif($laporan_akhir->approval_pembimbing == 'Disetujui')
                                                     <span class="badge ms-3 bg-success">
-                                                        {{ $laporanAkhir->approval_pembimbing }}
-                                                    @elseif($laporanAkhir->approval_pembimbing == 'Ditolak')
+                                                        {{ $laporan_akhir->approval_pembimbing }}
+                                                    @elseif($laporan_akhir->approval_pembimbing == 'Ditolak')
                                                         <span class="badge ms-3 bg-danger">
-                                                            {{ $laporanAkhir->approval_pembimbing }}
+                                                            {{ $laporan_akhir->approval_pembimbing }}
                                             @endif
                                             </span>
                                         </a>
-                                        @if (Auth::user()->userKegiatan->active && $laporanAkhir->approval_pembimbing == 'Menunggu')
-                                            <button onclick="openModalLaporanAkhir('edit', {{ $laporanAkhir->id }})"
-                                                class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></button>
-                                        @elseif (Auth::user()->userKegiatan->active && $laporanAkhir->approval_pembimbing == 'Ditolak')
-                                            <button onclick="openModalLaporanAkhir('edit', {{ $laporanAkhir->id }})"
-                                                class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></button>
-                                        @endif
+                                        <div class="d-flex gap-3">
+                                            @if ($laporan_akhir->approval_pembimbing === 'Menunggu')
+                                                <form id="approve-laporan-akhir"
+                                                    action="{{ route('pembimbing.laporan-akhir.approve', $laporan_akhir->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="button"
+                                                        onclick="approveLaporanAkhir({{ $laporan_akhir->id }})"
+                                                        class="btn btn-success btn-sm"><i class="ti ti-check"></i></button>
+                                                </form>
+                                                <form onsubmit="return false;">
+                                                    <button onclick="rejectLaporanAkhir({{ $laporan_akhir->id }})"
+                                                        class="btn btn-danger btn-sm"><i class="ti ti-x"></i></button>
+                                                </form>
+                                            @endif
+                                        </div>
                                     </div>
                                     <div class="d-flex flex-column gap-2">
-                                        <span class="text-danger">{{ $laporanAkhir->catatan_pembimbing }}</span>
+                                        <span class="text-danger">{{ $laporan_akhir->catatan_pembimbing }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -96,27 +93,27 @@
         </div>
     </div>
 
-    {{-- Modal --}}
+    {{-- Modal Reject Logbook --}}
 
-    <div class="modal fade" id="laporan-akhir-modal" tabindex="-1" role="dialog"
+    <div class="modal fade" id="reject-laporan-akhir" tabindex="-1" role="dialog"
         aria-labelledby="laporan-akhir-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title" id="laporan-akhir-title">Kirim Laporan Akhir</h5>
+                        <h5 class="modal-title" id="logbook-title">Alasan Penolakan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body
                     ">
                         <div class="mb-3">
                             <label for="laporan_akhir" class="form-label
-                            ">Laporan
-                                Akhir (.pdf, Max. 2048KB)</label>
-                            <input type="file" class="form-control @error('laporan_akhir') is-invalid @enderror"
-                                id="laporan_akhir" name="laporan_akhir" required>
-                            @error('laporan_akhir')
+                            ">Catatan</label>
+                            <textarea class="form-control @error('catatan_pembimbing') is-invalid @enderror" name="catatan_pembimbing"
+                                id="catatan_pembimbing" rows="3" required></textarea>
+                            @error('catatan_pembimbing')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -129,7 +126,6 @@
             </div>
         </div>
     </div>
-    {{-- /Modal --}}
 @endsection
 
 @push('scripts')
@@ -159,22 +155,27 @@
         </script>
     @endif
     <script>
-        function openModalLaporanAkhir(action, id = null) {
-            $('#laporan-akhir-modal form').trigger('reset');
-            if (action === 'create') {
-                $('#laporan-akhir-title').text('Kirim Laporan Akhir');
-                $('#laporan-akhir-modal').modal('show');
-                $('#laporan-akhir-modal form').attr('action', '{{ route('peserta.laporan-akhir.store') }}');
-                // remove method input if exists
-                $("#laporan-akhir-modal form input[name='_method']").remove();
-            } else if (action === 'edit', id != null) {
-                $('#laporan-akhir-title').text('Edit Laporan Akhir');
-                $('#laporan-akhir-modal').modal('show');
+        function approveLaporanAkhir(id) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Data yang sudah disimpan tidak dapat diubah kembali!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Simpan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#approve-laporan-akhir').submit();
+                }
+            })
+        }
 
-                $('#laporan-akhir-modal form').attr('action', `{{ route('peserta.laporan-akhir.update', '') }}/${id}`);
-                $("#laporan-akhir-modal form").append('<input type="hidden" name="_method" value="PUT">');
-            }
-
+        function rejectLaporanAkhir(id) {
+            $('#reject-laporan-akhir').modal('show');
+            $('#reject-laporan-akhir form').attr('action',
+                `{{ route('pembimbing.laporan-akhir.reject', '') }}/${id}`);
         }
     </script>
 @endpush

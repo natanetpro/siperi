@@ -7,8 +7,13 @@ return [
         'children' => []
     ],
     [
-        'nama_menu' => 'Daftar Bimbingan',
-        'url' => 'pembimbing/daftar-bimbingan',
+        'nama_menu' => 'Logbook',
+        'url' => 'pembimbing/logbook',
         'children' => []
     ],
+    [
+        'nama_menu' => 'Laporan Akhir',
+        'url' => 'pembimbing/laporan-akhir',
+        'children' => []
+    ]
 ];
