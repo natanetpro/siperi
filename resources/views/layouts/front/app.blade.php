@@ -57,6 +57,8 @@
 
     <script src="{{ asset('sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
 
+    @stack('styles')
+
     <!-- =======================================================
   * Template Name: TheEvent
   * Template URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
@@ -79,7 +81,7 @@
     @include('components.front.footer')
 
     <!-- Scroll Top -->
-    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center bg-success"><i
             class="bi bi-arrow-up-short"></i></a>
 
     <!-- Preloader -->
