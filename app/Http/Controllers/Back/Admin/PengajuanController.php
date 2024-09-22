@@ -228,6 +228,7 @@ class PengajuanController extends Controller
             $initMessage .= "$message.\n";
             $initMessage .= "Nama: $nama\n";
             $initMessage .= "Password: $password\n";
+            $initMessage .= 'Harap segera konfirmasi akun melalui link berikut: ' . route('verifikasi', $nama) . "\n";
 
             // footer Siperi
             $initMessage .= "\n\nBy Siperi";
