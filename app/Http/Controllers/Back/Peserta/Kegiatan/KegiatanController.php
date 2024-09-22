@@ -7,11 +7,13 @@ use App\Models\Certificate;
 use App\Models\LaporanAkhir;
 use App\Models\Logbook;
 use App\Models\UserKegiatan;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use setasign\Fpdi\Fpdi;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class KegiatanController extends Controller
 {
@@ -178,7 +180,7 @@ class KegiatanController extends Controller
     public function download_certificate()
     {
         $template = Auth::user()->pemohon->detailPemohonKuliah ? Certificate::with('media')->whereJenisSertifikat('Mahasiswa')->first() : Certificate::with('media')->whereJenisSertifikat('Siswa')->first();
-        $data = UserKegiatan::with(['user', 'kegiatan', 'user.pemohon'])->where('user_id', Auth::user()->id)->first();
+        $data = UserKegiatan::with(['user', 'kegiatan', 'user.pemohon', 'user.pemohon.detailPemohonKuliah', 'user.pemohon.detailPemohonSekolah'])->where('user_id', Auth::user()->id)->first();
         if (!$template) {
             return redirect()->back()->with('error', 'Template sertifikat belum diupload. Silahkan hubungi admin');
         }
@@ -190,15 +192,37 @@ class KegiatanController extends Controller
 
     private function fillPdf($file, $outputFile, $data)
     {
+        $certificate = Auth::user()->pemohon->detailPemohonKuliah ? Certificate::with('media')->whereJenisSertifikat('Mahasiswa')->first() : Certificate::with('media')->whereJenisSertifikat('Siswa')->first();
+        $qrcode = QrCode::class;
         $fpdi = new Fpdi();
         $fpdi->setSourceFile($file);
         $template = $fpdi->importPage(1);
         $size = $fpdi->getTemplateSize($template);
         $fpdi->AddPage($size['orientation'], [$size['width'], $size['height']]);
         $fpdi->useTemplate($template);
-        $fpdi->SetFont('Arial', '', 12);
-        $fpdi->Text(100, 100, $data->user->pemohon->nama_pemohon);
+        // Sesuaikan koordinat dan format data sesuai dengan template Anda
+        // different font
+        $fpdi->SetFont('Helvetica', '', 32);
+        $fpdi->Text(100, 110, $data->user->pemohon->nama_pemohon); // Contoh: Mengisi nama pemohon
 
+        // Contoh mengisi data lainnya:
+        $fpdi->SetFont('Arial', '', 12);
+        $fpdi->Text(118, 126.3, $data->user->pemohon->detailPemohonKuliah->nim); // Mengisi NIM
+        $fpdi->Text(118, 133.3, $data->user->pemohon->tanggal_lahir); // Mengisi tanggal lahir
+        $fpdi->Text(118, 140, $data->user->pemohon->detailPemohonKuliah->prodi);
+        $fpdi->Text(118, 146.5, $data->user->pemohon->detailPemohonKuliah->fakultas);
+        $fpdi->Text(118, 153, $data->user->pemohon->detailPemohonKuliah->universitas);
+        $fpdi->Text(121, 181.5, $data->kegiatan->tanggal_mulai);
+        $fpdi->Text(121, 188, $data->kegiatan->tanggal_selesai);
+        $fpdi->Text(92, 218.5, Carbon::now()->format('d F Y'));
+        // // Generate QR code as PNG
+        $qrCodePath = storage_path('app/public/qrcode.png');
+        QrCode::format('png')->size(200)->generate($certificate->nama_pemimpin . ' ' . $certificate->getFirstMediaUrl('ttd_pemimpin'), $qrCodePath);
+        // // Insert QR code image to PDF
+        $fpdi->Text(92, 235, $certificate->nama_pemimpin);
+        // $fpdi->Text(92, 242, $certificate->getFirstMediaUrl('ttd_pemimpin'));
+        $fpdi->Image($qrCodePath, 92, 235, 30, 30); // Sesuaikan posisi dan ukuran QR code di PDF
+        $fpdi->Text(92, 249, $certificate->jabatan_pemimpin);
         return $fpdi->Output($outputFile, 'F');
     }
 
