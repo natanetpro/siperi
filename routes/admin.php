@@ -3,6 +3,8 @@
 use App\Http\Controllers\Back\Admin\Auth\AuthController;
 use App\Http\Controllers\Back\Admin\DashboardController;
 use App\Http\Controllers\Back\Admin\KegiatanController;
+use App\Http\Controllers\Back\Admin\LaporanAkhir\LaporanAkhirController;
+use App\Http\Controllers\Back\Admin\Logbook\LogbookController;
 use App\Http\Controllers\Back\Admin\MasterData\OperatorController;
 use App\Http\Controllers\Back\Admin\MasterData\PembimbingController;
 use App\Http\Controllers\Back\Admin\MasterData\PimpinanController;
@@ -40,8 +42,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         // Kegiatan
-        Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
-        Route::get('/kegiatan/{id}', [KegiatanController::class, 'find'])->name('kegiatan.find');
+        // Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
+        // Route::get('/kegiatan/{id}', [KegiatanController::class, 'find'])->name('kegiatan.find');
+
+        // Logbook
+        Route::get('/logbook', [LogbookController::class, 'index'])->name('logbook.index');
+        Route::get('/logbook/{id}', [LogbookController::class, 'find'])->name('logbook.find');
+
+        // Laporan Akhir
+        Route::get('/laporan-akhir', [LaporanAkhirController::class, 'index'])->name('laporan-akhir.index');
+        Route::get('/laporan-akhir/{id}', [LaporanAkhirController::class, 'find'])->name('laporan-akhir.find');
 
         // Pengajuan
         Route::get('/pengajuan', [PengajuanController::class, 'index'])->name('pengajuan.index');

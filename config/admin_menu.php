@@ -12,8 +12,13 @@ return [
         'children' => []
     ],
     [
-        'nama_menu' => 'Kegiatan',
-        'url' => 'admin/kegiatan',
+        'nama_menu' => 'Logbook',
+        'url' => 'admin/logbook',
+        'children' => []
+    ],
+    [
+        'nama_menu' => 'Laporan Akhir',
+        'url' => 'admin/laporan-akhir',
         'children' => []
     ],
     [
