@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Back\Admin\MasterData;
 use App\Http\Controllers\Controller;
 use App\Mail\ApprovalPengurusMail;
 use App\Models\User;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -65,6 +67,7 @@ class PimpinanController extends Controller
             ]);
             $pimpinan->assignRole(['Administrator', 'Pimpinan']);
             DB::commit();
+            $this->sendWa($request->no_telp, $request->nama, $request->password);
             Mail::to($request->email)->send(new ApprovalPengurusMail($request->nama, $request->password, 'Pimpinan'));
 
             return redirect()->route('admin.master-data.pimpinan.index')->with('success', 'Data ' . $this->modul . ' berhasil ditambahkan.');
@@ -140,5 +143,25 @@ class PimpinanController extends Controller
             DB::rollBack();
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
+    }
+
+    private function sendWa($phone, $nama, $password)
+    {
+        $client = new Client();
+        $options = [
+            'form_params' => [
+                'token' => env('RUANGWA_TOKEN'),
+                'number' => $phone,
+                'message' => "Berikut akun pimpinan anda:\nNama: $nama\nPassword: $password\n\nBy Siperi",
+                // format date yyyy-mm-dd
+                'date' => date('Y-m-d'),
+                // format time hh:mm:ss
+                'time' => date('H:i:s'),
+            ]
+        ];
+
+        $request = new Psr7Request('POST', env('RUANGWA_URL'));
+        $res = $client->sendAsync($request, $options)->wait();
+        echo $res->getBody();
     }
 }

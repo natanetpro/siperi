@@ -15,6 +15,10 @@ Route::post('/daftar-kkp', [LandingPageController::class, 'daftarKKP'])->name('l
 Route::post('/daftar-prakerin', [LandingPageController::class, 'daftarPrakerin'])->name('landing-page.daftar.prakerin');
 Route::get('verifikasi/{nama}', [VerifikasiController::class, 'verifyAccount'])->name('verifikasi');
 
+Route::get('sertifikat/mahasiswa', function () {
+    return view('pages.sertifikat.mahasiswa');
+});
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('authenticate');

@@ -11,6 +11,8 @@ use App\Models\Pemohon;
 use App\Models\User;
 use App\Models\UserKegiatan;
 use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -88,6 +90,7 @@ class PengajuanController extends Controller
 
                 // send email
                 $pemohon = Pemohon::find($pengajuan->pemohon_id);
+                $this->sendWa($pemohon, $request->approval_admin, $request->catatan_admin);
                 Mail::to($pemohon->email_pemohon)
                     ->send(new ApprovalPemohonMail($pemohon->nama_pemohon, $request->approval_admin, $request->catatan_admin, '', ''));
             } elseif ($request->approval_admin === 'Disetujui') {
@@ -180,6 +183,7 @@ class PengajuanController extends Controller
                 // send email
                 $pemohon = Pemohon::find($pengajuan->pemohon_id);
                 $message = 'Selamat, permohonan anda telah disetujui. Berikut adalah akun anda:';
+                $this->sendWa($pemohon, $request->approval_admin, $message, $new_user->nama, $password);
                 Mail::to($pemohon->email_pemohon)
                     ->send(new ApprovalPemohonMail($pemohon->nama_pemohon, $request->approval_admin, $message, $new_user->nama, $password));
             }
@@ -213,5 +217,37 @@ class PengajuanController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+
+    private function sendWa(Pemohon $pemohon, string $approval, string $message = null, string $nama = null, string $password = null)
+    {
+        $initMessage = "Halo $pemohon->nama_pemohon,\n";
+        if ($approval === 'Ditolak') {
+            $initMessage .= "Maaf, permohonan anda ditolak. Alasan: $message";
+        } else {
+            $initMessage .= "$message.\n";
+            $initMessage .= "Nama: $nama\n";
+            $initMessage .= "Password: $password\n";
+
+            // footer Siperi
+            $initMessage .= "\n\nBy Siperi";
+        }
+
+        $client = new Client();
+        $options = [
+            'form_params' => [
+                'token' => env('RUANGWA_TOKEN'),
+                'number' => $pemohon->no_telp_pemohon,
+                'message' => $initMessage,
+                // format date yyyy-mm-dd
+                'date' => date('Y-m-d'),
+                // format time hh:mm:ss
+                'time' => date('H:i:s'),
+            ]
+        ];
+
+        $request = new Psr7Request('POST', env('RUANGWA_URL'));
+        $res = $client->sendAsync($request, $options)->wait();
+        echo $res->getBody();
     }
 }
