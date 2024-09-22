@@ -65,7 +65,7 @@ class OperatorController extends Controller
                 'pemohon_id' => null,
             ]);
             $operator->assignRole(['Administrator', 'Operator']);
-            Mail::to($request->email)->queue(new ApprovalPengurusMail($request->nama, $request->password, 'Operator'));
+            Mail::to($request->email)->send(new ApprovalPengurusMail($request->nama, $request->password, 'Operator'));
 
             DB::commit();
             return redirect()->route('admin.master-data.operator.index')->with('success', 'Data ' . $this->modul . ' berhasil ditambahkan');

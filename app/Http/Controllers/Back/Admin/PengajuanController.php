@@ -89,7 +89,7 @@ class PengajuanController extends Controller
                 // send email
                 $pemohon = Pemohon::find($pengajuan->pemohon_id);
                 Mail::to($pemohon->email_pemohon)
-                    ->queue(new ApprovalPemohonMail($pemohon->nama_pemohon, $request->approval_admin, $request->catatan_admin, '', ''));
+                    ->send(new ApprovalPemohonMail($pemohon->nama_pemohon, $request->approval_admin, $request->catatan_admin, '', ''));
             } elseif ($request->approval_admin === 'Disetujui') {
                 $pengajuan->update([
                     'approval_admin' => $request->approval_admin,
@@ -181,7 +181,7 @@ class PengajuanController extends Controller
                 $pemohon = Pemohon::find($pengajuan->pemohon_id);
                 $message = 'Selamat, permohonan anda telah disetujui. Berikut adalah akun anda:';
                 Mail::to($pemohon->email_pemohon)
-                    ->queue(new ApprovalPemohonMail($pemohon->nama_pemohon, $request->approval_admin, $message, $new_user->nama, $password));
+                    ->send(new ApprovalPemohonMail($pemohon->nama_pemohon, $request->approval_admin, $message, $new_user->nama, $password));
             }
 
             DB::commit();

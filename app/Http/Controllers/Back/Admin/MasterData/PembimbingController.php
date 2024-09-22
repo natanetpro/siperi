@@ -70,7 +70,7 @@ class PembimbingController extends Controller
                 'pemohon_id' => null,
             ]);
             $pembimbing->assignRole('Pembimbing');
-            Mail::to($request->email)->queue(new ApprovalPengurusMail($request->nama, $request->password, 'Pembimbing'));
+            Mail::to($request->email)->send(new ApprovalPengurusMail($request->nama, $request->password, 'Pembimbing'));
             DB::commit();
             return redirect()->route('admin.master-data.pembimbing.index')->with('success', 'Data ' . $this->modul . ' berhasil ditambahkan.');
         } catch (\Exception $e) {

@@ -65,7 +65,7 @@ class PimpinanController extends Controller
             ]);
             $pimpinan->assignRole(['Administrator', 'Pimpinan']);
             DB::commit();
-            Mail::to($request->email)->queue(new ApprovalPengurusMail($request->nama, $request->password, 'Pimpinan'));
+            Mail::to($request->email)->send(new ApprovalPengurusMail($request->nama, $request->password, 'Pimpinan'));
 
             return redirect()->route('admin.master-data.pimpinan.index')->with('success', 'Data ' . $this->modul . ' berhasil ditambahkan.');
         } catch (\Exception $e) {
