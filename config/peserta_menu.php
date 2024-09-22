@@ -6,8 +6,18 @@ return [
         'childrent' => []
     ],
     [
-        'nama_menu' => 'Kegiatan',
-        'url' => 'peserta/kegiatan',
+        'nama_menu' => 'Logbook',
+        'url' => 'peserta/logbook',
+        'childrent' => []
+    ],
+    [
+        'nama_menu' => 'Laporan Akhir',
+        'url' => 'peserta/laporan-akhir',
+        'childrent' => []
+    ],
+    [
+        'nama_menu' => 'Sertifikat',
+        'url' => 'peserta/sertifikat',
         'childrent' => []
     ]
 ];
