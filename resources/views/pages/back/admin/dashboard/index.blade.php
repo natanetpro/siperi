@@ -5,7 +5,7 @@
         {{-- Hello, User --}}
         <h4 class="card-title
         mb-0">Hello, {{ Auth::user()->nama }}</h4>
-        <p class="text-muted">Selamat datang di dashboard</p>
+        <p class="text-muted">Selamat datang di dashboard admin</p>
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h5 class="card-title mb-0">Statistik</h5>
@@ -64,7 +64,7 @@
     <div class="col-xl-12 col-12 mb-4">
         <div class="card">
             <div class="card-header header-elements">
-                <h5 class="card-title mb-0">Latest Statistics</h5>
+                <h5 class="card-title mb-0">Statistik</h5>
                 <div class="card-action-element ms-auto py-0">
                     {{-- get month  & year --}}
                     <p>{{ Carbon\Carbon::now()->format('F Y') }}</p>

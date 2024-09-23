@@ -5,7 +5,7 @@
         {{-- Hello, User --}}
         <h4 class="card-title
     mb-0">Hello, {{ Auth::user()->pemohon->nama_pemohon }}</h4>
-        <p class="text-muted">Selamat datang di dashboard</p>
+        <p class="text-muted">Selamat datang di dashboard peserta</p>
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h5 class="card-title mb-0">Statistik</h5>
