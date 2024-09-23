@@ -10,6 +10,7 @@ use App\Http\Controllers\Back\Admin\MasterData\PembimbingController;
 use App\Http\Controllers\Back\Admin\MasterData\PimpinanController;
 use App\Http\Controllers\Back\Admin\MasterData\SertifikatController;
 use App\Http\Controllers\Back\Admin\PengajuanController;
+use App\Http\Controllers\Back\Admin\Sertifikat\SertifikatController as MenuSertifikatController;
 use App\Http\Controllers\Back\Admin\Setelan\ManajemenMenuController;
 use App\Http\Controllers\Back\Admin\Setelan\ManejemenPeranController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/pengajuan/{id}', [PengajuanController::class, 'find'])->name('pengajuan.find');
         Route::put('/pengajuan/{id}', [PengajuanController::class, 'update'])->name('pengajuan.update');
         Route::put('/pengajuan/{id}/set-pembimbing', [PengajuanController::class, 'setPembimbing'])->name('pengajuan.set-pembimbing');
+
+        // Sertifikat
+        Route::get('/sertifikat', [MenuSertifikatController::class, 'index'])->name('sertifikat.index');
 
         // Setelan
         Route::prefix('setelan')->name('setelan.')->group(function () {

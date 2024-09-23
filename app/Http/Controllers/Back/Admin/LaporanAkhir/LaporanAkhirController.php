@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back\Admin\LaporanAkhir;
 
 use App\Http\Controllers\Controller;
+use App\Models\LaporanAkhir;
 use App\Models\UserKegiatan;
 use Illuminate\Http\Request;
 
@@ -12,13 +13,13 @@ class LaporanAkhirController extends Controller
 
     public function index(Request $request)
     {
-        $kegiatan = UserKegiatan::with(['user', 'kegiatan', 'user.pemohon', 'laporan_akhir', 'laporan_akhir'])->get();
+        $kegiatan = UserKegiatan::with(['user', 'kegiatan', 'user.pemohon', 'laporan_akhir'])->get();
         // return $kegiatan;
         if ($request->ajax()) {
             return datatables()->of($kegiatan)
                 ->addIndexColumn()
                 ->addColumn('aksi', function ($row) {
-                    $actionBtn = '<a href="' .  route('admin.laporan-akhir.find', $row->id) . '" class="btn btn-primary btn-sm"><i class="ti ti-eye"></i></a>';
+                    $actionBtn = '<a href="' .  route('admin.laporan-akhir.find', $row->id) . '" class="btn btn-primary btn-sm"><i class="ti ti-download"></i></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['aksi'])
@@ -32,7 +33,9 @@ class LaporanAkhirController extends Controller
 
     public function find($id)
     {
-        $kegiatan = UserKegiatan::with(['user', 'kegiatan', 'user.pemohon', 'laporan_akhir'])->find($id);
-        return view('pages.back.admin.laporan-akhir.show', ['title' => 'Detail ' . $this->title, 'kegiatan' => $kegiatan]);
+        $laporanAkhir = LaporanAkhir::whereHas('userKegiatan', function ($query) use ($id) {
+            $query->where('user_kegiatan_id', $id);
+        })->first();
+        return redirect()->away($laporanAkhir->getFirstMediaUrl('laporan_akhir'));
     }
 }

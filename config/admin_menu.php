@@ -22,6 +22,11 @@ return [
         'children' => []
     ],
     [
+        'nama_menu' => 'Sertifikat',
+        'url' => 'admin/sertifikat',
+        'children' => []
+    ],
+    [
         'nama_menu' => 'Master Data',
         'url' => 'admin/master-data/*',
         'children' => [
