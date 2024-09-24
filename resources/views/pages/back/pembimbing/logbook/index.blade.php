@@ -37,8 +37,8 @@
                     name: 'kegiatan.nama_kegiatan'
                 },
                 {
-                    data: 'nilai',
-                    name: 'nilai',
+                    data: 'hasil',
+                    name: 'hasil',
                     render: function(data, type, row) {
                         return data ? data : '-';
                     }
