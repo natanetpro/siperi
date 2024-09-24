@@ -43,14 +43,21 @@ class LaporanAkhirController extends Controller
         ]);
     }
 
-    public function approveLaporanAkhir($id)
+    public function approveLaporanAkhir(Request $request, $id)
     {
+        $request->validate([
+            'hasil' => 'required|in:Kurang,Cukup,Baik,Sangat Baik'
+        ]);
         DB::beginTransaction();
         try {
             $laporan_akhir = LaporanAkhir::find($id);
             $laporan_akhir->update([
                 'approval_pembimbing' => 'Disetujui',
-                'catatan_pembimbing' => null
+                'catatan_pembimbing' => null,
+            ]);
+
+            $laporan_akhir->userKegiatan->update([
+                'hasil' => $request->hasil
             ]);
 
             DB::commit();

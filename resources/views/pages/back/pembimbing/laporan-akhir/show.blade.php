@@ -64,7 +64,11 @@
                                         </a>
                                         <div class="d-flex gap-3">
                                             @if ($laporan_akhir->approval_pembimbing === 'Menunggu')
-                                                <form id="approve-laporan-akhir"
+                                                <button type="button" onclick="approveLaporanAkhir()"
+                                                    class="btn btn-success btn-sm"><i class="ti ti-check"></i></button>
+                                                <button type="button" onclick="rejectLaporanAkhir()"
+                                                    class="btn btn-danger btn-sm"><i class="ti ti-x"></i></button>
+                                                {{-- <form id="approve-laporan-akhir"
                                                     action="{{ route('pembimbing.laporan-akhir.approve', $laporan_akhir->id) }}"
                                                     method="POST">
                                                     @csrf
@@ -76,7 +80,7 @@
                                                 <form onsubmit="return false;">
                                                     <button onclick="rejectLaporanAkhir({{ $laporan_akhir->id }})"
                                                         class="btn btn-danger btn-sm"><i class="ti ti-x"></i></button>
-                                                </form>
+                                                </form> --}}
                                             @endif
                                         </div>
                                     </div>
@@ -93,23 +97,62 @@
         </div>
     </div>
 
-    {{-- Modal Reject Logbook --}}
+    {{-- Modal Logbook --}}
 
-    <div class="modal fade" id="reject-laporan-akhir" tabindex="-1" role="dialog"
+    <div class="modal fade" id="approve-laporan-akhir" tabindex="-1" role="dialog"
         aria-labelledby="laporan-akhir-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
-                <form action="" method="post">
+                <form action="{{ route('pembimbing.laporan-akhir.approve', $laporan_akhir->id) }}" method="post"
+                    id="laporan">
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title" id="logbook-title">Alasan Penolakan</h5>
+                        <h5 class="modal-title" id="logbook-title">Penilaian</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body
                     ">
                         <div class="mb-3">
-                            <label for="laporan_akhir" class="form-label
+                            <label for="hasil" class="form-label
+                        ">Nilai</label>
+                            <select name="hasil" class="form-select" id="" required>
+                                <option value="Kurang">Kurang</option>
+                                <option value="Cukup">Cukup</option>
+                                <option value="Baik">Baik</option>
+                                <option value="Sangat Baik">Sangat Baik</option>
+                            </select>
+                            @error('hasil')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Kirim</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reject-laporan-akhir" tabindex="-1" role="dialog"
+        aria-labelledby="laporan-akhir-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <form action="{{ route('pembimbing.laporan-akhir.reject', $laporan_akhir->id) }}" method="post"
+                    id="laporan">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logbook-title">Penilaian</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body
+                    ">
+                        <div class="mb-3">
+                            <label for="catatan_pembimbing"
+                                class="form-label
                             ">Catatan</label>
                             <textarea class="form-control @error('catatan_pembimbing') is-invalid @enderror" name="catatan_pembimbing"
                                 id="catatan_pembimbing" rows="3" required></textarea>
@@ -155,27 +198,12 @@
         </script>
     @endif
     <script>
-        function approveLaporanAkhir(id) {
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: "Data yang sudah disimpan tidak dapat diubah kembali!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Simpan!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#approve-laporan-akhir').submit();
-                }
-            })
+        function approveLaporanAkhir() {
+            $('#approve-laporan-akhir').modal('show');
         }
 
-        function rejectLaporanAkhir(id) {
+        function rejectLaporanAkhir() {
             $('#reject-laporan-akhir').modal('show');
-            $('#reject-laporan-akhir form').attr('action',
-                `{{ route('pembimbing.laporan-akhir.reject', '') }}/${id}`);
         }
     </script>
 @endpush
