@@ -96,7 +96,6 @@ class LogbookController extends Controller
                 'tanggal' => $request->tanggal,
                 'aktivitas' => $request->aktivitas,
                 'approval_pembimbing' => 'Menunggu',
-                'catatan_pembimbing' => null,
             ]);
             DB::commit();
             return redirect()->back()->with('success', 'Logbook berhasil diubah');

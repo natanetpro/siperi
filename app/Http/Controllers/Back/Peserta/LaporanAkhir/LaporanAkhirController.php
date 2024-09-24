@@ -94,7 +94,6 @@ class LaporanAkhirController extends Controller
             }
             $laporanAkhir->update([
                 'approval_pembimbing' => 'Menunggu',
-                'catatan_pembimbing' => null,
             ]);
             // clear media
             $laporanAkhir->clearMediaCollection('laporan_akhir');

@@ -13,6 +13,7 @@
                     <tr>
                         <th>Peserta</th>
                         <th>Kegiatan</th>
+                        <th>Nilai</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -35,6 +36,13 @@
                 {
                     data: 'kegiatan.nama_kegiatan',
                     name: 'kegiatan.nama_kegiatan'
+                },
+                {
+                    data: 'nilai',
+                    name: 'nilai',
+                    render: function(data, type, row) {
+                        return data ? data : '-';
+                    }
                 },
                 {
                     data: 'active',

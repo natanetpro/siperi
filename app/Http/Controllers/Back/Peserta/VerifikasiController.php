@@ -10,7 +10,7 @@ class VerifikasiController extends Controller
 {
     public function verifyAccount($nama)
     {
-        $user = User::where('nama', $nama)->first();
+        $user = User::where('nama', base64_decode($nama))->first();
         $user->update([
             'email_verified_at' => now(),
         ]);

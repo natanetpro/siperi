@@ -14,6 +14,7 @@ class UserKegiatan extends Model
         'kegiatan_id',
         'pembimbing_id',
         'active',
+        'hasil'
     ];
 
     public function user()

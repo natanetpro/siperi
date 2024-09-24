@@ -49,7 +49,8 @@ class LaporanAkhirController extends Controller
         try {
             $laporan_akhir = LaporanAkhir::find($id);
             $laporan_akhir->update([
-                'approval_pembimbing' => 'Disetujui'
+                'approval_pembimbing' => 'Disetujui',
+                'catatan_pembimbing' => null
             ]);
 
             DB::commit();

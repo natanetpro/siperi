@@ -66,9 +66,9 @@ class PimpinanController extends Controller
                 'password' => bcrypt($request->password),
             ]);
             $pimpinan->assignRole(['Administrator', 'Pimpinan']);
-            DB::commit();
             $this->sendWa($request->no_telp, $request->nama, $request->password);
             Mail::to($request->email)->send(new ApprovalPengurusMail($request->nama, $request->password, 'Pimpinan'));
+            DB::commit();
 
             return redirect()->route('admin.master-data.pimpinan.index')->with('success', 'Data ' . $this->modul . ' berhasil ditambahkan.');
         } catch (\Exception $e) {

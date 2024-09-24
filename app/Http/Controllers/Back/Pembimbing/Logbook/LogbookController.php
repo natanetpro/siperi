@@ -48,7 +48,8 @@ class LogbookController extends Controller
         try {
             $logbook = Logbook::find($id);
             $logbook->update([
-                'approval_pembimbing' => 'Disetujui'
+                'approval_pembimbing' => 'Disetujui',
+                'catatan_pembimbing' => null
             ]);
 
             DB::commit();

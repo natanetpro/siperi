@@ -7,8 +7,8 @@
         <div class="faq-header d-flex flex-column justify-content-center align-items-center rounded">
             <h3 class="text-center">{{ Auth::user()->userKegiatan->kegiatan->nama_kegiatan }}</h3>
             <p class="text-center mb-0 px-3">Oleh: {{ Auth::user()->pemohon->nama_pemohon }}
-                ({{ \Carbon\Carbon::parse(Auth::user()->pemohon->tanggal_mulai)->format('d M Y') }} -
-                {{ \Carbon\Carbon::parse(Auth::user()->pemohon->tanggal_selesai)->format('d M Y') }})</p>
+                ({{ \Carbon\Carbon::parse(Auth::user()->userKegiatan->kegiatan->tanggal_mulai)->format('d M Y') }} -
+                {{ \Carbon\Carbon::parse(Auth::user()->userKegiatan->kegiatan->tanggal_selesai)->format('d M Y') }})</p>
             @switch(Auth::user()->userKegiatan->active)
                 @case(true)
                     <span class="badge bg-success mt-4">Sedang Berjalan</span>

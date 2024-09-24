@@ -1,6 +1,10 @@
 @extends('layouts.front.app')
 @push('styles')
     <style>
+        img#logo {
+            width: 10%;
+        }
+
         #app-title {
             color: #3fd234 !important;
         }
@@ -33,12 +37,14 @@
 
         <img src="{{ asset('bg-siperi.jpg') }}" alt="" data-aos="fade-in" class="">
         <div class="container d-flex flex-column align-items-center text-center mt-auto">
-            <h2 data-aos="fade-up" data-aos-delay="100" class="">SISTEM INFORMASI PENGELOLAAN<br><span
-                    id="app-title">PENELITIAN DAN
-                    RISET</span></h2>
-            <div data-aos="fade-up" data-aos-delay="300" class="">
-                <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn mt-3"></a>
+            <div data-aos="fade-up" data-aos-delay="300" class="mb-5">
+                <img id="logo" src="{{ asset('logo-banten.png') }}" alt="" class="mx-auto mb-3"
+                    style="width: 20%; position: relative;">
+                <strong>Pengadilan Tinggi Banten</strong>
             </div>
+            <h2 data-aos="fade-up" data-aos-delay="100" class="">SISTEM INFORMASI PENGELOLAAN<br><span
+                    class="text-success">PENELITIAN
+                    DAN RISET</span></h2>
         </div>
         {{-- <div class="container d-flex flex-column align-items-center text-center mt-auto">
             <h2 data-aos="fade-up" data-aos-delay="100" class="">THE ANNUAL<br><span
