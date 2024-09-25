@@ -113,7 +113,7 @@ class SertifikatController extends Controller
             $box->setBox(55, 620, 800, 800);
             $box->setTextAlign('center', 'center');
             $box->draw("Test TTD");
-            // $box->draw(QrCode::size(200)->format('png')->generate($certifData->nama_pemimpin . " " . $certifData->jabatan_pemimpin));
+            $box->draw(QrCode::size(200)->format('png')->generate($certifData->nama_pemimpin . " " . $certifData->jabatan_pemimpin));
 
             header('Content-Type: image/jpg');
             imagejpeg($im);
