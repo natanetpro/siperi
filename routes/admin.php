@@ -62,6 +62,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Sertifikat
         Route::get('/sertifikat', [MenuSertifikatController::class, 'index'])->name('sertifikat.index');
+        Route::get('/sertifikat/{id}', [MenuSertifikatController::class, 'downloadCertificate'])->name('sertifikat.find');
 
         // Setelan
         Route::prefix('setelan')->name('setelan.')->group(function () {
