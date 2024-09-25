@@ -105,15 +105,35 @@ class SertifikatController extends Controller
         $box->setTextAlign('left', 'center');
         $box->draw($userKegiatan->kegiatan->tanggal_selesai);
 
+        // Generate QR Code
         $certifData = Certificate::where('jenis_sertifikat', 'Mahasiswa')->first();
-        $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
-        $box->setFontSize(18);
-        $box->setFontColor(new Color(0, 0, 0));
-        $box->setBox(55, 620, 800, 800);
-        $box->setTextAlign('center', 'center');
-        $box->draw("Test TTD");
-        $box->draw(QrCode::size(200)->format('png')->generate($certifData->nama_pemimpin . " " . $certifData->jabatan_pemimpin));
+        $qrCodeImage = QrCode::format('png')->size(200)->generate($certifData->nama_pemimpin . " " . $certifData->nip_pemimpin);
 
+        // Simpan QR Code ke dalam file sementara
+        $qrCodePath = public_path('qrcode.png');
+        file_put_contents($qrCodePath, $qrCodeImage);
+
+        // Buat gambar QR Code dari file sementara
+        $qrCode = imagecreatefrompng($qrCodePath);
+
+        // Dapatkan ukuran gambar QR Code
+        list($qrWidth, $qrHeight) = getimagesize($qrCodePath);
+
+        // Tentukan posisi QR Code pada sertifikat
+        $qrX = 50;  // Sesuaikan posisi X
+        $qrY = 600; // Sesuaikan posisi Y
+
+        // Gabungkan gambar QR Code ke gambar sertifikat
+        imagecopy($im, $qrCode, $qrX, $qrY, 0, 0, $qrWidth, $qrHeight);
+
+        // Hapus file sementara QR Code
+        unlink($qrCodePath);
+
+        // Output image
+        header('Content-Type: image/jpg');
+        imagejpeg($im);
+        imagedestroy($im);
+        imagedestroy($qrCode);
         header('Content-Type: image/jpg');
         imagejpeg($im);
     }
