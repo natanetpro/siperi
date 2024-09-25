@@ -107,7 +107,7 @@ class SertifikatController extends Controller
 
         // Generate QR Code
         $certifData = Certificate::where('jenis_sertifikat', 'Mahasiswa')->first();
-        $qrCodeImage = QrCode::format('png')->size(200)->generate($certifData->nama_pemimpin . " " . $certifData->nip_pemimpin);
+        $qrCodeImage = QrCode::format('png')->size(60)->generate($certifData->nama_pemimpin . " " . $certifData->nip_pemimpin);
 
         // Simpan QR Code ke dalam file sementara
         $qrCodePath = public_path('qrcode.png');
@@ -120,8 +120,8 @@ class SertifikatController extends Controller
         list($qrWidth, $qrHeight) = getimagesize($qrCodePath);
 
         // Tentukan posisi QR Code pada sertifikat
-        $qrX = 50;  // Sesuaikan posisi X
-        $qrY = 600; // Sesuaikan posisi Y
+        $qrX = 420;  // Sesuaikan posisi X
+        $qrY = 990; // Sesuaikan posisi Y
 
         // Gabungkan gambar QR Code ke gambar sertifikat
         imagecopy($im, $qrCode, $qrX, $qrY, 0, 0, $qrWidth, $qrHeight);
@@ -134,7 +134,5 @@ class SertifikatController extends Controller
         imagejpeg($im);
         imagedestroy($im);
         imagedestroy($qrCode);
-        header('Content-Type: image/jpg');
-        imagejpeg($im);
     }
 }
