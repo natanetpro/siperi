@@ -103,6 +103,130 @@ class SertifikatController extends Controller
             $box->setTextAlign('left', 'center');
             $box->draw("Sejak " . Carbon::parse($userKegiatan->kegiatan->tanggal_mulai)->format('d F Y') . " sampai dengan tanggal " . Carbon::parse($userKegiatan->kegiatan->tanggal_selesai)->format('d F Y'));
 
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Bold.ttf'));
+            $box->setFontSize(55);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(1450, 1902, 1000, 1000);
+            $box->setTextAlign('left', 'center');
+            $box->draw(strtoupper($userKegiatan->hasil) ?? 'Belum ada');
+
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontSize(55);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(1250, 2460, 1000, 1000);
+            $box->setTextAlign('left', 'center');
+            $box->draw(Carbon::now()->format('d F Y'));
+
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontSize(55);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(500, 2050, 2000, 2000);
+            $box->setTextAlign('center', 'center');
+            $box->draw($certificateData->jabatan_pemimpin);
+
+            // $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            // $box->setFontSize(55);
+            // $box->setFontColor(new Color(0, 0, 0));
+            // $box->setBox(1290, 2760, 1000, 1000);
+            // $box->setTextAlign('left', 'center');
+            // $box->draw($certificateData->nama_pemimpin);
+
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontSize(55);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(450, 2600, 2000, 2000);
+            $box->setTextAlign('center', 'center');
+            $box->draw($certificateData->nama_pemimpin);
+
+            $qrCodeImage = QrCode::format('png')->size(350)->generate($certificateData->getFirstMediaUrl('ttd_pemimpin'));
+
+            // Simpan QR Code ke dalam file sementara
+            $qrCodePath = public_path('qrcode.png');
+            file_put_contents($qrCodePath, $qrCodeImage);
+
+            // Buat gambar QR Code dari file sementara
+            $qrCode = imagecreatefrompng($qrCodePath);
+
+            // Dapatkan ukuran gambar QR Code
+            list($qrWidth, $qrHeight) = getimagesize($qrCodePath);
+
+            // Tentukan posisi QR Code pada sertifikat
+            $qrX = 1300;  // Sesuaikan posisi X
+            $qrY = 3150; // Sesuaikan posisi Y
+
+            // Gabungkan gambar QR Code ke gambar sertifikat
+            imagecopy($im, $qrCode, $qrX, $qrY, 0, 0, $qrWidth, $qrHeight);
+
+            // Hapus file sementara QR Code
+            unlink($qrCodePath);
+
+            // Output image
+            header('Content-Type: image/png');
+            imagepng($im);
+            imagedestroy($im);
+            imagedestroy($qrCode);
+        }
+
+        if ($userKegiatan->kegiatan->jenis_kegiatan === 'KKP') {
+            $certificate = asset('sertifikat-kkp.png');
+            // dd($certificate);
+            $im = imagecreatefrompng($certificate);
+
+            // edit Image
+            $box = new Box($im);
+            list($width, $height) = getimagesize($certificate);
+            // set name
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Bold.ttf'));
+            $box->setFontSize(110);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(1150, 1100, 500, 500);
+            $box->setTextAlign('center', 'center');
+            $box->draw($userKegiatan->user->pemohon->nama_pemohon);
+
+
+            // set detail
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontSize(55);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(1330, 1320, 500, 500);
+            $box->setTextAlign('left', 'center');
+            $box->draw($userKegiatan->user->pemohon->detailPemohonKuliah->nim);
+
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontSize(55);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(1325, 1150, 1000, 1000);
+            $box->setTextAlign('left', 'center');
+            $box->draw($userKegiatan->user->pemohon->tempat_lahir . '/' . Carbon::parse($userKegiatan->user->pemohon->tanggal_lahir)->format('d F Y'));
+
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontSize(55);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(1325, 1230, 1000, 1000);
+            $box->setTextAlign('left', 'center');
+            $box->draw($userKegiatan->user->pemohon->detailPemohonKuliah->prodi);
+
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontSize(55);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(1320, 1305, 1000, 1000);
+            $box->setTextAlign('left', 'center');
+            $box->draw($userKegiatan->user->pemohon->detailPemohonKuliah->fakultas);
+
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontSize(55);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(1320, 1490, 800, 800);
+            $box->setTextAlign('left', 'center');
+            $box->draw($userKegiatan->user->pemohon->detailPemohonKuliah->universitas);
+
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontSize(50);
+            $box->setFontColor(new Color(0, 0, 0));
+            $box->setBox(650, 770, 3000, 3000);
+            $box->setTextAlign('left', 'center');
+            $box->draw("Sejak " . Carbon::parse($userKegiatan->kegiatan->tanggal_mulai)->format('d F Y') . " sampai dengan tanggal " . Carbon::parse($userKegiatan->kegiatan->tanggal_selesai)->format('d F Y'));
+
             $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
             $box->setFontSize(55);
             $box->setFontColor(new Color(0, 0, 0));
@@ -120,8 +244,8 @@ class SertifikatController extends Controller
             $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
             $box->setFontSize(55);
             $box->setFontColor(new Color(0, 0, 0));
-            $box->setBox(1290, 2550, 1000, 1000);
-            $box->setTextAlign('left', 'center');
+            $box->setBox(500, 2050, 2000, 2000);
+            $box->setTextAlign('center', 'center');
             $box->draw($certificateData->jabatan_pemimpin);
 
             // $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
@@ -131,14 +255,14 @@ class SertifikatController extends Controller
             // $box->setTextAlign('left', 'center');
             // $box->draw($certificateData->nama_pemimpin);
 
-            $box->setFontFace(public_path('fonts/Poppins/Poppins-Regular.ttf'));
+            $box->setFontFace(public_path('fonts/Poppins/Poppins-Bold.ttf'));
             $box->setFontSize(55);
             $box->setFontColor(new Color(0, 0, 0));
-            $box->setBox(1290, 3000, 1000, 1000);
-            $box->setTextAlign('left', 'center');
+            $box->setBox(450, 2600, 2000, 2000);
+            $box->setTextAlign('center', 'center');
             $box->draw($certificateData->nama_pemimpin);
 
-            $qrCodeImage = QrCode::format('png')->size(60)->generate($certificateData->getFirstMediaUrl('ttd_pemimpin'));
+            $qrCodeImage = QrCode::format('png')->size(350)->generate($certificateData->getFirstMediaUrl('ttd_pemimpin'));
 
             // Simpan QR Code ke dalam file sementara
             $qrCodePath = public_path('qrcode.png');
@@ -151,8 +275,8 @@ class SertifikatController extends Controller
             list($qrWidth, $qrHeight) = getimagesize($qrCodePath);
 
             // Tentukan posisi QR Code pada sertifikat
-            $qrX = 420;  // Sesuaikan posisi X
-            $qrY = 990; // Sesuaikan posisi Y
+            $qrX = 1300;  // Sesuaikan posisi X
+            $qrY = 3150; // Sesuaikan posisi Y
 
             // Gabungkan gambar QR Code ke gambar sertifikat
             imagecopy($im, $qrCode, $qrX, $qrY, 0, 0, $qrWidth, $qrHeight);
