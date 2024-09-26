@@ -34,5 +34,6 @@ Route::prefix('peserta')->name('peserta.')->group(function () {
 
         // Certificate Routes
         Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
+        Route::get('/sertifikat/{id}', [SertifikatController::class, 'downloadCertificate'])->name('sertifikat.show');
     });
 });
