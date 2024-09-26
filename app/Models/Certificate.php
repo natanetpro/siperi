@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Certificate extends Model implements HasMedia
+class Certificate extends Model
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory;
 
     protected $fillable = [
         'nama_pemimpin',
@@ -18,9 +18,9 @@ class Certificate extends Model implements HasMedia
         'jabatan_pemimpin',
     ];
 
-    public function registerMediaCollections(): void
-    {
-        $this->addMediaCollection('ttd_pemimpin')
-            ->singleFile();
-    }
+    // public function registerMediaCollections(): void
+    // {
+    //     $this->addMediaCollection('ttd_pemimpin')
+    //         ->singleFile();
+    // }
 }

@@ -16,7 +16,7 @@ class SertifikatController extends Controller
      */
     public function index(Request $request)
     {
-        $certificate = Certificate::with('media')->first();
+        $certificate = Certificate::first();
         return view('pages.back.admin.master-data.sertifikat.index', ['title' => $this->title, 'certificate' => $certificate]);
     }
 
@@ -26,7 +26,6 @@ class SertifikatController extends Controller
             'nama_pemimpin' => 'required',
             'nip_pemimpin' => 'required|numeric',
             'jabatan_pemimpin' => 'required',
-            'ttd_pemimpin' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         DB::beginTransaction();
@@ -45,7 +44,6 @@ class SertifikatController extends Controller
                     'jabatan_pemimpin' => $request->jabatan_pemimpin,
                 ]);
             }
-            $certificate->addMediaFromRequest('ttd_pemimpin')->toMediaCollection('ttd_pemimpin');
             DB::commit();
             return redirect()->route('admin.master-data.sertifikat.index')->with('success', 'Data berhasil disimpan');
         } catch (Exception $e) {

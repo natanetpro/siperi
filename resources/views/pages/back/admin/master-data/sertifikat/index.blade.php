@@ -43,16 +43,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="basic-default-email">TTD Pemimpin (.png, .jpg, .jpeg, Max.
-                                2048KB)</label>
-                            <input type="file" id="basic-default-email"
-                                class="form-control @error('ttd_pemimpin') is-invalid @enderror" accept="image/*"
-                                name="ttd_pemimpin" />
-                            @error('ttd_pemimpin')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
                         <button type="submit" class="btn btn-primary">Send</button>
                     </form>
                 </div>
@@ -70,16 +60,6 @@
                     <div class="mb-3">
                         <p>Jabatan Pemimpin: <strong
                                 id="jabatan_pemimpin">{{ $certificate->jabatan_pemimpin ?? '-' }}</strong></p>
-                    </div>
-                    <div class="mb-3">
-                        <p>TTD Pemimpin:
-                            @if ($certificate)
-                                <img src="{{ $certificate->getFirstMediaUrl('ttd_pemimpin') }}" alt="TTD Pemimpin"
-                                    style="width: 100px">
-                            @else
-                                -
-                            @endif
-                        </p>
                     </div>
                 </div>
             </div>

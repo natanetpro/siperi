@@ -138,7 +138,7 @@ class SertifikatController extends Controller
             $box->setTextAlign('center', 'center');
             $box->draw($certificateData->nama_pemimpin);
 
-            $qrCodeImage = QrCode::format('png')->size(350)->generate($certificateData->getFirstMediaUrl('ttd_pemimpin'));
+            $qrCodeImage = QrCode::format('png')->size(350)->generate($certificateData->nama_pemimpin . " " . $certificateData->nip_pemimpin . " " . $certificateData->jabatan_pemimpin);
 
             // Simpan QR Code ke dalam file sementara
             $qrCodePath = public_path('qrcode.png');
@@ -262,7 +262,7 @@ class SertifikatController extends Controller
             $box->setTextAlign('center', 'center');
             $box->draw($certificateData->nama_pemimpin);
 
-            $qrCodeImage = QrCode::format('png')->size(350)->generate($certificateData->getFirstMediaUrl('ttd_pemimpin'));
+            $qrCodeImage = QrCode::format('png')->size(350)->generate($certificateData->nama_pemimpin . " " . $certificateData->nip_pemimpin . " " . $certificateData->jabatan_pemimpin);
 
             // Simpan QR Code ke dalam file sementara
             $qrCodePath = public_path('qrcode.png');
@@ -386,7 +386,7 @@ class SertifikatController extends Controller
             $box->setTextAlign('center', 'center');
             $box->draw($certificateData->nama_pemimpin);
 
-            $qrCodeImage = QrCode::format('png')->size(350)->generate($certificateData->getFirstMediaUrl('ttd_pemimpin'));
+            $qrCodeImage = QrCode::format('png')->size(350)->generate($certificateData->nama_pemimpin . " " . $certificateData->nip_pemimpin . " " . $certificateData->jabatan_pemimpin);
 
             // Simpan QR Code ke dalam file sementara
             $qrCodePath = public_path('qrcode.png');
