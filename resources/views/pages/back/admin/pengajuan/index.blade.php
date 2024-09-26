@@ -92,8 +92,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="d-flex gap-1">
-                                            <p class="fw-bold">Tanggal Lahir:</p>
-                                            <span id="tanggal_lahir"></span>
+                                            <p class="fw-bold">Tempat/Tanggal Lahir:</p>
+                                            <span id="tempat_tanggal_lahir"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -145,6 +145,12 @@
                                         <div class="d-flex gap-1">
                                             <p class="fw-bold">Sekolah:</p>
                                             <span id="sekolah"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex gap-1">
+                                            <p class="fw-bold">Jurusan:</p>
+                                            <span id="jurusan"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -338,7 +344,8 @@
                         $('#email').text(response.pemohon.email_pemohon);
                         $('#no_telp').text(response.pemohon.no_telp_pemohon);
                         $('#jenis_kelamin').text(response.pemohon.jenis_kelamin);
-                        $('#tanggal_lahir').text(response.pemohon.tanggal_lahir);
+                        $('#tempat_tanggal_lahir').text(response.pemohon.tempat_lahir + '/' + response.pemohon
+                            .tanggal_lahir);
                         $('#jenis_kegiatan').text(response.jenis_kegiatan);
                         $('#nama_kegiatan').text(response.nama_kegiatan);
                         $('#tanggal_mulai').text(response.tanggal_mulai);
@@ -361,6 +368,7 @@
                             $('.sekolah').show();
                             $('#nis').text(response.pemohon.detail_pemohon_sekolah.nis);
                             $('#sekolah').text(response.pemohon.detail_pemohon_sekolah.sekolah);
+                            $('#jurusan').text(response.pemohon.detail_pemohon_sekolah.jurusan);
                             $('#kelas').text(response.pemohon.detail_pemohon_sekolah.kelas);
                         }
 

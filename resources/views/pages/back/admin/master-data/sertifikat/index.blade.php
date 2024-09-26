@@ -12,43 +12,77 @@
         </div> --}}
     </div>
 
-    <!-- DataTable with Buttons -->
-    <div class="card">
-        <div class="card-datatable table-responsive pt-0">
-            <table class="datatables-basic table" id="sertifikat">
-                <thead>
-                    <tr>
-                        <th>Jenis</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Mahasiswa</td>
-                        <td>
-                            @if (count($certificate->where('jenis_sertifikat', 'Mahasiswa')) == 0)
-                                <a href="{{ route('admin.master-data.sertifikat.create-mahasiswa') }}"
-                                    class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
+    <!-- Basic Layout -->
+    <div class="row">
+        <div class="col-xl">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form action="{{ route('admin.master-data.sertifikat.createOrUpdate') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Nama Pemimpin</label>
+                            <input type="text" class="form-control @error('nama_pemimpin') is-invalid @enderror"
+                                id="basic-default-fullname" name="nama_pemimpin" />
+                            @error('nama_pemimpin')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Jabatan Pemimpin</label>
+                            <input type="text" class="form-control @error('jabatan_pemimpin') is-invalid @enderror"
+                                id="basic-default-fullname" name="jabatan_pemimpin" />
+                            @error('jabatan_pemimpin')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-company">NIP Pemimpin</label>
+                            <input type="number" class="form-control" id="basic-default-company" name="nip_pemimpin" />
+                            @error('nip_pemimpin')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-email">TTD Pemimpin (.png, .jpg, .jpeg, Max.
+                                2048KB)</label>
+                            <input type="file" id="basic-default-email"
+                                class="form-control @error('ttd_pemimpin') is-invalid @enderror" accept="image/*"
+                                name="ttd_pemimpin" />
+                            @error('ttd_pemimpin')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <p>Nama Pemimpin: <strong id="nama_pemimpin">{{ $certificate->nama_pemimpin ?? '-' }}</strong></p>
+                    </div>
+                    <div class="mb-3">
+                        <p>NIP Pemimpin: <strong id="nip_pemimpin">{{ $certificate->nip_pemimpin ?? '-' }}</strong></p>
+                    </div>
+                    <div class="mb-3">
+                        <p>Jabatan Pemimpin: <strong
+                                id="jabatan_pemimpin">{{ $certificate->jabatan_pemimpin ?? '-' }}</strong></p>
+                    </div>
+                    <div class="mb-3">
+                        <p>TTD Pemimpin:
+                            @if ($certificate)
+                                <img src="{{ $certificate->getFirstMediaUrl('ttd_pemimpin') }}" alt="TTD Pemimpin"
+                                    style="width: 100px">
                             @else
-                                <a href="{{ route('admin.master-data.sertifikat.edit-mahasiswa') }}"
-                                    class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
+                                -
                             @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Siswa</td>
-                        <td>
-                            @if (count($certificate->where('jenis_sertifikat', 'Siswa')) == 0)
-                                <a href="{{ route('admin.master-data.sertifikat.create-siswa') }}"
-                                    class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
-                            @else
-                                <a href="{{ route('admin.master-data.sertifikat.edit-siswa') }}"
-                                    class="btn btn-warning btn-sm"><i class="ti ti-pencil"></i></a>
-                            @endif
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

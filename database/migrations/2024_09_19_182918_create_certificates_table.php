@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_pemimpin');
             $table->string('jabatan_pemimpin');
             $table->string('nip_pemimpin');
-            $table->enum('jenis_sertifikat', ['Mahasiswa', 'Siswa']);
+            // $table->enum('jenis_sertifikat', ['Riset', 'PPK', 'Prakerin']);
             // $table->string('ttd_pemimpin');
             $table->timestamps();
         });

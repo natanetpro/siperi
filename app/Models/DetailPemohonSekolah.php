@@ -12,6 +12,7 @@ class DetailPemohonSekolah extends Model
     protected $fillable = [
         'pemohon_id',
         'nis',
+        'jurusan',
         'sekolah',
         'kelas',
     ];

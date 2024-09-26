@@ -244,6 +244,18 @@
                                                 @enderror
                                             </div>
                                             <div class="col-sm-6">
+                                                <label class="form-label" for="tempat_lahir">Tempat Lahir</label>
+                                                <input type="text" id="tempat_lahir"
+                                                    class="form-control @error('tempat_lahir_riset') is-invalid @enderror"
+                                                    name="tempat_lahir_riset" required
+                                                    value="{{ old('tempat_lahir_riset') }}">
+                                                @error('tempat_lahir_riset')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
                                                 <input type="date" id="tanggal_lahir"
                                                     class="form-control @error('tanggal_lahir_riset') is-invalid @enderror"
@@ -477,6 +489,18 @@
                                                 @enderror
                                             </div>
                                             <div class="col-sm-6">
+                                                <label class="form-label" for="tempat_lahir">Tempat Lahir</label>
+                                                <input type="text" id="tempat_lahir"
+                                                    class="form-control @error('tempat_lahir_kkp') is-invalid @enderror"
+                                                    name="tempat_lahir_kkp" required
+                                                    value="{{ old('tempat_lahir_kkp') }}">
+                                                @error('tempat_lahir_kkp')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
                                                 <input type="date" id="tanggal_lahir"
                                                     class="form-control @error('tanggal_lahir_kkp') is-invalid @enderror"
@@ -500,8 +524,8 @@
                                                     <label class="form-label" for="nim">NIM</label>
                                                     <input type="number" id="nim"
                                                         class="form-control @error('nim_kkp') is-invalid @enderror"
-                                                        placeholder="212xxxxxxxxx" required name="nim_kkp"
-                                                        style="text-transform: uppercase" value="{{ old('nim_kkp') }}" />
+                                                        required placeholder="212xxxxxxxxx" name="nim_kkp"
+                                                        value="{{ old('nim_kkp') }}" />
                                                     @error('nim_kkp')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -707,6 +731,18 @@
                                                 @enderror
                                             </div>
                                             <div class="col-sm-6">
+                                                <label class="form-label" for="tempat_lahir">Tempat Lahir</label>
+                                                <input type="text" id="tempat_lahir"
+                                                    class="form-control @error('tempat_lahir_prakerin') is-invalid @enderror"
+                                                    name="tempat_lahir_prakerin" required
+                                                    value="{{ old('tempat_lahir_prakerin') }}">
+                                                @error('tempat_lahir_prakerin')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-sm-6">
                                                 <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
                                                 <input type="date" id="tanggal_lahir"
                                                     class="form-control @error('tanggal_lahir_prakerin') is-invalid @enderror"
@@ -747,6 +783,19 @@
                                                         name="sekolah_prakerin" required style="text-transform: uppercase"
                                                         value="{{ old('sekolah_prakerin') }}" />
                                                     @error('sekolah_prakerin')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="form-label" for="sekolah">Jurusan</label>
+                                                    <select name="jurusan_prakerin" id=""
+                                                        class="form-select @error('jurusan_prakerin') is-invalid @enderror">
+                                                        <option value="IPA">IPA</option>
+                                                        <option value="IPS">IPS</option>
+                                                    </select>
+                                                    @error('jurusan_prakerin')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
                                                         </div>

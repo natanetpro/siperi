@@ -12,6 +12,7 @@ class Pemohon extends Model
     protected $fillable = [
         'nama_pemohon',
         'jenis_kelamin',
+        'tempat_lahir',
         'tanggal_lahir',
         'no_telp_pemohon',
         'email_pemohon',

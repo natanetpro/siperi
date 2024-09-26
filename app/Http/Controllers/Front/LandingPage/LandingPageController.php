@@ -26,6 +26,7 @@ class LandingPageController extends Controller
             'jenis_kelamin_riset' => 'required|in:L,P',
             'email_pemohon_riset' => 'required|email|email:dns',
             'no_telp_pemohon_riset' => 'required|numeric',
+            'tempat_lahir_riset' => 'required',
             'tanggal_lahir_riset' => 'required|date',
 
             'nim_riset' => 'required|numeric',
@@ -58,22 +59,23 @@ class LandingPageController extends Controller
                 'jenis_kelamin' => $request->jenis_kelamin_riset,
                 'email_pemohon' => $request->email_pemohon_riset,
                 'no_telp_pemohon' => $request->no_telp_pemohon_riset,
+                'tempat_lahir' => $request->tempat_lahir_riset,
                 'tanggal_lahir' => $request->tanggal_lahir_riset,
             ]);
 
             DetailPemohonKuliah::create([
                 'pemohon_id' => $pemohon->id,
                 'nim' => $request->nim_riset,
-                'universitas' => $request->universitas_riset,
-                'fakultas' => $request->fakultas_riset,
-                'prodi' => $request->prodi_riset,
+                'universitas' => strtoupper($request->universitas_riset),
+                'fakultas' => strtoupper($request->fakultas_riset),
+                'prodi' => strtoupper($request->prodi_riset),
                 'semester' => $request->semester_riset,
             ]);
 
             $kegiatan = Kegiatan::create([
                 'pemohon_id' => $pemohon->id,
                 'jenis_kegiatan' => 'Riset',
-                'nama_kegiatan' => $request->nama_kegiatan_riset,
+                'nama_kegiatan' => strtoupper($request->nama_kegiatan_riset),
                 'tanggal_mulai' => $request->tanggal_mulai_riset,
                 'tanggal_selesai' => $request->tanggal_selesai_riset,
             ]);
@@ -95,6 +97,7 @@ class LandingPageController extends Controller
             'jenis_kelamin_kkp' => 'required|in:L,P',
             'email_pemohon_kkp' => 'required|email|email:dns',
             'no_telp_pemohon_kkp' => 'required|numeric',
+            'tempat_lahir_kkp' => 'required',
             'tanggal_lahir_kkp' => 'required|date',
 
             'nim_kkp' => 'required|numeric',
@@ -127,22 +130,23 @@ class LandingPageController extends Controller
                 'jenis_kelamin' => $request->jenis_kelamin_kkp,
                 'email_pemohon' => $request->email_pemohon_kkp,
                 'no_telp_pemohon' => $request->no_telp_pemohon_kkp,
+                'tempat_lahir' => $request->tempat_lahir_kkp,
                 'tanggal_lahir' => $request->tanggal_lahir_kkp,
             ]);
 
             DetailPemohonKuliah::create([
                 'pemohon_id' => $pemohon->id,
                 'nim' => $request->nim_kkp,
-                'universitas' => $request->universitas_kkp,
-                'fakultas' => $request->fakultas_kkp,
-                'prodi' => $request->prodi_kkp,
+                'universitas' => strtoupper($request->universitas_kkp),
+                'fakultas' => strtoupper($request->fakultas_kkp),
+                'prodi' => strtoupper($request->prodi_kkp),
                 'semester' => $request->semester_kkp,
             ]);
 
             $kegiatan = Kegiatan::create([
                 'pemohon_id' => $pemohon->id,
                 'jenis_kegiatan' => 'KKP',
-                'nama_kegiatan' => $request->nama_kegiatan_kkp,
+                'nama_kegiatan' => strtoupper($request->nama_kegiatan_kkp),
                 'tanggal_mulai' => $request->tanggal_mulai_kkp,
                 'tanggal_selesai' => $request->tanggal_selesai_kkp,
             ]);
@@ -164,10 +168,12 @@ class LandingPageController extends Controller
             'jenis_kelamin_prakerin' => 'required|in:L,P',
             'email_pemohon_prakerin' => 'required|email|email:dns',
             'no_telp_pemohon_prakerin' => 'required|numeric',
+            'tempat_lahir_prakerin' => 'required',
             'tanggal_lahir_prakerin' => 'required|date',
 
             'nis_prakerin' => 'required|numeric',
             'sekolah_prakerin' => 'required',
+            'jurusan_prakerin' => 'required|in:IPA,IPS',
             'kelas_prakerin' => 'required|numeric',
 
             'nama_kegiatan_prakerin' => 'required',
@@ -193,20 +199,22 @@ class LandingPageController extends Controller
                 'jenis_kelamin' => $request->jenis_kelamin_prakerin,
                 'email_pemohon' => $request->email_pemohon_prakerin,
                 'no_telp_pemohon' => $request->no_telp_pemohon_prakerin,
+                'tempat_lahir' => $request->tempat_lahir_prakerin,
                 'tanggal_lahir' => $request->tanggal_lahir_prakerin,
             ]);
 
             DetailPemohonSekolah::create([
                 'pemohon_id' => $pemohon->id,
                 'nis' => $request->nis_prakerin,
-                'sekolah' => $request->sekolah_prakerin,
+                'sekolah' => strtoupper($request->sekolah_prakerin),
+                'jurusan' => $request->jurusan_prakerin,
                 'kelas' => $request->kelas_prakerin,
             ]);
 
             $kegiatan = Kegiatan::create([
                 'pemohon_id' => $pemohon->id,
                 'jenis_kegiatan' => 'Prakerin',
-                'nama_kegiatan' => $request->nama_kegiatan_prakerin,
+                'nama_kegiatan' => strtoupper($request->nama_kegiatan_prakerin),
                 'tanggal_mulai' => $request->tanggal_mulai_prakerin,
                 'tanggal_selesai' => $request->tanggal_selesai_prakerin,
             ]);
@@ -217,7 +225,7 @@ class LandingPageController extends Controller
             return response()->json(['success' => 'Berhasil mendaftar kegiatan Prakerin. Silahkan tunggu konfirmasi dari admin via email dan whatsapp.']);
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Gagal mendaftar kegiatan Prakerin. Silahkan coba lagi.']);
+            return response()->json(['error' => $e->getMessage()], 422);
         }
     }
 

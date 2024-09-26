@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pemohon_id')->constrained()->onDelete('cascade');
             $table->string('nis', 20);
+            $table->enum('jurusan', ['IPA', 'IPS']);
             $table->string('sekolah');
             $table->integer('kelas');
             $table->timestamps();
