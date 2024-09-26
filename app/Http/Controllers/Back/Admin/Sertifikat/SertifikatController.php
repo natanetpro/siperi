@@ -138,7 +138,7 @@ class SertifikatController extends Controller
             $box->setTextAlign('left', 'center');
             $box->draw($certificateData->nama_pemimpin);
 
-            $qrCodeImage = QrCode::format('png')->size(60)->generate($certificateData->ttd_pemimpin);
+            $qrCodeImage = QrCode::format('png')->size(60)->generate($certificateData->getFirstMediaUrl('ttd_pemimpin'));
 
             // Simpan QR Code ke dalam file sementara
             $qrCodePath = public_path('qrcode.png');
