@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Back\AuthController;
 use App\Http\Controllers\Back\Peserta\VerifikasiController;
+use App\Http\Controllers\Back\Profile\ProfileController;
 use App\Http\Controllers\Front\LandingPage\LandingPageController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,12 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::put('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+    Route::put('/profile/update-data-diri', [ProfileController::class, 'updateDataDiri'])->name('profile.update-data-diri');
+    Route::put('/profile/update-sekolah', [ProfileController::class, 'updateSekolah'])->name('profile.update-sekolah');
+    Route::put('/profile/update-kuliah', [ProfileController::class, 'updateUniversitas'])->name('profile.update-kuliah');
+    Route::put('/profile/kegiatan', [ProfileController::class, 'updateKegiatan'])->name('profile.update-kegiatan');
 });
