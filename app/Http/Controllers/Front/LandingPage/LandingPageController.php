@@ -86,7 +86,7 @@ class LandingPageController extends Controller
             return response()->json(['success' => 'Berhasil mendaftar kegiatan Riset. Silahkan tunggu konfirmasi dari admin via email dan whatsapp.']);
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Gagal mendaftar kegiatan Riset. Silahkan coba lagi.']);
+            return response()->json(['error' => $e->getMessage()], 422);
         }
     }
 
@@ -157,7 +157,7 @@ class LandingPageController extends Controller
             return response()->json(['success' => 'Berhasil mendaftar kegiatan KKP. Silahkan tunggu konfirmasi dari admin via email dan whatsapp.']);
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Gagal mendaftar kegiatan KKP. Silahkan coba lagi.']);
+            return response()->json(['error' => $e->getMessage()], 422);
         }
     }
 
