@@ -38,6 +38,9 @@ class SertifikatController extends Controller
     {
         $userKegiatan = UserKegiatan::find($id);
         $certificateData = Certificate::first();
+        if (!$userKegiatan) {
+            return redirect()->back()->with('error', 'Sertifikat belum tersedia. Silahkan hubungi admin.');
+        }
         // get certificate based on jenis_kegiatan
         $certificate = null;
         if ($userKegiatan->kegiatan->jenis_kegiatan === 'Riset') {
