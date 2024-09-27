@@ -45,6 +45,23 @@
             <h2 data-aos="fade-up" data-aos-delay="100" class="">SISTEM INFORMASI PENGELOLAAN<br><span
                     class="text-success">PENELITIAN
                     DAN RISET</span></h2>
+            <div class="mt-5 d-flex gap-3" data-aos="fade-up" data-aos-delay="200">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exLargeModal">Daftar</button>
+                {{-- @dd(Auth::user()->getRoleNames()) --}}
+                @if (Auth::check() && Auth::user()->hasRole('Administrator'))
+                    <a href="{{ route('admin.dashboard.index') }}" class="btn btn-danger">Dashboard</a>
+                @elseif (Auth::check() && Auth::user()->hasRole('Pemohon'))
+                    <a href="{{ route('peserta.dashboard.index') }}" class="btn btn-danger">Dashboard</a>
+                @elseif (Auth::check() && Auth::user()->hasRole('Pembimbing'))
+                    <a href="{{ route('pembimbing.dashboard.index') }}" class="btn btn-danger">Dashboard</a>
+                @elseif(Auth::check() && Auth::user()->hasRole('Pimpinan'))
+                    <a href="{{ route('admin.dashboard.index') }}" class="btn btn-danger">Dashboard</a>
+                @elseif (Auth::check() && Auth::user()->hasRole('Operator'))
+                    <a href="{{ route('admin.dashboard.index') }}" class="btn btn-danger">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-danger" onclick="redirectDashboard()">Masuk</a>
+                @endif
+            </div>
         </div>
         {{-- <div class="container d-flex flex-column align-items-center text-center mt-auto">
             <h2 data-aos="fade-up" data-aos-delay="100" class="">THE ANNUAL<br><span
