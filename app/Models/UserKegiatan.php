@@ -41,4 +41,9 @@ class UserKegiatan extends Model
     {
         return $this->hasOne(LaporanAkhir::class, 'user_kegiatan_id');
     }
+
+    public function masukan()
+    {
+        return $this->hasMany(MasukanSaran::class, 'user_kegiatan_id');
+    }
 }

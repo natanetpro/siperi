@@ -5,6 +5,7 @@ use App\Http\Controllers\Back\Peserta\DashboardController;
 use App\Http\Controllers\Back\Peserta\Kegiatan\KegiatanController;
 use App\Http\Controllers\Back\Peserta\LaporanAkhir\LaporanAkhirController;
 use App\Http\Controllers\Back\Peserta\Logbook\LogbookController;
+use App\Http\Controllers\Back\Peserta\Masukan\MasukanController;
 use App\Http\Controllers\Back\Peserta\Sertifikat\SertifikatController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +36,7 @@ Route::prefix('peserta')->name('peserta.')->group(function () {
         // Certificate Routes
         Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
         Route::get('/sertifikat/{id}', [SertifikatController::class, 'downloadCertificate'])->name('sertifikat.show');
+
+        Route::get('/masukan', [MasukanController::class, 'index'])->name('masukan.index');
     });
 });

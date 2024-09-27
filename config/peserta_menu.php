@@ -19,5 +19,10 @@ return [
         'nama_menu' => 'Sertifikat',
         'url' => 'peserta/sertifikat',
         'childrent' => []
+    ],
+    [
+        'nama_menu' => 'Masukan & Saran',
+        'url' => 'peserta/masukan',
+        'childrent' => []
     ]
 ];

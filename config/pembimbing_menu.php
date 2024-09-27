@@ -15,5 +15,10 @@ return [
         'nama_menu' => 'Laporan Akhir',
         'url' => 'pembimbing/laporan-akhir',
         'children' => []
+    ],
+    [
+        'nama_menu' => 'Masukan & Saran',
+        'url' => 'pembimbing/masukan',
+        'children' => []
     ]
 ];

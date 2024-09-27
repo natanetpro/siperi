@@ -5,6 +5,7 @@ use App\Http\Controllers\Back\Pembimbing\DaftarBimbingan\DaftarBimbinganControll
 use App\Http\Controllers\Back\Pembimbing\DashboardController;
 use App\Http\Controllers\Back\Pembimbing\LaporanAkhir\LaporanAkhirController;
 use App\Http\Controllers\Back\Pembimbing\Logbook\LogbookController;
+use App\Http\Controllers\Back\Pembimbing\Masukan\MasukanController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('pembimbing')->name('pembimbing.')->group(function () {
@@ -34,5 +35,9 @@ Route::prefix('pembimbing')->name('pembimbing.')->group(function () {
         Route::get('/laporan-akhir/{id}', [LaporanAkhirController::class, 'show'])->name('laporan-akhir.show');
         Route::put('/laporan-akhir/approve/{id}', [LaporanAkhirController::class, 'approveLaporanAkhir'])->name('laporan-akhir.approve');
         Route::put('/laporan-akhir/reject/{id}', [LaporanAkhirController::class, 'rejectLaporanAkhir'])->name('laporan-akhir.reject');
+
+        Route::get('/masukan', [MasukanController::class, 'index'])->name('masukan.index');
+        Route::get('/masukan/{id}', [MasukanController::class, 'show'])->name('masukan.show');
+        Route::post('/masukan', [MasukanController::class, 'store'])->name('masukan.store');
     });
 });
