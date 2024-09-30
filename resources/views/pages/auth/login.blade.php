@@ -40,6 +40,13 @@
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Log in</button>
                             </div>
+
+                            <p class="text-center">
+                                <a href="{{ route('landing-page.index') }}">
+                                    <span>Kembali ke halaman utama</span>
+                                </a>
+                            </p>
+
                         </form>
                     </div>
                 </div>
