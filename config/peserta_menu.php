@@ -6,7 +6,7 @@ return [
         'childrent' => []
     ],
     [
-        'nama_menu' => 'Logbook',
+        'nama_menu' => 'Daftar Kegiatan',
         'url' => 'peserta/logbook',
         'childrent' => []
     ],

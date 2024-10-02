@@ -50,6 +50,13 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <script src="{{ asset('sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+    <style>
+        body {
+            /* background menarik */
+            background-image: url({{ asset('bg-login.jpg') }})
+                /* background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); */
+        }
+    </style>
     @stack('styles')
 </head>
 

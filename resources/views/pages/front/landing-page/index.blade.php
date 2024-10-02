@@ -1281,14 +1281,5 @@
                 }
             });
         }
-
-        // disable previous date tanggal_mulai and tanggal_selesai
-        let today = new Date().toISOString().split('T')[0];
-        $('.data-diri #tanggal_mulai').attr('min', today);
-        $('.data-diri #tanggal_selesai').attr('min', today);
-        $('.data-pendidikan #tanggal_mulai').attr('min', today);
-        $('.data-pendidikan #tanggal_selesai').attr('min', today);
-        $('.data-permohonan #tanggal_mulai').attr('min', today);
-        $('.data-permohonan #tanggal_selesai').attr('min', today);
     </script>
 @endpush

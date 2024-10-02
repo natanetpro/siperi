@@ -12,7 +12,7 @@ return [
         'children' => []
     ],
     [
-        'nama_menu' => 'Logbook',
+        'nama_menu' => 'Daftar Kegiatan',
         'url' => 'admin/logbook',
         'children' => []
     ],
