@@ -207,7 +207,7 @@ class LandingPageController extends Controller
                 'pemohon_id' => $pemohon->id,
                 'nis' => $request->nis_prakerin,
                 'sekolah' => strtoupper($request->sekolah_prakerin),
-                'jurusan' => $request->jurusan_prakerin,
+                'jurusan' => strtoupper($request->jurusan_prakerin),
                 'kelas' => $request->kelas_prakerin,
             ]);
 
