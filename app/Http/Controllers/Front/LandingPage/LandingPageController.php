@@ -173,7 +173,7 @@ class LandingPageController extends Controller
 
             'nis_prakerin' => 'required|numeric',
             'sekolah_prakerin' => 'required',
-            'jurusan_prakerin' => 'required|in:IPA,IPS',
+            'jurusan_prakerin' => 'required',
             'kelas_prakerin' => 'required|numeric',
 
             'nama_kegiatan_prakerin' => 'required',

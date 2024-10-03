@@ -839,11 +839,8 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="form-label" for="sekolah">Jurusan</label>
-                                                    <select name="jurusan_prakerin" id=""
-                                                        class="form-select @error('jurusan_prakerin') is-invalid @enderror">
-                                                        <option value="IPA">IPA</option>
-                                                        <option value="IPS">IPS</option>
-                                                    </select>
+                                                    <input type="text" name="jurusan_prakerin" class="form-control"
+                                                        style="text-transform: uppercase">
                                                     @error('jurusan_prakerin')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
