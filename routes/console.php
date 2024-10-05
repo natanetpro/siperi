@@ -19,4 +19,4 @@ Schedule::call(function () {
             'active' => false
         ]);
     }
-})->daily();
+})->everyMinute();
