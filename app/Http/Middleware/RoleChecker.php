@@ -19,6 +19,6 @@ class RoleChecker
         if (Auth::check() && Auth::user()->hasRole($role)) {
             return $next($request);
         }
-        return redirect()->back();
+        return redirect()->back()->with('error', 'Anda tidak memiliki akses');
     }
 }

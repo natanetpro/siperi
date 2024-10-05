@@ -7,6 +7,7 @@ use App\Http\Controllers\Back\Admin\LaporanAkhir\LaporanAkhirController;
 use App\Http\Controllers\Back\Admin\Logbook\LogbookController;
 use App\Http\Controllers\Back\Admin\MasterData\OperatorController;
 use App\Http\Controllers\Back\Admin\MasterData\PembimbingController;
+use App\Http\Controllers\Back\Admin\MasterData\PenggunaController;
 use App\Http\Controllers\Back\Admin\MasterData\PimpinanController;
 use App\Http\Controllers\Back\Admin\MasterData\SertifikatController;
 use App\Http\Controllers\Back\Admin\PengajuanController;
@@ -21,7 +22,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     //     Route::post('/login', [AuthController::class, 'login'])->name('login');
     // });
 
-    Route::middleware('auth', 'is_role:Administrator')->group(function () {
+    Route::middleware('auth', 'is_role:Administrator,Pimpinan,Operator')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         // Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -29,8 +30,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::prefix('master-data')->name('master-data.')->group(function () {
             // Master Data
             Route::resource('pembimbing', PembimbingController::class);
-            Route::resource('operator', OperatorController::class);
-            Route::resource('pimpinan', PimpinanController::class);
+            // Route::resource('operator', OperatorController::class);
+            // Route::resource('pimpinan', PimpinanController::class);
+            Route::resource('pengguna', PenggunaController::class);
             Route::resource('sertifikat', SertifikatController::class)->except(['create', 'store', 'edit', 'update', 'destroy', 'show']);
             Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
             Route::post('/sertifikat', [SertifikatController::class, 'createOrUpdate'])->name('sertifikat.createOrUpdate');

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class LogbookController extends Controller
 {
-    public $title = 'Logbook';
+    public $title = 'Kegiatan';
 
     public function index(Request $request)
     {

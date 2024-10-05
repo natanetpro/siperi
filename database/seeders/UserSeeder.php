@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
     {
         // admin
         $admin = User::create([
+            'nama_asli' => 'Admin Test',
             'nama' => 'admin',
             'email' => 'admin@siperi.test',
             'no_telp' => '082230555413',
@@ -28,8 +29,9 @@ class UserSeeder extends Seeder
 
         // pembimbing
         $pembimbing = User::create([
-            'nama' => 'yoga',
-            'email' => 'yoga.pembimbing@siperi.test',
+            'nama_asli' => 'Pembiming Test',
+            'nama' => 'pembimbing',
+            'email' => 'pembimbing@siperi.test',
             'no_telp' => '082230555412',
             'password' => bcrypt('password'),
             'email_verified_at' => now(),
