@@ -14,7 +14,7 @@ return [
         'permission' => ['Administrator', 'Pimpinan']
     ],
     [
-        'nama_menu' => 'Daftar Kegiatan',
+        'nama_menu' => 'Kegiatan',
         'url' => 'pembimbing/logbook',
         'children' => [],
         'permission' => ['Pembimbing']
@@ -40,13 +40,13 @@ return [
 
     ],
     [
-        'nama_menu' => 'Laporan Akhir',
+        'nama_menu' => 'Daftar Laporan Akhir',
         'url' => 'admin/laporan-akhir',
         'children' => [],
         'permission' => ['Administrator', 'Pimpinan', 'Operator']
     ],
     [
-        'nama_menu' => 'Sertifikat',
+        'nama_menu' => 'Daftar Sertifikat',
         'url' => 'admin/sertifikat',
         'children' => [],
         'permission' => ['Administrator', 'Pimpinan', 'Operator']

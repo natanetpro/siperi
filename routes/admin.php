@@ -22,7 +22,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     //     Route::post('/login', [AuthController::class, 'login'])->name('login');
     // });
 
-    Route::middleware('auth', 'is_role:Administrator,Pimpinan,Operator')->group(function () {
+    Route::middleware('auth', 'is_role:Administrator|Pimpinan|Operator')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         // Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 

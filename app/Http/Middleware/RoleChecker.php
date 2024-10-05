@@ -14,11 +14,12 @@ class RoleChecker
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, $role): Response
     {
+        // dd($role);
         if (Auth::check() && Auth::user()->hasRole($role)) {
             return $next($request);
         }
-        return redirect()->back()->with('error', 'Anda tidak memiliki akses');
+        return redirect()->back();
     }
 }
