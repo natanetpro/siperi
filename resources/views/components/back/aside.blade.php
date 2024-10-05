@@ -70,6 +70,21 @@
                     @endif
                 @endforeach
             @else
+                @foreach (config('peserta_menu') as $menuItem)
+                    <li class="menu-item">
+                        <a style="cursor: pointer;"
+                            {{ isset($menuItem['children']) && count($menuItem['children']) > 0 ? '#"' : 'href=' . url($menuItem['url']) }}
+                            class="menu-link {{ isset($menuItem['children']) && count($menuItem['children']) > 0 ? 'menu-toggle' : '' }} fw-bold">
+                            <div data-i18n="{{ $menuItem['nama_menu'] }}">{{ $menuItem['nama_menu'] }}</div>
+                        </a>
+
+                        @if (isset($menuItem['children']) && count($menuItem['children']) > 0)
+                            @include('components.back.partials.menu', [
+                                'children' => $menuItem['children'],
+                            ])
+                        @endif
+                    </li>
+                @endforeach
             @endif
         </ul>
     </div>
