@@ -8,7 +8,7 @@
             @csrf
             <h3 class="text-center">Masukan dan Saran</h3>
             <small class="font-light mb-3" style="margin-top: -20px">(Dari:
-                {{ $kegiatan->pembimbing?->nama }})</small>
+                {{ $kegiatan->pembimbing?->nama_asli }})</small>
         </div>
 
         <div class="row mt-4">
