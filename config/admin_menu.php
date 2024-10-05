@@ -82,6 +82,12 @@ return [
                 'url' => 'admin/master-data/sertifikat',
                 'children' => [],
                 'permission' => ['Administrator', 'Pimpinan', 'Operator']
+            ],
+            [
+                'nama_menu' => 'Kuota Program',
+                'url' => 'admin/master-data/kuota',
+                'children' => [],
+                'permission' => ['Administrator', 'Pimpinan', 'Operator']
             ]
         ]
     ],

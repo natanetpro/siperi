@@ -5,6 +5,7 @@ use App\Http\Controllers\Back\Admin\DashboardController;
 use App\Http\Controllers\Back\Admin\KegiatanController;
 use App\Http\Controllers\Back\Admin\LaporanAkhir\LaporanAkhirController;
 use App\Http\Controllers\Back\Admin\Logbook\LogbookController;
+use App\Http\Controllers\Back\Admin\MasterData\Kuota\KuotaController;
 use App\Http\Controllers\Back\Admin\MasterData\OperatorController;
 use App\Http\Controllers\Back\Admin\MasterData\PembimbingController;
 use App\Http\Controllers\Back\Admin\MasterData\PenggunaController;
@@ -36,6 +37,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('sertifikat', SertifikatController::class)->except(['create', 'store', 'edit', 'update', 'destroy', 'show']);
             Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
             Route::post('/sertifikat', [SertifikatController::class, 'createOrUpdate'])->name('sertifikat.createOrUpdate');
+            Route::resource('kuota', KuotaController::class)->only(['index', 'edit', 'update']);
         });
 
         // Kegiatan
