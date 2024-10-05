@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailPemohonKuliah;
 use App\Models\DetailPemohonSekolah;
 use App\Models\Kegiatan;
+use App\Models\KuotaProgram;
 use App\Models\Pemohon;
+use App\Models\UserKegiatan;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,8 +47,15 @@ class LandingPageController extends Controller
 
         DB::beginTransaction();
         try {
-            // dd(strtotime($request->tanggal_selesai) <= strtotime($request->tanggal_mulai));
-            // // jika tanggal mulai kurang dari tanggal sekarang
+            // jika kuota kegiatan yang sedang aktif sudah penuh, tolak pendaftaran
+            $kuotaRiset = UserKegiatan::whereHas('kegiatan', function ($query) {
+                $query->where('jenis_kegiatan', 'Riset');
+            })->whereActive(true)->count();
+            $kuotaRisetProgram = KuotaProgram::where('jenis_kegiatan', 'Riset')->first();
+            if ($kuotaRiset >= $kuotaRisetProgram->kuota) {
+                return response()->json(['error' => 'Kuota kegiatan Riset sudah penuh.'], 422);
+            }
+            // jika tanggal mulai kurang dari tanggal sekarang
             if (strtotime($request->tanggal_mulai_riset) < strtotime(date('Y-m-d'))) {
                 return response()->json(['error' => 'Tanggal mula kegiatan tidak boleh kurang dari tanggal sekarang.'], 422);
             }
@@ -117,6 +126,14 @@ class LandingPageController extends Controller
         DB::beginTransaction();
 
         try {
+            // jika kuota kegiatan yang sedang aktif sudah penuh, tolak pendaftaran
+            $kuotaKKP = UserKegiatan::whereHas('kegiatan', function ($query) {
+                $query->where('jenis_kegiatan', 'KKP');
+            })->whereActive(true)->count();
+            $kuotaKKPProgram = KuotaProgram::where('jenis_kegiatan', 'KKP')->first();
+            if ($kuotaKKP >= $kuotaKKPProgram->kuota) {
+                return response()->json(['error' => 'Kuota kegiatan KKP sudah penuh.'], 422);
+            }
             // jika tanggal mulai kurang dari tanggal sekarang
             if (strtotime($request->tanggal_mulai_kkp) < strtotime(date('Y-m-d'))) {
                 return redirect()->back()->with('error', 'Tanggal mulai kegiatan tidak boleh kurang dari tanggal sekarang.', 422);
@@ -186,6 +203,15 @@ class LandingPageController extends Controller
 
         DB::beginTransaction();
         try {
+            // jika kuota kegiatan yang sedang aktif sudah penuh, tolak pendaftaran
+            $kuotaPrakerin = UserKegiatan::whereHas('kegiatan', function ($query) {
+                $query->where('jenis_kegiatan', 'Prakerin');
+            })->whereActive(true)->count();
+            $kuotaPrakerinProgram = KuotaProgram::where('jenis_kegiatan', 'Prakerin')->first();
+            if ($kuotaPrakerin >= $kuotaPrakerinProgram->kuota) {
+                return response()->json(['error' => 'Kuota kegiatan Prakerin sudah penuh.'], 422);
+            }
+
             // jika tanggal mulai kurang dari tanggal sekarang
             if (strtotime($request->tanggal_mulai_prakerin) < strtotime(date('Y-m-d'))) {
                 return redirect()->back()->with('error', 'Tanggal mulai kegiatan tidak boleh kurang dari tanggal sekarang.', 422);

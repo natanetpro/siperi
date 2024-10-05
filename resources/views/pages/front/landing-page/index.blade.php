@@ -1059,13 +1059,13 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Gagal',
-                                text: 'Terjadi kesalahan, coba lagi.' + xhr.responseJSON.error,
+                                text: xhr.responseJSON.error,
                             });
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Gagal',
-                                text: 'Terjadi kesalahan, coba lagi.',
+                                text: 'Terjadi kesalahan saat pengisian form, coba lagi.',
                             });
                         }
 
@@ -1151,13 +1151,13 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Gagal',
-                                text: 'Terjadi kesalahan, coba lagi.' + xhr.responseJSON.error,
+                                text: xhr.responseJSON.error,
                             });
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Gagal',
-                                text: 'Terjadi kesalahan, coba lagi.',
+                                text: 'Terjadi kesalahan saat pengisian form, coba lagi.',
                             });
                         }
                         var errors = xhr.responseJSON.errors;
@@ -1240,13 +1240,13 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Gagal',
-                                text: 'Terjadi kesalahan, coba lagi.' + xhr.responseJSON.error,
+                                text: xhr.responseJSON.error,
                             });
                         } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Gagal',
-                                text: 'Terjadi kesalahan, coba lagi.',
+                                text: 'Terdapat kesalahan saat pengisian form, coba lagi.',
                             });
                         }
                         var errors = xhr.responseJSON.errors;
