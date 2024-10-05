@@ -55,10 +55,6 @@ class LandingPageController extends Controller
             if ($kuotaRiset >= $kuotaRisetProgram->kuota) {
                 return response()->json(['error' => 'Kuota kegiatan Riset sudah penuh.'], 422);
             }
-            // jika tanggal mulai kurang dari tanggal sekarang
-            if (strtotime($request->tanggal_mulai_riset) < strtotime(date('Y-m-d'))) {
-                return response()->json(['error' => 'Tanggal mula kegiatan tidak boleh kurang dari tanggal sekarang.'], 422);
-            }
             // jika tanggal selesai kurang dari atau sama dengan tanggal mulai
             if (strtotime($request->tanggal_selesai_riset) <= strtotime($request->tanggal_mulai_riset)) {
                 return response()->json(['error' => 'Tanggal selesai kegiatan tidak boleh kurang dari atau sama dengan tanggal mulai.'], 422);
@@ -134,10 +130,6 @@ class LandingPageController extends Controller
             if ($kuotaKKP >= $kuotaKKPProgram->kuota) {
                 return response()->json(['error' => 'Kuota kegiatan KKP sudah penuh.'], 422);
             }
-            // jika tanggal mulai kurang dari tanggal sekarang
-            if (strtotime($request->tanggal_mulai_kkp) < strtotime(date('Y-m-d'))) {
-                return redirect()->back()->with('error', 'Tanggal mulai kegiatan tidak boleh kurang dari tanggal sekarang.', 422);
-            }
             // jika tanggal selesai kurang dari atau sama dengan tanggal mulai
             if (strtotime($request->tanggal_selesai_kkp) <= strtotime($request->tanggal_mulai_kkp)) {
                 return redirect()->back()->with('error', 'Tanggal selesai kegiatan tidak boleh kurang dari atau sama dengan tanggal mulai.', 422);
@@ -210,11 +202,6 @@ class LandingPageController extends Controller
             $kuotaPrakerinProgram = KuotaProgram::where('jenis_kegiatan', 'Prakerin')->first();
             if ($kuotaPrakerin >= $kuotaPrakerinProgram->kuota) {
                 return response()->json(['error' => 'Kuota kegiatan Prakerin sudah penuh.'], 422);
-            }
-
-            // jika tanggal mulai kurang dari tanggal sekarang
-            if (strtotime($request->tanggal_mulai_prakerin) < strtotime(date('Y-m-d'))) {
-                return redirect()->back()->with('error', 'Tanggal mulai kegiatan tidak boleh kurang dari tanggal sekarang.', 422);
             }
             // jika tanggal selesai kurang dari atau sama dengan tanggal mulai
             if (strtotime($request->tanggal_selesai_prakerin) <= strtotime($request->tanggal_mulai_prakerin)) {
