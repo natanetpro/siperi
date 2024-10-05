@@ -11,7 +11,7 @@ return [
         'nama_menu' => 'Pengajuan',
         'url' => 'admin/pengajuan',
         'children' => [],
-        'permission' => ['Administrator', 'Pimpinan']
+        'permission' => ['Administrator', 'Pimpinan', 'Operator']
     ],
     [
         'nama_menu' => 'Kegiatan',
