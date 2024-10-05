@@ -19,7 +19,10 @@ class LaporanAkhirController extends Controller
             return datatables()->of($bimbingan)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('pembimbing.laporan-akhir.show', $row->user->id) . '" class="edit btn btn-primary btn-sm"><i class="ti ti-eye"></i></a>';
+                    $btn = null;
+                    if ($row->laporan_akhir) {
+                        $btn = '<a href="' . route('pembimbing.laporan-akhir.show', $row->user->id) . '" class="edit btn btn-primary btn-sm"><i class="ti ti-eye"></i></a>';
+                    }
                     return $btn;
                 })
                 ->rawColumns(['action'])

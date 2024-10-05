@@ -221,6 +221,10 @@
         </script>
     @endif
     <script>
+        // input date min today
+        var today = new Date().toISOString().split('T')[0];
+        $('input[type="date"]').attr('min', today);
+
         function openModalLogbook(action, id = null) {
             $('#logbook-modal form').trigger('reset');
             if (action === 'create') {

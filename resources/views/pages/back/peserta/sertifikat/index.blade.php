@@ -64,3 +64,15 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+            });
+        </script>
+    @endif
+@endpush

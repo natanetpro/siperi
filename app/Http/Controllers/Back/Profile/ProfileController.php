@@ -90,8 +90,8 @@ class ProfileController extends Controller
             })->first();
 
             $sekolah->nis = $request->nis;
-            $sekolah->sekolah = $request->sekolah;
-            $sekolah->jurusan = $request->jurusan;
+            $sekolah->sekolah = strtoupper($request->sekolah);
+            $sekolah->jurusan = strtoupper($request->jurusan);
             $sekolah->kelas = $request->kelas;
             $sekolah->save();
 
@@ -122,10 +122,10 @@ class ProfileController extends Controller
             })->first();
 
             $universitas->nim = $request->nim;
-            $universitas->universitas = $request->universitas;
-            $universitas->fakultas = $request->fakultas;
-            $universitas->prodi = $request->prodi;
-            $universitas->semester = $request->semester;
+            $universitas->universitas = strtoupper($request->universitas);
+            $universitas->fakultas = strtoupper($request->fakultas);
+            $universitas->prodi = strtoupper($request->prodi);
+            $universitas->semester = strtoupper($request->semester);
             $universitas->save();
 
             DB::commit();
@@ -148,7 +148,7 @@ class ProfileController extends Controller
                 $query->where('user_id', Auth::id());
             })->first();
 
-            $kegiatan->nama_kegiatan = $request->nama_kegiatan;
+            $kegiatan->nama_kegiatan = strtoupper($request->nama_kegiatan);
             $kegiatan->save();
 
             DB::commit();
