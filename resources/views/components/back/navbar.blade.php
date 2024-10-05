@@ -5,7 +5,8 @@
                 <span class="">
                     <img src="{{ asset('logo-banten.png') }}" alt="" width="50">
                 </span>
-                <span class="app-brand-text demo menu-text fw-bold">{{ env('APP_NAME') }}</span>
+                <span
+                    class="app-brand-text demo menu-text fw-bold">{{ strtoupper('Sistem Informasi Pengelolaan Permohonan Penelitian/Riset') }}</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">

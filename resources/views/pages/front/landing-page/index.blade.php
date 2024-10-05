@@ -115,8 +115,7 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="card h-100">
                         <div class="card-img">
-                            <img src="https://pa-pangkalankerinci.go.id/images/31032023_Web_PA_PKC_Tempat_Riset_Mahasiswa_1.jpg"
-                                alt="" class="img-fluid">
+                            <img src="{{ asset('foto-1.jpg') }}" alt="" class="img-fluid">
                         </div>
                         <h3><a href="#" class="stretched-link">Riset/Penelitian</a></h3>
                         <p>Kegiatan untuk Mahasiswa</p>
@@ -126,8 +125,7 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="card h-100">
                         <div class="card-img">
-                            <img src=https://th.bing.com/th/id/OIP.H6ghA6O6QJm5pl9i09BrxQHaFj?rs=1&pid=ImgDetMain"
-                                alt="" class="img-fluid">
+                            <img src="{{ asset('foto-2.jpg') }}" alt="" class="img-fluid">
                         </div>
                         <h3><a href="#" class="stretched-link">Kuliah Kerja Praktik</a></h3>
                         <p>Kegiatan untuk Mahasiswa</p>
@@ -137,8 +135,7 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="card h-100">
                         <div class="card-img">
-                            <img src="https://th.bing.com/th/id/OIP.0l38o_LzlSc_RFqi5WQJCAHaE7?w=1200&h=799&rs=1&pid=ImgDetMain"
-                                alt="" class="img-fluid">
+                            <img src="{{ asset('foto-3.jpg') }}" alt="" class="img-fluid">
                         </div>
                         <h3><a href="#" class="stretched-link">Prakerin</a></h3>
                         <p>Kegiatan untuk Siswa</p>
