@@ -51,7 +51,8 @@
                         </div>
                         {{-- check jika logbook semua logbook telah disetujui dan telah upload laporan akhir --}}
                         @if (Auth::user()->userKegiatan->logbooks->where('approval_pembimbing', 'Disetujui')->count() ==
-                                Auth::user()->userKegiatan->logbooks->count() && Auth::user()->userKegiatan->laporan_akhir)
+                                Auth::user()->userKegiatan->logbooks->count() &&
+                                Auth::user()->userKegiatan->laporan_akhir->where('approval_pembimbing', 'Disetujui')->count() > 0)
                             <a href="{{ route('peserta.sertifikat.show', Auth::user()->userKegiatan->id) }}"
                                 class="btn btn-success mb-3" target="_blank">Download
                                 Sertifikat</a>
