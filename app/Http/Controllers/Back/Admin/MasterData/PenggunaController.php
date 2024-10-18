@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Back\Admin\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApprovalPengurusMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request as Psr7Request;
+use Illuminate\Support\Facades\Mail;
 
 class PenggunaController extends Controller
 {
@@ -73,6 +77,8 @@ class PenggunaController extends Controller
                 'pemohon_id' => null,
             ]);
             $pengguna->assignRole($request->roles);
+            $this->sendWa($request->no_telp, $request->nama, $request->password);
+            Mail::to($request->email)->send(new ApprovalPengurusMail($request->nama, $request->password, $request->roles));
             DB::commit();
             return redirect()->route('admin.master-data.pengguna.index')->with('success', 'Data pengguna berhasil ditambahkan.');
         } catch (\Exception $e) {
@@ -159,5 +165,25 @@ class PenggunaController extends Controller
             DB::rollBack();
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
+    }
+
+    private function sendWa($phone, $nama, $password)
+    {
+        $client = new Client();
+        $options = [
+            'form_params' => [
+                'token' => env('RUANGWA_TOKEN'),
+                'number' => $phone,
+                'message' => "Berikut akun pengguna anda:\nNama: $nama\nPassword: $password\n\nBy Siperi",
+                // format date yyyy-mm-dd
+                'date' => date('Y-m-d'),
+                // format time hh:mm:ss
+                'time' => date('H:i:s'),
+            ]
+        ];
+
+        $request = new Psr7Request('POST', env('RUANGWA_URL'));
+        $res = $client->sendAsync($request, $options)->wait();
+        echo $res->getBody();
     }
 }

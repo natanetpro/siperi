@@ -72,7 +72,11 @@
             <ul>
                 <li><strong>Nama:</strong> {{ $nama_pengurus }}</li>
                 <li><strong>Password:</strong> {{ $password }}</li>
-                <li><strong>Jabatan:</strong> {{ $role }}</li>
+                <li><strong>Jabatan:</strong>
+                    @foreach ($role as $r)
+                        {{ $r }},
+                    @endforeach
+                </li>
             </ul>
 
             <p>Jika Anda memiliki pertanyaan, jangan ragu untuk menghubungi kami.</p>

@@ -14,12 +14,12 @@ class ApprovalPengurusMail extends Mailable
     use Queueable, SerializesModels;
 
     public string $nama_pengurus;
-    public string $role;
+    public array $role;
     public string $password;
     /**
      * Create a new message instance.
      */
-    public function __construct(string $nama_pengurus, string $password, string $role)
+    public function __construct(string $nama_pengurus, string $password, array $role)
     {
         $this->nama_pengurus = $nama_pengurus;
         $this->password = $password;
