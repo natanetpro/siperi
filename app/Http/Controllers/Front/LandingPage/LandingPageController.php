@@ -27,7 +27,7 @@ class LandingPageController extends Controller
             'nama_pemohon_riset' => 'required',
             'jenis_kelamin_riset' => 'required|in:L,P',
             'email_pemohon_riset' => 'required|email|email:dns',
-            'no_telp_pemohon_riset' => 'required|numeric',
+            'no_telp_pemohon_riset' => 'required|numeric|unique:pemohons,no_telp_pemohon',
             'tempat_lahir_riset' => 'required',
             'tanggal_lahir_riset' => 'required|date',
 
@@ -101,7 +101,7 @@ class LandingPageController extends Controller
             'nama_pemohon_kkp' => 'required',
             'jenis_kelamin_kkp' => 'required|in:L,P',
             'email_pemohon_kkp' => 'required|email|email:dns',
-            'no_telp_pemohon_kkp' => 'required|numeric',
+            'no_telp_pemohon_kkp' => 'required|numeric|unique:pemohons,no_telp_pemohon',
             'tempat_lahir_kkp' => 'required',
             'tanggal_lahir_kkp' => 'required|date',
 
@@ -176,7 +176,7 @@ class LandingPageController extends Controller
             'nama_pemohon_prakerin' => 'required',
             'jenis_kelamin_prakerin' => 'required|in:L,P',
             'email_pemohon_prakerin' => 'required|email|email:dns',
-            'no_telp_pemohon_prakerin' => 'required|numeric',
+            'no_telp_pemohon_prakerin' => 'required|numeric|unique:pemohons,no_telp_pemohon',
             'tempat_lahir_prakerin' => 'required',
             'tanggal_lahir_prakerin' => 'required|date',
 

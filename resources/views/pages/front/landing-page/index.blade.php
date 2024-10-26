@@ -430,8 +430,8 @@
                                                 @enderror
                                             </div> --}}
                                             <div class="col-12 d-flex gap-3">
-                                                <button type="button" onclick="submitRiset()" class="btn btn-success"
-                                                    aria-hidden="true">Submit</button>
+                                                <button type="button" onclick="submitRiset()"
+                                                    class="btn btn-success btn-riset" aria-hidden="true">Submit</button>
                                                 <svg class="my-auto d-none" id="form-riset-loading"
                                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
                                                     preserveAspectRatio="xMidYMid" width="20" height="20"
@@ -688,8 +688,8 @@
                                                 @enderror
                                             </div> --}}
                                             <div class="col-12 d-flex gap-3">
-                                                <button type="button" onclick="submitKKP()" class="btn btn-success"
-                                                    aria-hidden="true">Submit</button>
+                                                <button type="button" onclick="submitKKP()"
+                                                    class="btn btn-success btn-kkp" aria-hidden="true">Submit</button>
                                                 <svg class="my-auto d-none" id="form-kkp-loading"
                                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
                                                     preserveAspectRatio="xMidYMid" width="20" height="20"
@@ -936,7 +936,8 @@
                                                 @enderror
                                             </div> --}}
                                             <div class="col-12 d-flex gap-3">
-                                                <button type="button" onclick="submitPrakerin()" class="btn btn-success"
+                                                <button type="button" onclick="submitPrakerin()"
+                                                    class="btn btn-success btn-prakerin"
                                                     aria-hidden="true">Submit</button>
                                                 <svg class="my-auto d-none" id="form-prakerin-loading"
                                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
@@ -1026,9 +1027,12 @@
                 },
                 beforeSend: function() {
                     $('#form-riset-loading').removeClass('d-none');
+                    // disable button
+                    $('button.btn-riset').attr('disabled', true);
                 },
                 success: function(response) {
                     closeModal();
+                    $('button.btn-riset').attr('disabled', false);
                     $('#form-riset-loading').addClass('d-none');
                     if (response.success) {
                         // hilangkan pesan error yang sudah ada
@@ -1050,6 +1054,7 @@
                 },
                 error: function(xhr, status, error) {
                     closeModal();
+                    $('button.btn-riset').attr('disabled', false);
                     $('#form-riset-loading').addClass('d-none');
                     if (xhr.status == 422) {
                         if (xhr.responseJSON.error) {
@@ -1116,9 +1121,11 @@
                 },
                 beforeSend: function() {
                     $('#form-kkp-loading').removeClass('d-none');
+                    $('button.btn-kkp').attr('disabled', true);
                 },
                 success: function(response) {
                     closeModal();
+                    $('button.btn-kkp').attr('disabled', false);
                     $('#form-kkp-loading').addClass('d-none');
                     if (response.success) {
                         $('.is-invalid').removeClass('is-invalid');
@@ -1143,6 +1150,7 @@
                 error: function(xhr, status, error) {
                     $('#form-kkp-loading').addClass('d-none');
                     closeModal();
+                    $('button.btn-kkp').attr('disabled', false);
                     if (xhr.status === 422) {
                         if (xhr.responseJSON.error) {
                             Swal.fire({
@@ -1207,9 +1215,12 @@
                 },
                 beforeSend: function() {
                     $('#form-prakerin-loading').removeClass('d-none');
+                    $('button.btn-prakerin').attr('disabled', true);
+
                 },
                 success: function(response) {
                     closeModal();
+                    $('button.btn-prakerin').attr('disabled', false);
                     $('#form-prakerin-loading').addClass('d-none');
                     if (response.success) {
                         // hilangkan pesan error yang sudah ada
@@ -1232,6 +1243,7 @@
                 error: function(xhr, status, error) {
                     $('#form-prakerin-loading').addClass('d-none');
                     closeModal();
+                    $('button.btn-prakerin').attr('disabled', false);
                     if (xhr.status === 422) {
                         if (xhr.responseJSON.error) {
                             Swal.fire({

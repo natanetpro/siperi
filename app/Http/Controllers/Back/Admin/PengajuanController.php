@@ -49,6 +49,8 @@ class PengajuanController extends Controller
                         if (!$kegiatan->pembimbing_id) {
                             $btn .= '<button onclick="openModalPembimbing(' . $row->id . ')" class="btn btn-success btn-sm mt-sm-2 mt-md-0 ms-sm-0 ms-md-2">Set Pembimbing</button>';
                         }
+                    } else {
+                        $btn .= '  <button onclick="deletePemohon(' . $row->id . ')" class="edit btn btn-danger btn-sm"><i class="ti ti-trash"></i></button>';
                     }
                     return $btn;
                 })
@@ -217,6 +219,32 @@ class PengajuanController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try
+        {
+            $pemohon = Pemohon::with('detailPemohonKuliah', 'detailPemohonSekolah')->find($id);
+            if($pemohon->detailPemohonKuliah !== null)
+            {
+                $pemohon->detailPemohonKuliah->delete();
+            }
+            if($pemohon->detailPemohonSekolah !== null)
+            {
+                $pemohon->detailPemohonSekolah->delete();
+            }
+            $pemohon->kegiatan->delete(); 
+            $pemohon->delete();
+            DB::commit();
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus']);
+        }catch(Exception $e)
+        {
+            DB::rollBack();
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
+        
     }
 
     private function sendWa(Pemohon $pemohon, string $approval, string $message = null, string $nama = null, string $password = null)

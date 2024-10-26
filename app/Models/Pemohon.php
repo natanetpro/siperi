@@ -32,4 +32,9 @@ class Pemohon extends Model
     {
         return $this->hasOne(DetailPemohonSekolah::class);
     }
+
+    public function kegiatan()
+    {
+        return $this->hasOne(Kegiatan::class);
+    }
 }

@@ -435,5 +435,37 @@
                 $('#pembimbing-modal').modal('show');
                 $('#pembimbing-modal form').attr('action', 'pengajuan/' + id + '/set-pembimbing');
             }
+
+            function deletePemohon(id) {
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `{{ route('admin.pengajuan.destroy', '') }}/${id}`,
+                            type: 'DELETE',
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                            },
+                            success: function(data) {
+                                Swal.fire(
+                                    'Berhasil!',
+                                    'Data berhasil dihapus.',
+                                    'success'
+                                ).then((result) => {
+                                    location.reload();
+                                });
+                            }
+                        });
+                    }
+                });
+            }
         </script>
     @endpush

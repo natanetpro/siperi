@@ -57,6 +57,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/pengajuan/{id}', [PengajuanController::class, 'find'])->name('pengajuan.find');
         Route::put('/pengajuan/{id}', [PengajuanController::class, 'update'])->name('pengajuan.update');
         Route::put('/pengajuan/{id}/set-pembimbing', [PengajuanController::class, 'setPembimbing'])->name('pengajuan.set-pembimbing');
+        Route::delete('/pengajuan/{id}', [PengajuanController::class, 'destroy'])->name('pengajuan.destroy');
 
         // Sertifikat
         Route::get('/sertifikat', [MenuSertifikatController::class, 'index'])->name('sertifikat.index');
