@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasRoles;
 
@@ -18,9 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama_asli',
+        'nama',
         'email',
+        'no_telp',
         'password',
+        'pemohon_id',
+        'email_verified_at',
     ];
 
     /**
@@ -44,5 +48,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function pemohon()
+    {
+        return $this->belongsTo(Pemohon::class);
+    }
+
+    public function userKegiatan()
+    {
+        return $this->hasOne(UserKegiatan::class, 'user_id');
+    }
+
+    public function userPenugasan()
+    {
+        return $this->hasOne(Kegiatan::class, 'pembimbing_id');
     }
 }
